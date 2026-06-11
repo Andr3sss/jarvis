@@ -1,0 +1,460 @@
+
+RÚBRICA DE CALIDAD (0-3 puntos por pregunta):
+  0 = Respuesta incorrecta, sin sentido, o completamente inventada
+  1 = Parcialmente correcta pero con errores importantes o muy incompleta
+  2 = Correcta en lo principal pero con detalles faltantes o imprecisos
+  3 = Correcta, completa, precisa y bien explicada
+
+Respuestas esperadas:
+  Q1: x=5, x²=25 (pasos: 3x=15, x=5, 5²=25)
+  Q2: Clase Node con val y next. Función que itera invirtiendo punteros. Retorna nuevo head.
+  Q3: 3 oraciones que capturen: IA=tareas humanas, ML=aprender de datos, redes neuronales=resultados superiores
+  Q4: 2017, Vaswani et al. (Google Brain), arquitectura Transformer basada solo en atención
+  Q5: Orden correcto: C=B < A < E, con D en algún lugar. Razonamiento lógico paso a paso.
+
+
+=================================================================
+RESPUESTAS PARA PUNTUAR MANUALMENTE
+Edita este archivo y reemplaza ?? con tu puntuación (0, 1, 2 o 3)
+Luego actualiza measurements.csv con el promedio de calidad
+=================================================================
+
+
+=================================================================
+MODELO: llama3.2:3b-instruct-q8_0
+=================================================================
+
+[Q1_matematicas] Tipo: Matemáticas
+Pregunta: Si 3x + 7 = 22, ¿cuánto es x al cuadrado? Muestra todos los pasos.
+Tiempo: 38.25s
+Respuesta del modelo:
+¡Claro! Para encontrar el valor de x y luego calcular su cuadrado, debemos seguir estos pasos:
+
+1. **Isolar la variable x**: Necesitamos aislar la variable x en un lado de la ecuación.
+
+   La ecuación es: 3x + 7 = 22
+
+   Resta 7 de ambos lados:
+   
+   3x + 7 - 7 = 22 - 7
+   3x = 15
+
+2. **Dividir por el coeficiente del término x**: Ahora, debemos dividir ambos lados de la ecuación entre el coeficiente del término x, que es 3.
+
+   3x / 3 = 15 / 3
+   x = 5
+
+3. **Calcular el cuadrado de x**: Finalmente, necesitamos calcular el cuadrado de x.
+
+   x^2 = 5^2
+   x^2 = 25
+
+Por lo tanto, el valor de x al cuadrado es 25.
+TU PUNTUACIÓN (0-3): 3 (pasos perfectos, respuesta correcta)
+----------------------------------------
+
+[Q2_codigo] Tipo: Código
+Pregunta: Write a Python function that reverses a singly linked list. Include the Node class definition and a brief explanation of how it works.
+Tiempo: 48.31s
+Respuesta del modelo:
+class Node:
+    """A simple node class for a singly linked list."""
+    
+    def __init__(self, data=None):
+        self.data = data
+        self.next = None
+
+
+def reverse_linked_list(head):
+    """
+    Reverses a singly linked list.
+
+    Args:
+    head (Node): The head of the linked list to be reversed.
+
+    Returns:
+    Node: The new head of the reversed linked list.
+    """
+
+    # Initialize three pointers, previous, current and next
+    prev = None
+    curr = head
+    while curr is not None:
+        # Store next node in temp
+        next_node = curr.next
+
+        # Reverse link for current node
+        curr.next = prev
+
+        # Move pointers one step forward
+        prev = curr
+        curr = next_node
+
+    # At the end of the loop, 'prev' will be pointing to the new head of the reversed linked list
+    return prev
+
+
+# Example usage:
+if __name__ == "__main__":
+    # Create a sample linked list: 1 -> 2 -> 3 -> 4 -> 5
+    head = Node(1)
+    head.next = Node(2)
+    head.next.next = Node(3)
+    head.next.next.next = Node(4)
+    head.next.next.next.next = Node(5)
+
+    # Print the original linked list
+    print("Original Linked List:")
+    temp = head
+    while temp:
+
+TU PUNTUACIÓN (0-3): 2 (lógica correcta, se cortó antes de terminar)
+----------------------------------------
+
+[Q3_resumen] Tipo: Resumen
+Pregunta: Resume el siguiente texto en máximo 3 oraciones: La inteligencia artificial es un campo de la informática que busca crear sistemas capaces de realizar tareas que normalmente requieren inteligencia humana. Estas tareas incluyen el reconocimiento de voz, la toma de decisiones, la traducción de idiomas y el reconocimiento visual de patrones. El aprendizaje automático, una subdisciplina de la IA, permite a los sistemas aprender de los datos sin ser programados explícitamente para cada tarea. Las redes neuronales profundas han revolucionado el campo al lograr resultados superiores a los humanos en tareas específicas como el diagnóstico médico por imagen.
+Tiempo: 20.93s
+Respuesta del modelo:
+La inteligencia artificial (IA) es un campo de la informática que busca crear sistemas capaces de realizar tareas que normalmente requieren inteligencia humana, como reconocimiento de voz y traducción de idiomas. El aprendizaje automático permite a los sistemas aprender de los datos sin ser programados explícitamente para cada tarea. Las redes neuronales profundas han revolucionado el campo logrando resultados superiores a los humanos en tareas específicas como el diagnóstico médico por imagen.
+TU PUNTUACIÓN (0-3): 3 (captura las 3 ideas clave en exactamente 3 oraciones)
+----------------------------------------
+
+[Q4_hecho] Tipo: Hecho histórico
+Pregunta: ¿En qué año se publicó el paper 'Attention is All You Need' y quiénes fueron sus autores principales? ¿Qué arquitectura introdujo?
+Tiempo: 55.66s
+Respuesta del modelo:
+El paper "Attention is All You Need" fue publicado en 2017.
+
+Los autores principales del paper fueron Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit y Llion Jones.
+
+En este paper, los autores introdujeron una arquitectura de modelo de lenguaje basada en atención (Attention is All You Need) que revolucionó la forma en que se abordan los problemas de procesamiento del lenguaje natural. Esta arquitectura utiliza un mecanismo de atención para enfocar el procesamiento de las entradas en diferentes partes del modelo, lo que permite una mayor eficiencia y precisión en la representación de las secuencias de palabras.
+
+La arquitectura "Attention is All You Need" se basa en un modelo de lenguaje recurrente (RNN) con capas de atención, que permite al modelo prestar atención a diferentes partes del input y generar una salida más precisa. Esta arquitectura ha sido ampliamente adoptada en la industria del procesamiento del lenguaje natural y ha logrado resultados significativamente mejores que los modelos anteriores en tareas como la traducción automática, el reconocimiento de habla y la generación de texto.
+
+En resumen, "Attention is All You Need" fue publicado en 2017 por Ashish Vaswani, No
+TU PUNTUACIÓN (0-3): 2 (año y arquitectura correctos, dice erróneamente que es basada en RNN)
+----------------------------------------
+
+[Q5_razonamiento] Tipo: Razonamiento
+Pregunta: Hay 5 cajas. La caja A es más pesada que la B. La caja C es más liviana que la D. La caja B pesa lo mismo que la C. La caja E es más pesada que la A. Ordena todas las cajas de más liviana a más pesada y explica tu razonamiento paso a paso.
+Tiempo: 50.11s
+Respuesta del modelo:
+¡Claro! Vamos a ordenar las cajas de más liviana a más pesada paso a paso.
+
+1. Primero, sabemos que la caja C es más liviana que la D. Esto significa que la caja C no puede ser la más pesada, ya que está más liviana que la D.
+2. A continuación, sabemos que la caja B pesa lo mismo que la C. Por lo tanto, la caja B también no puede ser la más pesada, ya que tiene el mismo peso que la C.
+3. Ahora, sabemos que la caja E es más pesada que la A. Esto significa que la caja E no puede ser la más liviana, ya que está más pesada que la A.
+4. Finalmente, sabemos que la caja A es más pesada que la B. Esto significa que la caja A no puede ser la más pesada, ya que está más ligera que la B.
+
+Ahora, podemos ordenar las cajas de más liviana a más pesada:
+
+1. Caja C (más liviana)
+2. Caja B (pesa lo mismo que la C)
+3. Caja A (más pesada que la B)
+4. Caja D (no sabemos su peso, pero no puede ser más ligera que la C)
+5. Caja E (más pesada que la A
+TU PUNTUACIÓN (0-3): 1 (orden parcialmente correcto pero D queda mal ubicada sin justificación)
+----------------------------------------
+
+=================================================================
+MODELO: llama3.2:3b-instruct-q4_K_M
+=================================================================
+
+[Q1_matematicas] Tipo: Matemáticas
+Pregunta: Si 3x + 7 = 22, ¿cuánto es x al cuadrado? Muestra todos los pasos.
+Tiempo: 7.9s
+Respuesta del modelo:
+¡Claro! Para encontrar el valor de $x$ y luego calcular su cuadrado, debemos seguir estos pasos:
+
+1. **Resolver la ecuación para x**:
+Primero, queremos aislar la variable $x$. Podemos hacer esto restando 7 de ambos lados de la ecuación:
+
+$$3x + 7 - 7 = 22 - 7$$
+
+Esto se simplifica a:
+
+$$3x = 15$$
+
+2. **Dividir por 3**:
+Ahora, queremos dividir ambos lados de la ecuación entre 3 para aislar $x$:
+
+$$\frac{3x}{3} = \frac{15}{3}$$
+
+Esto se simplifica a:
+
+$$x = 5$$
+
+3. **Calcular el cuadrado de x**:
+Finalmente, queremos calcular el cuadrado de $x$. Podemos hacer esto elevando al cuadrado ambos lados de la ecuación:
+
+$$x^2 = (5)^2$$
+
+Esto se simplifica a:
+
+$$x^2 = 25$$
+
+Por lo tanto, el valor de $x$ al cuadrado es $\boxed{25}$.
+TU PUNTUACIÓN (0-3): 3 (pasos perfectos, notación matemática correcta)
+----------------------------------------
+
+[Q2_codigo] Tipo: Código
+Pregunta: Write a Python function that reverses a singly linked list. Include the Node class definition and a brief explanation of how it works.
+Tiempo: 8.43s
+Respuesta del modelo:
+class Node:
+    def __init__(self, data=None):
+        self.data = data
+        self.next = None
+
+def reverse_linked_list(head):
+    """
+    Reverses a singly linked list.
+
+    Args:
+    head (Node): The head node of the linked list.
+
+    Returns:
+    Node: The new head node of the reversed linked list.
+    """
+
+    # Initialize three pointers, previous, current and next
+    prev = None
+    curr = head
+    while curr is not None:
+        # Store next node temporarily
+        next_node = curr.next
+
+        # Reverse link for current node
+        curr.next = prev
+
+        # Move pointers one step forward
+        prev = curr
+        curr = next_node
+
+    # Update the head of the list
+    return prev
+
+# Example usage:
+if __name__ == "__main__":
+    # Create a sample linked list: 1 -> 2 -> 3 -> 4 -> 5
+    head = Node(1)
+    head.next = Node(2)
+    head.next.next = Node(3)
+    head.next.next.next = Node(4)
+    head.next.next.next.next = Node(5)
+
+    # Reverse the linked list
+    new_head = reverse_linked_list(head)
+
+    # Print the reversed linked list
+    while new_head is not None:
+        print(new_head.data, end=" -> " if new_head.next else "\n")
+        new_head = new
+TU PUNTUACIÓN (0-3): 2 (lógica correcta, se cortó antes de terminar igual)
+----------------------------------------
+
+[Q3_resumen] Tipo: Resumen
+Pregunta: Resume el siguiente texto en máximo 3 oraciones: La inteligencia artificial es un campo de la informática que busca crear sistemas capaces de realizar tareas que normalmente requieren inteligencia humana. Estas tareas incluyen el reconocimiento de voz, la toma de decisiones, la traducción de idiomas y el reconocimiento visual de patrones. El aprendizaje automático, una subdisciplina de la IA, permite a los sistemas aprender de los datos sin ser programados explícitamente para cada tarea. Las redes neuronales profundas han revolucionado el campo al lograr resultados superiores a los humanos en tareas específicas como el diagnóstico médico por imagen.
+Tiempo: 4.81s
+Respuesta del modelo:
+La inteligencia artificial (IA) es un campo de la informática que busca crear sistemas capaces de realizar tareas que requieren inteligencia humana, como reconocimiento de voz y traducción de idiomas. El aprendizaje automático permite a los sistemas aprender de los datos sin ser programados explícitamente para cada tarea. Las redes neuronales profundas han revolucionado el campo logrando resultados superiores a los humanos en tareas específicas como el diagnóstico médico por imagen.
+TU PUNTUACIÓN (0-3): 3 (idéntico al Q8, captura todo correctamente)
+----------------------------------------
+
+[Q4_hecho] Tipo: Hecho histórico
+Pregunta: ¿En qué año se publicó el paper 'Attention is All You Need' y quiénes fueron sus autores principales? ¿Qué arquitectura introdujo?
+Tiempo: 8.47s
+Respuesta del modelo:
+"Attention is All You Need" es un artículo de investigación en inteligencia artificial (IA) que fue publicado en 2017. Los autores principales del artículo fueron Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit y Llion Jones.
+
+En este artículo, los autores introdujeron una nueva arquitectura para modelos de lenguaje profundos (Deep Learning) llamada "Transformers". Esta arquitectura se basa en la idea de que la atención es un componente clave para procesar secuencias de texto y otros tipos de datos.
+
+La arquitectura Transformers introduce varias innovaciones importantes, como:
+
+1. **Atención de tipo de ventana**: En lugar de utilizar una ventana fija para procesar secuencias de texto, los modelos Transformers utilizan la atención de tipo de ventana, lo que permite a cada token en la secuencia interactuar con todos los tokens en la secuencia.
+2. **Capas de atención**: Los modelos Transformers están compuestos por capas de atención, cada una de las cuales procesa un token y produce una salida que se utiliza para calcular la atención entre los tokens.
+3. **Atención sin ventana**: La arquitectura Transformers permite a los modelos procesar secuencias de texto de cualquier longitud, sin necesidad de una ventana fija.
+
+La introducción de la arquitectura Transformers revolucionó el
+TU PUNTUACIÓN (0-3): 3 (año correcto, autores correctos, nombra explícitamente "Transformers")
+----------------------------------------
+
+[Q5_razonamiento] Tipo: Razonamiento
+Pregunta: Hay 5 cajas. La caja A es más pesada que la B. La caja C es más liviana que la D. La caja B pesa lo mismo que la C. La caja E es más pesada que la A. Ordena todas las cajas de más liviana a más pesada y explica tu razonamiento paso a paso.
+Tiempo: 8.46s
+Respuesta del modelo:
+¡Claro! Vamos a ordenar las cajas de más liviana a más pesada utilizando el razonamiento proporcionado.
+
+**Paso 1: Identificar la relación entre Caja A y B**
+
+La caja A es más pesada que la B, pero no sabemos cuál es más pesada. Sin embargo, podemos establecer una relación inicial:
+
+A > B
+
+**Paso 2: Identificar la relación entre Caja C y D**
+
+La caja C es más liviana que la D, lo que significa que la D es más pesada que la C.
+
+C < D
+
+**Paso 3: Identificar la relación entre Caja B y Caja C**
+
+La caja B pesa lo mismo que la Caja C. Esto nos da una nueva relación:
+
+B = C
+
+**Paso 4: Identificar la relación entre Caja E y Caja A**
+
+La caja E es más pesada que la caja A.
+
+E > A
+
+**Paso 5: Combinar todas las relaciones**
+
+Ahora, podemos combinar todas las relaciones para obtener la orden correcta:
+
+C < B = D < A < E
+
+En resumen, la orden de las cajas de más liviana a más pesada es:
+
+1. Caja C
+2. Caja B
+3. Caja D
+4. Caja A
+5. Caja E
+TU PUNTUACIÓN (0-3):  2 (orden casi correcto pero escribe C < B = D lo cual es error — D > C pero D ≠ B)
+----------------------------------------
+
+=================================================================
+MODELO: llama3.2:3b-instruct-q3_K_M
+=================================================================
+
+[Q1_matematicas] Tipo: Matemáticas
+Pregunta: Si 3x + 7 = 22, ¿cuánto es x al cuadrado? Muestra todos los pasos.
+Tiempo: 24.23s
+Respuesta del modelo:
+¡Claro! Vamos a resolver el problema paso a paso.
+
+Primero, necesitamos aislar la variable x en un lado de la ecuación. Para hacer esto, podemos restar 7 de ambos lados de la ecuación:
+
+3x + 7 - 7 = 22 - 7
+
+Esto se simplifica a:
+
+3x = 15
+
+Ahora, necesitamos dividir ambos lados de la ecuación entre 3 para resolver x:
+
+3x / 3 = 15 / 3
+
+Esto se simplifica a:
+
+x = 5
+
+Finalmente, podemos encontrar el valor al cuadrado de x multiplicando x por sí mismo:
+
+x^2 = 5 × 5
+
+x^2 = 25
+
+Por lo tanto, el valor de x al cuadrado es 25.
+TU PUNTUACIÓN (0-3): 3 (pasos correctos y claros)
+----------------------------------------
+
+[Q2_codigo] Tipo: Código
+Pregunta: Write a Python function that reverses a singly linked list. Include the Node class definition and a brief explanation of how it works.
+Tiempo: 24.28s
+Respuesta del modelo:
+def reverse_linked_list(head):
+    """
+    Reverses a singly linked list.
+
+    Args:
+        head (Node): The head of the linked list to be reversed.
+
+    Returns:
+        Node: The new head of the reversed linked list.
+    """
+
+    # Initialize two pointers, one at the beginning and one at the end
+    prev = None
+    current = head
+
+    # Traverse the linked list until we reach the end
+    while current is not None:
+        # Store the next node in a temporary variable
+        next_node = current.next
+        
+        # Reverse the link of the current node
+        current.next = prev
+        
+        # Move the pointers one step forward
+        prev = current
+        current = next_node
+
+    # Return the new head of the reversed linked list
+    return prev
+TU PUNTUACIÓN (0-3): 2 (lógica correcta pero falta la clase Node y el ejemplo de uso)
+
+----------------------------------------
+
+[Q3_resumen] Tipo: Resumen
+Pregunta: Resume el siguiente texto en máximo 3 oraciones: La inteligencia artificial es un campo de la informática que busca crear sistemas capaces de realizar tareas que normalmente requieren inteligencia humana. Estas tareas incluyen el reconocimiento de voz, la toma de decisiones, la traducción de idiomas y el reconocimiento visual de patrones. El aprendizaje automático, una subdisciplina de la IA, permite a los sistemas aprender de los datos sin ser programados explícitamente para cada tarea. Las redes neuronales profundas han revolucionado el campo al lograr resultados superiores a los humanos en tareas específicas como el diagnóstico médico por imagen.
+Tiempo: 15.37s
+Respuesta del modelo:
+La inteligencia artificial (IA) es un campo de la informática que busca crear sistemas capaces de realizar tareas que requieren inteligencia humana, como reconocimiento de voz y traducción de idiomas. El aprendizaje automático permite a los sistemas aprender de los datos sin ser programados explícitamente para cada tarea. Las redes neuronales profundas han demostrado resultados superiores a los humanos en tareas específicas como el diagnóstico médico por imagen.
+TU PUNTUACIÓN (0-3): 3 (captura las 3 ideas correctamente)
+----------------------------------------
+
+[Q4_hecho] Tipo: Hecho histórico
+Pregunta: ¿En qué año se publicó el paper 'Attention is All You Need' y quiénes fueron sus autores principales? ¿Qué arquitectura introdujo?
+Tiempo: 24.68s
+Respuesta del modelo:
+El papel "Attention is All You Need" fue publicado en 2017. Los autores principales del artículo fueron Ashish Vaswani, Noam Shaze, Niki Parmar, Jakob Uszkoreit y Jonas Winters.
+
+En este artículo, se presentó una arquitectura de modelo de lenguaje basada en la atención (Attention-based Model) que utilizaba un mecanismo de atención para enfocarse en las partes del texto más relevantes. Esta arquitectura introdujo el uso de la atención como una forma de mejorar la capacidad de un modelo de lenguaje para capturar información relevante y generar texto coherente.
+
+La arquitectura presentada en el artículo "Attention is All You Need" fue una variante del modelo de lenguaje basado en la atención, que se convirtió en un estándar en el campo de los modelos de lenguaje.
+TU PUNTUACIÓN (0-3): 1 (año correcto, pero inventó el autor "Jonas Winters" y no nombra "Transformer")
+----------------------------------------
+
+[Q5_razonamiento] Tipo: Razonamiento
+Pregunta: Hay 5 cajas. La caja A es más pesada que la B. La caja C es más liviana que la D. La caja B pesa lo mismo que la C. La caja E es más pesada que la A. Ordena todas las cajas de más liviana a más pesada y explica tu razonamiento paso a paso.
+Tiempo: 37.37s
+Respuesta del modelo:
+¡Claro! Vamos a ordenar las cajas de más liviana a más pesada paso a paso:
+
+1. **Caja C**: Es la más liviana porque es más ligera que la D.
+2. **Caja B**: La caja B pesa lo mismo que la C, por lo que también es más liviana que la D.
+3. **Caja A**: La caja A es más pesada que la B, pero no sabemos si es más pesada que la C o la D. Sin embargo, sabemos que la caja E es más pesada que la A, por lo que la caja A debe ser más liviana que la E.
+4. **Caja E**: La caja E es más pesada que la A, pero no sabemos si es más pesada que la B o la C. Sin embargo, sabemos que la caja D es más pesada que la C, por lo que la caja E debe ser más pesada que la D.
+5. **Caja D**: La caja D es más pesada que la C, pero no sabemos si es más pesada que la B o la A. Sin embargo, sabemos que la caja E es más pesada que la A y la caja D es más pesada que la C, por lo que la caja D debe ser más pesada que la E.
+
+Ahora podemos ordenar
+TU PUNTUACIÓN (0-3): 1 (concluye que D > E lo cual es incorrecto — razonamiento se rompe al final)
+----------------------------------------
+
+
+=================================================================
+ANÁLISIS COMPARATIVO DE CALIDAD POR CUANTIZACIÓN
+=================================================================
+
+Los tres niveles de cuantización del modelo llama3.2:3b muestran una
+relación clara entre precisión numérica y calidad de respuesta. El modelo
+Q4_K_M obtuvo el mayor promedio de calidad (2.6/3.0), superando incluso
+al Q8_0 (2.2/3.0) gracias a una respuesta más precisa en la pregunta de
+hecho histórico (Q4), donde identificó correctamente la arquitectura
+Transformer. El Q8_0 fue el único que respondió con todos los pasos
+bien estructurados en matemáticas, pero cometió el error conceptual de
+describir el Transformer como basado en RNN. El Q3_K_M mostró la mayor
+degradación: inventó un autor inexistente ("Jonas Winters") en Q4 y
+falló en el razonamiento lógico de Q5, confirmando que la compresión
+agresiva a 3 bits introduce alucinaciones factuales concretas. Las
+tareas de resumen (Q3) resultaron robustas a la cuantización — los
+tres modelos obtuvieron puntuación 3 — mientras que el razonamiento
+encadenado (Q5) y los hechos precisos (Q4) son las categorías más
+sensibles a la pérdida de precisión numérica. Esto sugiere que para
+tareas conversacionales generales Q4_K_M es la elección óptima en
+hardware con RAM limitada, reservando Q8_0 solo cuando la precisión
+factual sea crítica.
+=================================================================
