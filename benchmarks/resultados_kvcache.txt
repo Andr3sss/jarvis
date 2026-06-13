@@ -1,0 +1,48 @@
+RESULTADOS EXPERIMENTO KV CACHE — Parte B
+Modelo: llama3.2:3b-instruct-q4_K_M
+=================================================================
+
+Contexto 512 tokens:
+  Estado:          OK
+  Tokens/seg:      3.81
+  RAM pico:        0.087 GB
+  Tiempo total:    29.4 s
+  Tokens generados:112
+  Respuesta:
+A KV (Key-Value) cache in transformer models is a hardware or software component that stores key and value matrices computed during the attention mechanism for each token in the context window. This cache plays a crucial role in large language model (LLM) inference, as its size grows linearly with t...
+
+Contexto 2048 tokens:
+  Estado:          OK
+  Tokens/seg:      2.59
+  RAM pico:        0.087 GB
+  Tiempo total:    38.7 s
+  Tokens generados:100
+  Respuesta:
+A key-value (KV) cache in transformer models stores the key and value matrices computed during the attention mechanism for each token in the context window. This cache is crucial for large language model (LLM) inference as its size grows linearly with the context length, consuming more memory and re...
+
+Contexto 8192 tokens:
+  Estado:          OK
+  Tokens/seg:      5.6
+  RAM pico:        0.09 GB
+  Tiempo total:    18.4 s
+  Tokens generados:103
+  Respuesta:
+A key-value (KV) cache in transformer models stores the key and value matrices computed during the attention mechanism for each token in the context window. This cache plays a crucial role in large language model (LLM) inference, as its size grows linearly with the context length, consuming more mem...
+
+Contexto 16384 tokens:
+  Estado:          OK
+  Tokens/seg:      0.3
+  RAM pico:        0.09 GB
+  Tiempo total:    358.2 s
+  Tokens generados:107
+  Respuesta:
+A key-value (KV) cache in transformer models stores the key and value matrices computed during the attention mechanism for each token in the context window. This cache is crucial for large language model (LLM) inference as its size grows linearly with the context length, consuming more memory and re...
+
+=================================================================
+ANÁLISIS:
+La caché KV crece linealmente con el contexto. Cada token adicional
+requiere almacenar vectores Key y Value para todas las capas de atención.
+Para llama3.2:3b: 28 capas × 8 cabezas × 64 dims × 2 (K+V) × 2 bytes (fp16)
+= aproximadamente 57,344 bytes por token de contexto = ~56 KB/token.
+En 8192 tokens: ~448 MB solo de KV cache.
+En 16384 tokens: ~896 MB solo de KV cache.
