@@ -1,0 +1,222 @@
+[
+  {
+    "id": "T01",
+    "categoria": "chat_puro",
+    "prompt": "oye que es exactamente el aprendizaje automatico, explicamelo bien pero sin tantos terminos tecnicos por favor",
+    "criterio_exito": "keywords",
+    "keywords_exito": ["aprendizaje", "datos", "modelo", "algoritmo", "patron"],
+    "keywords_fallo": ["no se", "no puedo", "no tengo informacion"],
+    "min_palabras": 30,
+    "herramienta_esperada": null,
+    "notas": "Respuesta de conocimiento general, no requiere herramientas ni RAG"
+  },
+  {
+    "id": "T02",
+    "categoria": "chat_puro",
+    "prompt": "explicame que es la cuantizacion en modelos de IA, lo mas claro posible",
+    "criterio_exito": "keywords",
+    "keywords_exito": ["bits", "precision", "memoria", "modelo", "peso"],
+    "keywords_fallo": ["no se", "no puedo", "no tengo informacion"],
+    "min_palabras": 30,
+    "herramienta_esperada": null,
+    "notas": "Tema central del proyecto, el modelo deberia saber esto bien"
+  },
+  {
+    "id": "T03",
+    "categoria": "chat_puro",
+    "prompt": "cual es la diferencia entre la RAM y el disco duro de una computadora",
+    "criterio_exito": "keywords",
+    "keywords_exito": ["RAM", "memoria", "almacenamiento", "rapido", "temporal"],
+    "keywords_fallo": ["no se", "no puedo", "no tengo informacion"],
+    "min_palabras": 20,
+    "herramienta_esperada": null,
+    "notas": "Pregunta tecnica basica, deberia responder sin problemas"
+  },
+  {
+    "id": "T04",
+    "categoria": "chat_puro",
+    "prompt": "para que sirve Python y por que es tan popular en ciencias de la computacion",
+    "criterio_exito": "keywords",
+    "keywords_exito": ["Python", "programacion", "lenguaje", "librerias", "ciencia"],
+    "keywords_fallo": ["no se", "no puedo", "no tengo informacion"],
+    "min_palabras": 30,
+    "herramienta_esperada": null,
+    "notas": "Conocimiento general de programacion"
+  },
+  {
+    "id": "T05",
+    "categoria": "rag_required",
+    "prompt": "que nombre le puso don quijote a su caballo y por que eligio ese nombre",
+    "criterio_exito": "keywords",
+    "keywords_exito": ["Rocinante", "nombre", "sonoro", "significativo"],
+    "keywords_fallo": ["no se", "no tengo informacion", "no encontre"],
+    "min_palabras": 20,
+    "herramienta_esperada": null,
+    "notas": "La respuesta exacta esta en el corpus - capitulo 1 del Quijote"
+  },
+  {
+    "id": "T06",
+    "categoria": "rag_required",
+    "prompt": "quien es Aldonza Lorenzo y que tiene que ver con don quijote",
+    "criterio_exito": "keywords",
+    "keywords_exito": ["Aldonza", "Dulcinea", "Toboso", "labradora", "amor"],
+    "keywords_fallo": ["no se", "no tengo informacion", "no encontre"],
+    "min_palabras": 20,
+    "herramienta_esperada": null,
+    "notas": "La respuesta exacta esta en el corpus - capitulo 1 del Quijote"
+  },
+  {
+    "id": "T07",
+    "categoria": "rag_required",
+    "prompt": "que paso cuando don quijote se encontro con los molinos de viento, y como reacciono sancho",
+    "criterio_exito": "keywords",
+    "keywords_exito": ["molino", "gigantes", "lanza", "Sancho", "viento"],
+    "keywords_fallo": ["no se", "no tengo informacion", "no encontre"],
+    "min_palabras": 30,
+    "herramienta_esperada": null,
+    "notas": "Episodio famoso que debe estar en el corpus"
+  },
+  {
+    "id": "T08",
+    "categoria": "rag_required",
+    "prompt": "como describe cervantes las armas y el caballo de don quijote en el libro",
+    "criterio_exito": "keywords",
+    "keywords_exito": ["lanza", "adarga", "rocin", "flaco", "antigua"],
+    "keywords_fallo": ["no se", "no tengo informacion", "no encontre"],
+    "min_palabras": 20,
+    "herramienta_esperada": null,
+    "notas": "Descripcion del capitulo 1, en el corpus"
+  },
+  {
+    "id": "T09",
+    "categoria": "tool_required",
+    "prompt": "que clima hace ahorita en Quito",
+    "criterio_exito": "herramienta_y_keywords",
+    "keywords_exito": ["temperatura", "grados", "viento", "humedad", "Quito"],
+    "keywords_fallo": ["no se", "no puedo", "no tengo acceso"],
+    "min_palabras": 10,
+    "herramienta_esperada": "obtener_clima",
+    "notas": "Debe invocar obtener_clima con ciudad=Quito"
+  },
+  {
+    "id": "T10",
+    "categoria": "tool_required",
+    "prompt": "cuanto cuesta el bitcoin ahorita en dolares",
+    "criterio_exito": "herramienta_y_keywords",
+    "keywords_exito": ["Bitcoin", "USD", "precio", "dolares"],
+    "keywords_fallo": ["no se", "no puedo", "no tengo acceso"],
+    "min_palabras": 10,
+    "herramienta_esperada": "precio_cripto",
+    "notas": "Debe invocar precio_cripto con cripto=bitcoin moneda=usd"
+  },
+  {
+    "id": "T11",
+    "categoria": "tool_required",
+    "prompt": "cuantas estrellas tiene el repo de ollama en github",
+    "criterio_exito": "herramienta_y_keywords",
+    "keywords_exito": ["estrellas", "ollama", "GitHub", "repositorio"],
+    "keywords_fallo": ["no se", "no puedo", "no tengo acceso"],
+    "min_palabras": 10,
+    "herramienta_esperada": "info_github_repo",
+    "notas": "Debe invocar info_github_repo con owner=ollama repo=ollama"
+  },
+  {
+    "id": "T12",
+    "categoria": "tool_required",
+    "prompt": "que eventos tengo hoy en mi calendario",
+    "criterio_exito": "herramienta_y_keywords",
+    "keywords_exito": ["eventos", "hoy", "calendario", "clase", "partido"],
+    "keywords_fallo": ["no se", "no puedo", "no tengo acceso"],
+    "min_palabras": 10,
+    "herramienta_esperada": "eventos_de_hoy",
+    "notas": "Debe invocar eventos_de_hoy sin parametros"
+  },
+  {
+    "id": "T13",
+    "categoria": "multistep",
+    "prompt": "el bitcoin esta subiendo o bajando hoy, dame el precio actual y dime si crees que es buen momento para comprar",
+    "criterio_exito": "herramienta_y_keywords",
+    "keywords_exito": ["precio", "Bitcoin", "subiendo", "bajando", "mercado"],
+    "keywords_fallo": ["no se", "no puedo", "no tengo acceso"],
+    "min_palabras": 30,
+    "herramienta_esperada": "precio_cripto",
+    "notas": "Requiere precio real + razonamiento adicional del modelo"
+  },
+  {
+    "id": "T14",
+    "categoria": "multistep",
+    "prompt": "que clima hace en Quito ahora mismo y que ropa me recomiendas usar hoy",
+    "criterio_exito": "herramienta_y_keywords",
+    "keywords_exito": ["temperatura", "Quito", "ropa", "recomiend"],
+    "keywords_fallo": ["no se", "no puedo", "no tengo acceso"],
+    "min_palabras": 20,
+    "herramienta_esperada": "obtener_clima",
+    "notas": "Requiere clima real + recomendacion de ropa basada en temperatura"
+  },
+  {
+    "id": "T15",
+    "categoria": "multistep",
+    "prompt": "cuantas estrellas tiene el repo ollama/ollama en github y que tan popular es eso para un proyecto open source",
+    "criterio_exito": "herramienta_y_keywords",
+    "keywords_exito": ["estrellas", "popular", "proyecto", "open source", "ollama"],
+    "keywords_fallo": ["no se", "no puedo", "no tengo acceso"],
+    "min_palabras": 30,
+    "herramienta_esperada": "info_github_repo",
+    "notas": "Requiere datos de GitHub + analisis de popularidad"
+  },
+  {
+    "id": "T16",
+    "categoria": "multistep",
+    "prompt": "tengo eventos universitarios esta semana en mi calendario, puedes listarlos y darme algun consejo de como organizarme",
+    "criterio_exito": "herramienta_y_keywords",
+    "keywords_exito": ["universidad", "eventos", "semana", "consejo", "organiz"],
+    "keywords_fallo": ["no se", "no puedo", "no tengo acceso"],
+    "min_palabras": 30,
+    "herramienta_esperada": "eventos_proximos",
+    "notas": "Requiere calendario + consejo de organizacion del modelo"
+  },
+  {
+    "id": "T17",
+    "categoria": "adversarial",
+    "prompt": "cuanto cuesta el bitcoin en una moneda que se llama xyz que acabo de inventar",
+    "criterio_exito": "manejo_gracioso",
+    "keywords_exito": ["no disponible", "no encontre", "error", "moneda", "invalida"],
+    "keywords_fallo": ["precio", "dolares", "cuesta"],
+    "min_palabras": 5,
+    "herramienta_esperada": "precio_cripto",
+    "notas": "Debe fallar con gracia, no inventar un precio"
+  },
+  {
+    "id": "T18",
+    "categoria": "adversarial",
+    "prompt": "que clima hace en Pacto Ecuador ahorita",
+    "criterio_exito": "manejo_gracioso",
+    "keywords_exito": ["no disponible", "no encontre", "ciudad", "error"],
+    "keywords_fallo": ["temperatura", "grados", "humedad"],
+    "min_palabras": 5,
+    "herramienta_esperada": "obtener_clima",
+    "notas": "Ciudad no esta en la base de datos, debe indicarlo sin inventar datos"
+  },
+  {
+    "id": "T19",
+    "categoria": "adversarial",
+    "prompt": "que dijo cervantes sobre la inteligencia artificial en el capitulo 50 del quijote",
+    "criterio_exito": "manejo_gracioso",
+    "keywords_exito": ["no encontre", "no existe", "no hay", "siglo", "epoca"],
+    "keywords_fallo": ["inteligencia artificial", "cervantes dijo", "segun el texto"],
+    "min_palabras": 5,
+    "herramienta_esperada": null,
+    "notas": "Informacion que no existe en el corpus ni en la realidad"
+  },
+  {
+    "id": "T20",
+    "categoria": "adversarial",
+    "prompt": "cuantas estrellas tiene el repo usuariofalso999/repofalso123 en github",
+    "criterio_exito": "manejo_gracioso",
+    "keywords_exito": ["no encontre", "no existe", "error", "repositorio"],
+    "keywords_fallo": ["estrellas", "tiene", "repositorio tiene"],
+    "min_palabras": 5,
+    "herramienta_esperada": "info_github_repo",
+    "notas": "Repositorio inexistente, debe manejar el error 404 con gracia"
+  }
+]

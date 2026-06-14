@@ -1,0 +1,297 @@
+{
+  "metricas": {
+    "global": {
+      "total": 20,
+      "exitos": 13,
+      "parciales": 3,
+      "fallos": 4,
+      "tasa_exito": 65.0,
+      "tasa_parcial": 15.0,
+      "tasa_fallo": 20.0,
+      "latencia_avg_s": 22.99,
+      "tokens_total": 3580
+    },
+    "chat_puro": {
+      "total": 4,
+      "exitos": 3,
+      "parciales": 1,
+      "fallos": 0,
+      "tasa_exito": 75.0,
+      "latencia_avg_s": 32.9
+    },
+    "rag_required": {
+      "total": 4,
+      "exitos": 3,
+      "parciales": 1,
+      "fallos": 0,
+      "tasa_exito": 75.0,
+      "latencia_avg_s": 40.66
+    },
+    "tool_required": {
+      "total": 4,
+      "exitos": 4,
+      "parciales": 0,
+      "fallos": 0,
+      "tasa_exito": 100.0,
+      "latencia_avg_s": 17.39
+    },
+    "multistep": {
+      "total": 4,
+      "exitos": 1,
+      "parciales": 1,
+      "fallos": 2,
+      "tasa_exito": 25.0,
+      "latencia_avg_s": 13.63
+    },
+    "adversarial": {
+      "total": 4,
+      "exitos": 2,
+      "parciales": 0,
+      "fallos": 2,
+      "tasa_exito": 50.0,
+      "latencia_avg_s": 10.38
+    }
+  },
+  "resultados": [
+    {
+      "id": "T01",
+      "categoria": "chat_puro",
+      "prompt": "oye que es exactamente el aprendizaje automatico, explicamelo bien pero sin tantos terminos tecnicos por favor",
+      "respuesta": "¡Claro! El aprendizaje automático (también conocido como inteligencia artificial o IA) es un tipo de inteligencia que se basa en la capacidad de las máquinas para aprender y mejorar sin ser programadas explícitamente.\n\nImagina que tienes una computadora que puede leer libros, jugar juegos y responder preguntas. Sin embargo, si le pides a alguien que escriba todos los libros que ha leído o todas las estrategias para ganar un juego, es probable que no pueda hacerlo de manera eficiente. Pero si se le da la oportunidad de aprender y mejorar por sí misma, puede convertirse en una experta en esos temas.\n\nEl aprendizaje automático funciona de esta manera:\n\n1. **Se le proporcionan datos**: Se le dan grandes cantidades de información, como imágenes, sonidos o texto.\n2. **Se analiza la información**: La computadora analiza los datos y busca patrones y relaciones entre ellos.\n3. **Se aprende a predecir**: La computadora aprende a predecir resultados basándose en los patrones que ha encontrado.\n4. **Se ajusta y mejora**: A medida que la computadora aprende, se ajusta y mejora su capacidad para predecir resultados.\n\nEl aprendizaje automático se utiliza en muchas aplicaciones, como:\n\n* Reconocimiento de voz o imagen\n* Sugerencias de",
+      "herramienta_usada": null,
+      "herramienta_esp": null,
+      "evaluacion": "exito",
+      "latencia_s": 42.83,
+      "tokens": 300,
+      "error": null
+    },
+    {
+      "id": "T02",
+      "categoria": "chat_puro",
+      "prompt": "explicame que es la cuantizacion en modelos de IA, lo mas claro posible",
+      "respuesta": "¡Claro! La cuantización en modelos de IA se refiere a un proceso que permite procesar información numérica de manera eficiente utilizando técnicas matemáticas específicas.\n\nEn resumen, los modelos de IA tradicionales utilizan números reales (con decimales) para realizar cálculos y tomar decisiones. Sin embargo, estos números reales pueden ser muy grandes y requieren mucha memoria y recursos computacionales para procesarlos.\n\nLa cuantización es un proceso que convierte estos números reales en números enteros (sin decimales), lo que reduce la cantidad de información necesaria para almacenar y procesar. Esto se logra mediante técnicas como:\n\n1. **Rounding**: Redondear los números reales a los números más cercanos.\n2. **Discretización**: Dividir el rango de valores en intervalos pequeños y asignar un valor entero a cada intervalo.\n\nAl cuantizar la información, se logra:\n\n* Reducir la cantidad de memoria necesaria para almacenar los modelos de IA.\n* Mejorar la eficiencia computacional al reducir el número de operaciones matemáticas necesarias.\n* Aumentar la velocidad de procesamiento y respuesta.\n\nSin embargo, la cuantización también tiene algunas limitaciones, como:\n\n* Pérdida de precisión: La cuantización puede introducir errores en los cálculos y decisiones",
+      "herramienta_usada": null,
+      "herramienta_esp": null,
+      "evaluacion": "parcial",
+      "latencia_s": 30.52,
+      "tokens": 300,
+      "error": null
+    },
+    {
+      "id": "T03",
+      "categoria": "chat_puro",
+      "prompt": "cual es la diferencia entre la RAM y el disco duro de una computadora",
+      "respuesta": "La RAM (Memoria Ram) y el disco duro son dos componentes fundamentales de una computadora, pero tienen funciones y propósitos muy diferentes.\n\n**RAM:**\n\n*   La RAM es un tipo de memoria volatile, lo que significa que su contenido se pierde cuando la computadora se apaga.\n*   Su función principal es almacenar los datos y programas actuales en ejecución en la memoria del procesador.\n*   La RAM es rápida y eficiente para acceder a información, pero tiene una capacidad limitada (generalmente entre 8 GB y 64 GB).\n*   La RAM se utiliza para ejecutar aplicaciones y programas en tiempo real.\n\n**Disco Duro:**\n\n*   El disco duro es un dispositivo de almacenamiento de datos no volátiles, lo que significa que su contenido se mantiene incluso cuando la computadora se apaga.\n*   Su función principal es almacenar los archivos, programas y datos permanentes de la computadora.\n*   El disco duro tiene una capacidad mucho mayor que la RAM (generalmente entre 256 GB y 16 TB).\n*   El disco duro se utiliza para almacenar información a largo plazo.\n\nEn resumen:\n\n*   La RAM es rápida y eficiente para acceder a información en tiempo real, pero tiene una capacidad limitada.\n*   El disco duro es más lento que la RAM, pero tiene una capacidad mucho mayor y se utiliza para almacenar",
+      "herramienta_usada": null,
+      "herramienta_esp": null,
+      "evaluacion": "exito",
+      "latencia_s": 29.39,
+      "tokens": 300,
+      "error": null
+    },
+    {
+      "id": "T04",
+      "categoria": "chat_puro",
+      "prompt": "para que sirve Python y por que es tan popular en ciencias de la computacion",
+      "respuesta": "**¿Qué es Python y qué lo hace tan popular en Ciencias de la Computación?**\n\nPython es un lenguaje de programación de alto nivel, ampliamente utilizado en diversas áreas de la informática. Fue creado en 1991 por Guido van Rossum y desde entonces se ha convertido en uno de los lenguajes más populares del mundo.\n\n**¿Para qué sirve Python?**\n\nPython se utiliza para:\n\n* Desarrollo de aplicaciones web: con frameworks como Django y Flask, se puede crear sitios web dinámicos y escalables.\n* Análisis de datos: con bibliotecas como Pandas y NumPy, se puede procesar y analizar grandes cantidades de datos.\n* Inteligencia artificial y machine learning: Python es una plataforma popular para el desarrollo de algoritmos de IA y aprendizaje automático.\n* Desarrollo de juegos: con bibliotecas como Pygame y Panda3D, se pueden crear juegos de alta calidad.\n* Automatización de tareas: se puede automatizar tareas repetitivas y complejas con scripts escritos en Python.\n\n**¿Por qué es tan popular en Ciencias de la Computación?**\n\nPython es popular en Ciencias de la Computación debido a sus características:\n\n* **Facilidad de aprendizaje**: Python tiene una sintaxis clara y concisa, lo que la hace fácil de aprender para programadores de todos los",
+      "herramienta_usada": null,
+      "herramienta_esp": null,
+      "evaluacion": "exito",
+      "latencia_s": 28.86,
+      "tokens": 300,
+      "error": null
+    },
+    {
+      "id": "T05",
+      "categoria": "rag_required",
+      "prompt": "que nombre le puso don quijote a su caballo y por que eligio ese nombre",
+      "respuesta": "Según el texto, don Quijote le puso el nombre de \"Rocinante\" a su caballo. Este nombre fue elegido por don Quijote porque quería que el nombre del caballo fuera significativo de lo que había sido cuando era un rocín (un caballo de trabajo) antes de convertirse en el caballo de don Quijote.\n\nEn otras palabras, don Quijote eligió este nombre porque quería recordar la identidad y la función original del caballo, y no solo su nueva personalidad como caballero andante. El nombre \"Rocinante\" es también un juego de palabras, ya que se refiere a la palabra \"rocín\", pero con un tono más fuerte y significativo, lo que se ajusta a la personalidad y el carácter de don Quijote.\n\nAdemás, según el texto, don Quijote estaba muy puesto en razón para mudarse su estado y cambiar su nombre, por lo que eligió un nombre que fuera \"alto, sonoro y significativo\" para reflejar su nueva identidad como caballero andante.",
+      "herramienta_usada": null,
+      "herramienta_esp": null,
+      "evaluacion": "exito",
+      "latencia_s": 37.73,
+      "tokens": 314,
+      "error": null
+    },
+    {
+      "id": "T06",
+      "categoria": "rag_required",
+      "prompt": "quien es Aldonza Lorenzo y que tiene que ver con don quijote",
+      "respuesta": "Según el texto del libro \"Don Quijote de la Mancha\" de Miguel de Cervantes, Aldonza Lorenzo es una moza labradora de muy buen parecer que vive cerca del lugar donde se encuentra don Quijote. También se menciona que ella jamás supo que estaba enamorada de don Quijote, y que él nunca le dio señal alguna de su amor.\n\nEn el texto, se describe a Aldonza Lorenzo como una joven de buena condición y belleza, y se le atribuye un título de \"señora\" por parte de don Quijote. Sin embargo, es importante destacar que este título no tiene un significado real en el contexto del libro, sino más bien una forma de fantasía y romance que don Quijote le ha inventado.\n\nEn general, Aldonza Lorenzo se presenta como una figura femenina inocente y sin experiencia en la corte o en la sociedad aristocrática, lo que contrasta con las mujeres de la época que eran conocidas por su astucia y habilidad para manipular a los hombres. Su relación con don Quijote es un ejemplo de cómo este personaje idealiza a las mujeres y las convierte en objetos de su fantasía y admiración.",
+      "herramienta_usada": null,
+      "herramienta_esp": null,
+      "evaluacion": "exito",
+      "latencia_s": 40.18,
+      "tokens": 380,
+      "error": null
+    },
+    {
+      "id": "T07",
+      "categoria": "rag_required",
+      "prompt": "que paso cuando don quijote se encontro con los molinos de viento, y como reacciono sancho",
+      "respuesta": "Según el texto del libro \"Don Quijote de la Mancha\" de Miguel de Cervantes, cuando don Quijote se encontró con los molinos de viento, Rocinante, su caballo, embistió con uno de los molinos que estaba delante. La lanza que estaba en la mano de don Quijote volvió a volar y le hizo un golpe tan fuerte que dejó al caballo maltrecho.\n\nSancho Panza, el amigo de don Quijote, llegó al lugar en su asno y vio que Rocinante no podía moverse. Don Quijote le dijo: \"¡Válame Dios! ¿No te dije que miraras bien lo que hacías? ¡Eran solo molinos de viento, no caballos que llevar!\" Sancho Panza respondió: \"Calla, amigo don Quijote, porque las cosas de la guerra están sujetas a continua mudanza. Ese sabio Frestón me ha robado el aposento y los libros, pero ahora parece que quiere quitarme la gloria de su vencimiento\".\n\nEn otras palabras, Sancho Panza estaba confundido y no entendía qué había pasado con Rocinante, pero don Quijote le explicó que se trataba solo de molinos de viento y que Frestón, el sabio encantador, estaba tratando de engañarlo.",
+      "herramienta_usada": null,
+      "herramienta_esp": null,
+      "evaluacion": "exito",
+      "latencia_s": 45.31,
+      "tokens": 366,
+      "error": null
+    },
+    {
+      "id": "T08",
+      "categoria": "rag_required",
+      "prompt": "como describe cervantes las armas y el caballo de don quijote en el libro",
+      "respuesta": "Según el texto del libro \"Don Quijote de la Mancha\" de Cervantes, las armas y el caballo de Don Quijote son descritos de la siguiente manera:\n\n* Las armas: Don Quijote se presenta con sus espadas altas y desnudas, dispuestas para una batalla furiosa. El texto describe que si en lleno se acertaban, por lo menos se dividirían y fenderían de arriba abajo y abrirían como una granada.\n* El caballo: El caballo de Don Quijote es Rocinante, un animal muy atenuado y flaco con tanto espinazo, tan hético confirmado, que muestra bien al descubierto con cuánta advertencia y propriedad se le había puesto el nombre. La mula del vizcaíno está pintada a los pies de la historia, mostrando ser de alquiler a tiro de ballesta.\n\nEs importante destacar que las descripciones de las armas y el caballo de Don Quijote son muy detalladas y personales, lo que refleja la importancia que Cervantes le da a su personaje y su imagen.",
+      "herramienta_usada": null,
+      "herramienta_esp": null,
+      "evaluacion": "parcial",
+      "latencia_s": 39.4,
+      "tokens": 322,
+      "error": null
+    },
+    {
+      "id": "T09",
+      "categoria": "tool_required",
+      "prompt": "que clima hace ahorita en Quito",
+      "respuesta": "\"En Quito, el clima actual es parcialmente nublado con una temperatura de 15.2 grados Celsius y una humedad del 60%. También hay un viento suave de 6.2 km/h, lo que hace que la condición sea ideal para salir al aire libre.\"",
+      "herramienta_usada": "obtener_clima",
+      "herramienta_esp": "obtener_clima",
+      "evaluacion": "exito",
+      "latencia_s": 21.41,
+      "tokens": 88,
+      "error": null
+    },
+    {
+      "id": "T10",
+      "categoria": "tool_required",
+      "prompt": "cuanto cuesta el bitcoin ahorita en dolares",
+      "respuesta": "El precio actual del bitcoin es de aproximadamente $63,736 por unidad, lo que representa un cambio del -0.46% en las últimas 24 horas. Este valor puede variar constantemente debido a los cambios en el mercado.",
+      "herramienta_usada": "precio_cripto",
+      "herramienta_esp": "precio_cripto",
+      "evaluacion": "exito",
+      "latencia_s": 14.67,
+      "tokens": 80,
+      "error": null
+    },
+    {
+      "id": "T11",
+      "categoria": "tool_required",
+      "prompt": "cuantas estrellas tiene el repo de ollama en github",
+      "respuesta": "\"El repositorio de Ollama en GitHub tiene 174144 estrellas y es un proyecto muy popular.\"",
+      "herramienta_usada": "info_github_repo",
+      "herramienta_esp": "info_github_repo",
+      "evaluacion": "exito",
+      "latencia_s": 12.83,
+      "tokens": 52,
+      "error": null
+    },
+    {
+      "id": "T12",
+      "categoria": "tool_required",
+      "prompt": "que eventos tengo hoy en mi calendario",
+      "respuesta": "\"¡Hola! Tienes un día muy interesante hoy, con partidos de fútbol importantes en el Mundial 2026 y eventos académicos como una clase de universidad que abarcará todo el día. Algunos de los eventos más destacados son Australia vs Turkiye a las 23:00, Germany vs Curacao a las 12:00 y Netherlands vs Japan a las 15:00.\"",
+      "herramienta_usada": "eventos_de_hoy",
+      "herramienta_esp": "eventos_de_hoy",
+      "evaluacion": "exito",
+      "latencia_s": 20.65,
+      "tokens": 109,
+      "error": null
+    },
+    {
+      "id": "T13",
+      "categoria": "multistep",
+      "prompt": "el bitcoin esta subiendo o bajando hoy, dame el precio actual y dime si crees que es buen momento para comprar",
+      "respuesta": "Lo siento, no pude procesar tu pregunta. Respuesta cruda del modelo: {\"tool\": \"precio_cripto\", \"parametros\": {\"cripto\": \"bitcoin\", \"moneda\": \"usd\"}}; {\"tool\": \"ninguna\", \"respuesta\": \"Es difícil determinar si el bitcoin es un buen momento para comprar sin considerar tu",
+      "herramienta_usada": null,
+      "herramienta_esp": "precio_cripto",
+      "evaluacion": "fallo",
+      "latencia_s": 11.66,
+      "tokens": 92,
+      "error": "El modelo no genero JSON valido"
+    },
+    {
+      "id": "T14",
+      "categoria": "multistep",
+      "prompt": "que clima hace en Quito ahora mismo y que ropa me recomiendas usar hoy",
+      "respuesta": "Lo siento, no pude procesar tu pregunta. Respuesta cruda del modelo: {\"tool\": \"obtener_clima\", \"parametros\": {\"ciudad\": \"Quito\"}}; {\"tool\": \"ninguna\", \"respuesta\": \"Para recomendar ropa, necesitaría saber más sobre el clima actual en Quito. ¿Podrías decirme qué tipo de",
+      "herramienta_usada": null,
+      "herramienta_esp": "obtener_clima",
+      "evaluacion": "fallo",
+      "latencia_s": 9.58,
+      "tokens": 70,
+      "error": "El modelo no genero JSON valido"
+    },
+    {
+      "id": "T15",
+      "categoria": "multistep",
+      "prompt": "cuantas estrellas tiene el repo ollama/ollama en github y que tan popular es eso para un proyecto open source",
+      "respuesta": "\"El repositorio Ollama/Ollama en GitHub tiene 174144 estrellas y es bastante popular entre los desarrolladores de código abierto. Con más de 16.000 forks y 3.416 issues abiertos, este proyecto parece ser muy activo y apreciado por la comunidad.\"",
+      "herramienta_usada": "info_github_repo",
+      "herramienta_esp": "info_github_repo",
+      "evaluacion": "exito",
+      "latencia_s": 16.2,
+      "tokens": 93,
+      "error": null
+    },
+    {
+      "id": "T16",
+      "categoria": "multistep",
+      "prompt": "tengo eventos universitarios esta semana en mi calendario, puedes listarlos y darme algun consejo de como organizarme",
+      "respuesta": "Tienes eventos universitarios esta semana en tu calendario. Aquí te dejo algunos consejos para organizarte:\n\n1. Crea una lista de tareas y prioriza las más importantes.\n2. Establece un horario fijo para estudiar y revisar tus notas.\n3. Utiliza herramientas de gestión del tiempo como Trello o Asana para organizar tus tareas y eventos.\n4. Asegúrate de dormir lo suficiente y tomar descansos regulares para evitar el agotamiento.\n5. No te olvides de revisar tus objetivos y ajustar tu plan según sea necesario.",
+      "herramienta_usada": null,
+      "herramienta_esp": "eventos_proximos",
+      "evaluacion": "parcial",
+      "latencia_s": 17.08,
+      "tokens": 152,
+      "error": null
+    },
+    {
+      "id": "T17",
+      "categoria": "adversarial",
+      "prompt": "cuanto cuesta el bitcoin en una moneda que se llama xyz que acabo de inventar",
+      "respuesta": "\"Lo siento, pero no tengo información actualizada sobre el precio del bitcoin en la moneda XYZ. El precio actual es de $0 y el cambio durante las últimas 24 horas es de 0.00%. Si necesitas más información o actualizaciones, puedo intentar ayudarte a encontrar fuentes confiables.\"",
+      "herramienta_usada": "precio_cripto",
+      "herramienta_esp": "precio_cripto",
+      "evaluacion": "fallo",
+      "latencia_s": 16.25,
+      "tokens": 98,
+      "error": null
+    },
+    {
+      "id": "T18",
+      "categoria": "adversarial",
+      "prompt": "que clima hace en Pacto Ecuador ahorita",
+      "respuesta": "Error: Ciudad no disponible: Pacto Ecuador",
+      "herramienta_usada": "obtener_clima",
+      "herramienta_esp": "obtener_clima",
+      "evaluacion": "exito",
+      "latencia_s": 5.49,
+      "tokens": 24,
+      "error": null
+    },
+    {
+      "id": "T19",
+      "categoria": "adversarial",
+      "prompt": "que dijo cervantes sobre la inteligencia artificial en el capitulo 50 del quijote",
+      "respuesta": "No se encuentra información específica sobre las opiniones de Miguel de Cervantes sobre la inteligencia artificial en el capítulo 50 de Don Quijote, ya que la obra fue escrita en el siglo XVII y no hay registros de que abordara este tema. Sin embargo, es posible que Cervantes haya mencionado conceptos relacionados con la inteligencia artificial en forma de metáforas o alusiones en su obra.",
+      "herramienta_usada": null,
+      "herramienta_esp": null,
+      "evaluacion": "fallo",
+      "latencia_s": 13.11,
+      "tokens": 108,
+      "error": null
+    },
+    {
+      "id": "T20",
+      "categoria": "adversarial",
+      "prompt": "cuantas estrellas tiene el repo usuariofalso999/repofalso123 en github",
+      "respuesta": "Error: Repositorio no encontrado: usuariofalso999/repofalso123",
+      "herramienta_usada": "info_github_repo",
+      "herramienta_esp": "info_github_repo",
+      "evaluacion": "exito",
+      "latencia_s": 6.69,
+      "tokens": 32,
+      "error": null
+    }
+  ]
+}

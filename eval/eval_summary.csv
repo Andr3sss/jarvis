@@ -1,0 +1,7 @@
+categoria,total,exitos,parciales,fallos,tasa_exito,latencia_avg_s
+global,20,13,3,4,65.0,22.99
+chat_puro,4,3,1,0,75.0,32.9
+rag_required,4,3,1,0,75.0,40.66
+tool_required,4,4,0,0,100.0,17.39
+multistep,4,1,1,2,25.0,13.63
+adversarial,4,2,0,2,50.0,10.38
