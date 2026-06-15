@@ -1,0 +1,335 @@
+[
+  {
+    "chat_id": "chat-1781505110289-128",
+    "titulo": "Dame el clima de londres actualmente",
+    "timestamp": "2026-06-15T06:32:26.475607+00:00",
+    "mensajes": [
+      {
+        "pregunta": "Dame el clima de londres actualmente",
+        "respuesta": "Error: Ciudad no disponible: Londres",
+        "modelo": "llama3.2:3b-instruct-q4_K_M",
+        "herramienta": "obtener_clima",
+        "tiempo_s": 23.36,
+        "timestamp": "2026-06-15T06:32:26.475607+00:00"
+      }
+    ]
+  },
+  {
+    "chat_id": "chat-1781504996378-656",
+    "titulo": "Redacta un codigo html basico que incluy...",
+    "timestamp": "2026-06-15T06:31:01.499033+00:00",
+    "mensajes": [
+      {
+        "pregunta": "Redacta un codigo html basico que incluya un encabezado y un pie de pagina",
+        "respuesta": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <title>Document</title>\n</head>\n<body>\n    <header><h1>Título del Encabezado</h1></header>\n    <!-- Contenido de la página aquí -->\n<footer><p>Página de pie con información adicional.</p></footer>\n</body>\n</html>",
+        "modelo": "phi4-mini:3.8b-q4_K_M",
+        "herramienta": null,
+        "tiempo_s": 36.81,
+        "timestamp": "2026-06-15T06:31:01.499033+00:00"
+      }
+    ]
+  },
+  {
+    "chat_id": "chat-1781504372421-172",
+    "titulo": "dame las letras del alfabeto de atras ha...",
+    "timestamp": "2026-06-15T06:19:41.423783+00:00",
+    "mensajes": [
+      {
+        "pregunta": "dame las letras del alfabeto de atras hacia adelante",
+        "respuesta": "La respuesta al alfabeto es: A B C D E F G H I J K L M N O P Q R S T U V W X Y Z",
+        "modelo": "llama3.2:3b-instruct-q3_K_M",
+        "herramienta": null,
+        "tiempo_s": 3.96,
+        "timestamp": "2026-06-15T06:19:41.423783+00:00"
+      }
+    ]
+  },
+  {
+    "chat_id": "chat-1781504326772-747",
+    "titulo": "dame las letras del alfabeto de atras ha...",
+    "timestamp": "2026-06-15T06:19:23.282435+00:00",
+    "mensajes": [
+      {
+        "pregunta": "dame las letras del alfabeto de atras hacia adelante",
+        "respuesta": "La respuesta es: ABCDEFGHIJKLKMNLMPONQPRRSSTUVWXYZ",
+        "modelo": "llama3.2:3b-instruct-q3_K_M",
+        "herramienta": null,
+        "tiempo_s": 8.06,
+        "timestamp": "2026-06-15T06:19:23.282435+00:00"
+      }
+    ]
+  },
+  {
+    "chat_id": "chat-1781504259667-255",
+    "titulo": "que es python y por que es tan usado en ...",
+    "timestamp": "2026-06-15T06:18:26.388498+00:00",
+    "mensajes": [
+      {
+        "pregunta": "que es python y por que es tan usado en ciencia de datos",
+        "respuesta": "Python es un lenguaje de programación muy utilizado debido a su simplicidad, legibilidad y vasta biblioteca de herramientas para ciencia de datos, lo cual facilita el análisis estadístico y visualización de datos complejos. Con una comunidad activa reflejada en sus más de 73 mil estrellas en GitHub, Python se mantiene como la opción preferida entre los científicos de datos por su eficiencia y soporte continuo.",
+        "modelo": "phi4-mini:3.8b-q4_K_M",
+        "herramienta": "info_github_repo",
+        "tiempo_s": 43.61,
+        "timestamp": "2026-06-15T06:18:26.388498+00:00"
+      }
+    ]
+  },
+  {
+    "chat_id": "chat-1781504193878-868",
+    "titulo": "cuales son las diferencias entre una GPU...",
+    "timestamp": "2026-06-15T06:17:27.363835+00:00",
+    "mensajes": [
+      {
+        "pregunta": "cuales son las diferencias entre una GPU y una CPU para correr modelos de IA",
+        "respuesta": "Una GPU (Graphics Processing Unit) y una CPU (Central Processing Unit) son componentes fundamentales en los sistemas informáticos, pero tienen funciones y características diferentes. Una GPU se especializa en procesamiento gráfico, mientras que una CPU se encarga del procesamiento lógico. En el contexto de correr modelos de IA, la elección entre una GPU y una CPU depende de varios factores, como el tipo de modelo, las dimensiones del conjunto de datos y los recursos disponibles. En general, las GPUs son más adecuadas para tareas que requieren procesamiento paralelo y gran cantidad de cálculos, mientras que las CPUs son más adecuadas para tareas que requieren procesamiento lógico y eficiencia energética.",
+        "modelo": "llama3.2:3b-instruct-q8_0",
+        "herramienta": null,
+        "tiempo_s": 43.89,
+        "timestamp": "2026-06-15T06:17:27.363835+00:00"
+      }
+    ]
+  },
+  {
+    "chat_id": "chat-1781504166923-596",
+    "titulo": "que eventos tengo esta semana en mi cale...",
+    "timestamp": "2026-06-15T06:16:20.754099+00:00",
+    "mensajes": [
+      {
+        "pregunta": "que eventos tengo esta semana en mi calendario",
+        "respuesta": "Tienes un evento importante el día 15 de junio con una evaluación defensa sobre \"Bias vs Variance\" en la universidad, y también tienes partidos de fútbol internacionales como España contra Cape Verde y otros. Además, tienes un entrega de trabajo para tu práctica de Big Data el día 16 de junio.",
+        "modelo": "llama3.2:3b-instruct-q4_K_M",
+        "herramienta": "eventos_de_hoy",
+        "tiempo_s": 10.88,
+        "timestamp": "2026-06-15T06:16:20.754099+00:00"
+      }
+    ]
+  },
+  {
+    "chat_id": "chat-1781504143852-934",
+    "titulo": "cuanto cuesta el bitcoin ahorita en dola...",
+    "timestamp": "2026-06-15T06:15:56.242075+00:00",
+    "mensajes": [
+      {
+        "pregunta": "cuanto cuesta el bitcoin ahorita en dolares y como estuvo en las ultimas 24 horas",
+        "respuesta": "\"El precio del bitcoin actualmente es de $65,844 por unidad, lo que representa un aumento del 2.21% en las últimas 24 horas.\"",
+        "modelo": "llama3.2:3b-instruct-q4_K_M",
+        "herramienta": "precio_cripto",
+        "tiempo_s": 7.98,
+        "timestamp": "2026-06-15T06:15:56.242075+00:00"
+      }
+    ]
+  },
+  {
+    "chat_id": "chat-1781504011435-880",
+    "titulo": "que clima hace ahorita en Quito y que ro...",
+    "timestamp": "2026-06-15T06:13:50.758062+00:00",
+    "mensajes": [
+      {
+        "pregunta": "que clima hace ahorita en Quito y que ropa me recomiendas usar",
+        "respuesta": "\"Hola! En Quito actualmente hace un día fresco y nublado, con una temperatura de 9.9°C y una humedad del 78%. Te recomiendo llevar ropa ligera y abrigada para protegerte del viento suave de 3.3 km/h.\"",
+        "modelo": "llama3.2:3b-instruct-q4_K_M",
+        "herramienta": "obtener_clima",
+        "tiempo_s": 12.73,
+        "timestamp": "2026-06-15T06:13:50.758062+00:00"
+      }
+    ]
+  },
+  {
+    "chat_id": "chat-1781503636451-380",
+    "titulo": "Cual es el nombre del amigo de don quijo...",
+    "timestamp": "2026-06-15T06:13:09.008693+00:00",
+    "mensajes": [
+      {
+        "pregunta": "Cual es el nombre del amigo de don quijote segun su libro?",
+        "respuesta": "Según el texto, el amigo de Don Quijote según su libro es Cide Hamete Benengeli, un historiador arábigo. En el capítulo 1 del libro, se menciona que el autor del libro \"Don Quijote de la Mancha\" es Cide Hamete Benengeli y que él mismo le pidió a Don Quijote que leyese el principio del libro. El texto también menciona que el cura y el barbero discuten sobre los libros de caballerías y su autoría, pero no hay ninguna mención a un amigo específico de Don Quijote en este contexto.\n\nSin embargo, es importante destacar que Cide Hamete Benengeli se presenta como el historiador que ha escrito el libro \"Don Quijote de la Mancha\", lo que sugiere que él mismo es una figura ficticia creada por el autor del libro para narrar las aventuras de Don Quijote. Por lo tanto, no podemos considerar a Cide Hamete Benengeli como un amigo real de Don Quijote.\n\nEn cuanto a los amigos reales de Don Quijote, se menciona en el texto que el cura y el barbero son personajes que discuten sobre los libros de caballerías y su autoría. Sin embargo, no hay ninguna mención específica a un amigo llamado \"Feliciano de Silva\" como se menciona en la parte final del texto.\n\nEn resumen, según el texto, Cide Hamete Benengeli es el historiador que ha escrito el libro \"Don Quijote de la Mancha\", pero no se puede considerar como un amigo real de Don Quijote.",
+        "modelo": "llama3.2:3b-instruct-q8_0",
+        "herramienta": null,
+        "tiempo_s": 112.16,
+        "timestamp": "2026-06-15T06:09:15.740826+00:00"
+      },
+      {
+        "pregunta": "Cual es el nombre del escudero de don quijote segun su libro?",
+        "respuesta": "Después de analizar el texto, encontré una mención al escudero de Don Quijote en el siguiente pasaje:\n\n\"...el caballero Fonseca, con la batalla que el valiente de Tirante hizo con el alano, y las agudezas de la doncella Placerdemivida, con los amores y embustes de la viuda Reposada, y la señora Emperatriz, enamorada de Hipólito, su escudero.\"\n\nEn este pasaje, se menciona explícitamente que Hipólito es el escudero de Don Quijote.",
+        "modelo": "llama3.2:3b-instruct-q8_0",
+        "herramienta": null,
+        "tiempo_s": 43.04,
+        "timestamp": "2026-06-15T06:11:39.140480+00:00"
+      },
+      {
+        "pregunta": "que paso cuando don quijote se encontro con los molinos de viento y como reacciono sancho",
+        "respuesta": "Según el texto, cuando don Quijote se encontró con los molinos de viento, él embistió uno de ellos con su lanza. El molino volvió a vuelo y llevó consigo al caballo y al caballero (don Quijote). Sancho Panza intentó socorrerlo, pero el golpe que don Quijote le dio con Rocinante fue tan fuerte que no pudo moverse.\n\nDon Quijote reaccionó diciendo: \"Calla, amigo Sancho, que las cosas de la guerra están sujetas a continua mudanza; cuanto más, que yo pienso y es así verdad, que aquel sabio Frestón me robó el aposento y los libros ha vuelto estos gigantes en molinos por quitarme la gloria de su vencimiento: tal es la enemistad que me tiene; mas, al cabo al cabo, han de poder poco sus malas artes contra la bondad y virtud mías\".",
+        "modelo": "llama3.2:3b-instruct-q8_0",
+        "herramienta": null,
+        "tiempo_s": 67.2,
+        "timestamp": "2026-06-15T06:13:09.008693+00:00"
+      }
+    ]
+  },
+  {
+    "chat_id": "chat-1781503264769-653",
+    "titulo": "Cual es el nombre del amigo de don quijo...",
+    "timestamp": "2026-06-15T06:06:44.501888+00:00",
+    "mensajes": [
+      {
+        "pregunta": "Cual es el nombre del amigo de don quijote segun su libro?",
+        "respuesta": "Según el texto, el amigo de Don Quijote que se menciona en el libro es el cura. El cura es quien habla con el barbero y el autor del libro, discutiendo sobre los libros de caballerías y su contenido. También se menciona al barbero como alguien que ha leído algunos de los libros y tiene opiniones sobre ellos.\n\nEn cuanto a si el amigo de Don Quijote es un personaje real o ficticio, no se menciona explícitamente en el texto. Sin embargo, se puede inferir que el cura es una figura ficticia creada por el autor del libro para proporcionar una perspectiva crítica sobre los libros de caballerías.\n\nEn resumen, el amigo de Don Quijote mencionado en el libro es el cura, quien habla con el barbero y el autor del libro.",
+        "modelo": "llama3.2:3b-instruct-q4_K_M",
+        "herramienta": null,
+        "tiempo_s": 92.95,
+        "timestamp": "2026-06-15T06:03:03.327638+00:00"
+      },
+      {
+        "pregunta": "quien es Aldonza Lorenzo y que tiene que ver con don quijote",
+        "respuesta": "Según el texto del libro \"Don Quijote de la Mancha\" de Miguel de Cervantes, Aldonza Lorenzo es una moza labradora de muy buen parecer que vive cerca del lugar donde se encuentra don Quijote. También se menciona que ella jamás supo que estaba enamorada de don Quijote, y que él nunca le dio señal alguna de su amor.\n\nEn el texto, se describe a Aldonza Lorenzo como una joven de buena condición y belleza, y se le atribuye un título de \"señora\" por parte de don Quijote. Sin embargo, es importante destacar que este título no tiene un significado real en el contexto del libro, sino más bien una forma de fantasía y romance que don Quijote le ha inventado.\n\nEn general, Aldonza Lorenzo se presenta como una figura femenina inocente y sin experiencia en la corte o en la sociedad aristocrática, lo que contrasta con las mujeres de la época que eran conocidas por su astucia y habilidad para manipular a los hombres. Su relación con don Quijote es un ejemplo de cómo este personaje idealiza a las mujeres y las convierte en objetos de su fantasía y admiración.",
+        "modelo": "llama3.2:3b-instruct-q4_K_M",
+        "herramienta": null,
+        "tiempo_s": 47.87,
+        "timestamp": "2026-06-15T06:06:44.501888+00:00"
+      }
+    ]
+  },
+  {
+    "chat_id": "chat-1781502943941-201",
+    "titulo": "Dame un poema romantico para dedicarselo...",
+    "timestamp": "2026-06-15T05:58:10.959860+00:00",
+    "mensajes": [
+      {
+        "pregunta": "Dame un poema romantico para dedicarselo a mi novia",
+        "respuesta": "Claro que sí. Aquí tienes un poema romántico para ti:\n\nEn el jardín de tu sonrisa, florecen mis sueños,\nCada risa es una melodía, cada mirada, un resplandor.\nTu amor me guía por senderos desconocidos,\nCon cada latido del corazón, mi pasión se enciende y crece.\n\nTus ojos, dos estrellas que iluminan la noche,\nEn tu abrazo encuentro el refugio de mis miedos.\nCada beso es un susurro, una promesa eterna,\nJuntos navegamos por este viaje, eternamente unidos.",
+        "modelo": "phi4-mini:3.8b-q8_0",
+        "herramienta": null,
+        "tiempo_s": 62.66,
+        "timestamp": "2026-06-15T05:58:10.959860+00:00"
+      }
+    ]
+  },
+  {
+    "chat_id": "chat-1781502390520-96",
+    "titulo": "Cuanto es 10+854",
+    "timestamp": "2026-06-15T05:49:07.833525+00:00",
+    "mensajes": [
+      {
+        "pregunta": "Cuanto es 10+854",
+        "respuesta": "El resultado de la suma 10 + 854 es 864",
+        "modelo": "llama3.2:3b-instruct-q3_K_M",
+        "herramienta": null,
+        "tiempo_s": 10.01,
+        "timestamp": "2026-06-15T05:49:07.833525+00:00"
+      }
+    ]
+  },
+  {
+    "chat_id": "chat-1781502151331-885",
+    "titulo": "Segun mi calendario tengo algun evento i...",
+    "timestamp": "2026-06-15T05:45:49.494379+00:00",
+    "mensajes": [
+      {
+        "pregunta": "Segun mi calendario tengo algun evento importante este sabado?",
+        "respuesta": "Este sábado, el 15 de junio de 2026, tienes dos eventos importantes: un seminario universitario titulado \"Jarvis\" a las 23:58 y un examen llamado \"Entregable 3 (PRACTICAS Y HERRAMIENTAS DE BIG DATA 06-SIN-A)\" que dura todo el día. Además, hay cuatro partidos de fútbol en la Copa Mundial 2026 con España vs Cape Verde a las 11:00, Bélgica vs Egipto a las 14:00, Arabia Saudita vs Uruguay a las 17:00 y Irán vs Nueva Zelanda a las 20:00.",
+        "modelo": "phi4-mini:3.8b-q8_0",
+        "herramienta": "eventos_de_hoy",
+        "tiempo_s": 80.04,
+        "timestamp": "2026-06-15T05:44:23.664827+00:00"
+      },
+      {
+        "pregunta": "Segun mi calendario, tengo algun evento importante el sabado 20 de este mes?",
+        "respuesta": "El sábado 20 de este mes tienes dos eventos importantes: tu licencia de conducir a las 01:00 horas y un evento universitario todo el día. No hay otros eventos programados para ese día. ¡Recuerda revisar tus preparativos para la licencia!",
+        "modelo": "phi4-mini:3.8b-q8_0",
+        "herramienta": "eventos_proximos",
+        "tiempo_s": 35.75,
+        "timestamp": "2026-06-15T05:45:49.494379+00:00"
+      }
+    ]
+  },
+  {
+    "chat_id": "chat-1781501939277-154",
+    "titulo": "Cual es la historuia de la computacion",
+    "timestamp": "2026-06-15T05:40:51.196209+00:00",
+    "mensajes": [
+      {
+        "pregunta": "Cual es la historuia de la computacion",
+        "respuesta": "La historia de la computación comienza con el desarrollo de las máquinas de Turing en el siglo XX, que sentaron las bases para el diseño de los ordenadores modernos. A lo largo del tiempo, se han hecho avances significativos en la tecnología informática, incluyendo el desarrollo de la programación, la arquitectura de computadoras y la inteligencia artificial.",
+        "modelo": "llama3.2:3b-instruct-q3_K_M",
+        "herramienta": null,
+        "tiempo_s": 5.26,
+        "timestamp": "2026-06-15T05:39:19.970346+00:00"
+      },
+      {
+        "pregunta": "Cuando vuelve a jugar ecuador segun mi calendario",
+        "respuesta": "\"¡Hola! Según tu calendario, tienes dos eventos importantes con Ecuador: el 20 de junio de 2026 contra Curacao a las 19:00 y el 25 de junio de 2026 contra Alemania a las 15:00. También hay dos festivales en agosto: el Natalicio de Simón Bolivar el 24 de julio y el Día de la Independencia el 10 de agosto, ambos todo el día.\"",
+        "modelo": "llama3.2:3b-instruct-q4_K_M",
+        "herramienta": "buscar_eventos",
+        "tiempo_s": 23.01,
+        "timestamp": "2026-06-15T05:40:51.196209+00:00"
+      }
+    ]
+  },
+  {
+    "chat_id": "chat-1781501793354-861",
+    "titulo": "Redacta un codigo que funcione en python...",
+    "timestamp": "2026-06-15T05:37:40.096607+00:00",
+    "mensajes": [
+      {
+        "pregunta": "Redacta un codigo que funcione en python que imprima los primeros 15 numeros primos",
+        "respuesta": "def primeros_primos(n): \n    def es_primo(num):\n        if num < 2:\n            return False\n        for i in range(2, int(num**0.5) + 1):\n            if num % i == 0:\n                return False\n        return True\n    \n    primos = []\n    num = 2\n    while len(primos) < n:\n        if es_primo(num):\n            primos.append(num)\n        num += 1\n    return primos\n\ncodigo = primeros_primos(15)\nprint(codigo)",
+        "modelo": "llama3.2:3b-instruct-q4_K_M",
+        "herramienta": null,
+        "tiempo_s": 32.69,
+        "timestamp": "2026-06-15T05:37:40.096607+00:00"
+      }
+    ]
+  },
+  {
+    "chat_id": "chat-1781501499938-669",
+    "titulo": "Redacta un codigo en python que imprima ...",
+    "timestamp": "2026-06-15T05:32:21.795083+00:00",
+    "mensajes": [
+      {
+        "pregunta": "Redacta un codigo en python que imprima un \"ola mundo \"",
+        "respuesta": "Aquí tienes el código en Python que imprime 'Hola Mundo':\n\npython\nprint('Hello, World!')",
+        "modelo": "phi4-mini:3.8b-q4_K_M",
+        "herramienta": null,
+        "tiempo_s": 9.65,
+        "timestamp": "2026-06-15T05:32:21.795083+00:00"
+      }
+    ]
+  },
+  {
+    "chat_id": "chat-test-456",
+    "titulo": "Hola, este es un segundo chat",
+    "timestamp": "2026-06-15T05:23:44.441171+00:00",
+    "mensajes": [
+      {
+        "pregunta": "Hola, este es un segundo chat",
+        "respuesta": "Hola, entiendo que estamos en otra conversacion.",
+        "modelo": "llama3.2:3b-instruct-q4_K_M",
+        "herramienta": null,
+        "tiempo_s": 0.4,
+        "timestamp": "2026-06-15T05:23:44.441171+00:00"
+      }
+    ]
+  },
+  {
+    "chat_id": "chat-test-123",
+    "titulo": "Prueba de pregunta",
+    "timestamp": "2026-06-15T05:23:19.455375+00:00",
+    "mensajes": [
+      {
+        "pregunta": "Prueba de pregunta",
+        "respuesta": "Respuesta simulada de Jarvis",
+        "modelo": "llama3.2:3b-instruct-q4_K_M",
+        "herramienta": null,
+        "tiempo_s": 0.5,
+        "timestamp": "2026-06-15T05:23:11.970339+00:00"
+      },
+      {
+        "pregunta": "Segunda pregunta",
+        "respuesta": "Segunda respuesta de Jarvis",
+        "modelo": "llama3.2:3b-instruct-q4_K_M",
+        "herramienta": null,
+        "tiempo_s": 0.3,
+        "timestamp": "2026-06-15T05:23:19.455375+00:00"
+      }
+    ]
+  }
+]

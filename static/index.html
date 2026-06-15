@@ -1,0 +1,1718 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jarvis — Agente de IA Local</title>
+  <meta name="description"
+    content="Jarvis: un agente de IA corriendo de manera local en tu computadora, sin necesidad de internet." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ─── Reset & base ─────────────────────────────────── */
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html,
+    body {
+      height: 100%;
+      overflow: hidden;
+      background: #0a0a0a;
+      color: #ffffff;
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      font-size: 14px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ══════════════════════════════════════════════════════
+       APP SHELL — full viewport, column stack
+    ══════════════════════════════════════════════════════ */
+    #app {
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    /* ══════════════════════════════════════════════════════
+       HEADER — fixed, full width, spans above both columns
+    ══════════════════════════════════════════════════════ */
+    #header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 90px;
+      z-index: 100;
+      background: #0a0a0a;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 40px;
+      gap: 16px;
+    }
+
+    #header::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 40px;
+      right: 40px;
+      height: 2px;
+      background: #00b4d8;
+    }
+
+
+    #header-brand {
+      display: flex;
+      align-items: baseline;
+      gap: 80px;
+      flex-shrink: 1;
+      min-width: 0;
+    }
+
+    #header-brand h1 {
+      font-size: 28px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      color: #ffffff;
+      line-height: 1;
+      flex-shrink: 0;
+    }
+
+    #header-right {
+      display: flex;
+      align-items: center;
+      flex-shrink: 0;
+    }
+
+    #header-subtitle {
+      font-size: 15px;
+      color: #888888;
+      text-align: left;
+      line-height: 1.4;
+      font-weight: 400;
+    }
+
+    #status-indicator {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 12px;
+      font-weight: 500;
+    }
+
+    #status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      flex-shrink: 0;
+      background: #444444;
+    }
+
+    #status-dot.active {
+      background: #00c853;
+      box-shadow: 0 0 6px rgba(0, 200, 83, .6);
+    }
+
+    #status-dot.inactive {
+      background: #f44336;
+      box-shadow: 0 0 6px rgba(244, 67, 54, .5);
+    }
+
+    #status-text {
+      color: #888888;
+    }
+
+    /* ══════════════════════════════════════════════════════
+       MAIN — CSS Grid: 220px sidebar | flex-1 right panel
+       Sits between fixed header (70px) and is full height
+    ══════════════════════════════════════════════════════ */
+    #main {
+      display: grid;
+      grid-template-columns: 220px 1fr;
+      margin-top: 90px;
+      /* clear fixed header */
+      height: calc(100vh - 90px);
+      overflow: hidden;
+    }
+
+    /* ─── Left column: HISTORIAL sidebar ───────────────── */
+    #sidebar {
+      background: #0a0a0a;
+      display: flex;
+      flex-direction: column;
+      padding: 16px 12px;
+      overflow: hidden;
+      height: 100%;
+    }
+
+    #historial-cajon {
+      flex: 1;
+      width: 100%;
+      background: #1a1a1a;
+      border-radius: 8px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      padding: 20px 0;
+      overflow: hidden;
+    }
+
+    #sidebar-label {
+      width: 100%;
+      padding: 0;
+      text-align: center;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      color: #484848;
+      text-transform: uppercase;
+      /* sin borde — texto flotando centrado igual que en la captura */
+    }
+
+    #historial-lista {
+      flex: 1;
+      width: 100%;
+      overflow-y: auto;
+      padding: 8px 0;
+    }
+
+    #historial-lista::-webkit-scrollbar {
+      width: 3px;
+    }
+
+    #historial-lista::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    #historial-lista::-webkit-scrollbar-thumb {
+      background: #2a2a2a;
+      border-radius: 2px;
+    }
+
+    /* ─── Right column: model selector + chat + input bar ── */
+    #right-panel {
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      min-width: 0;
+      background: #0a0a0a;
+    }
+
+    /* ══════════════════════════════════════════════════════
+       MODEL SELECTOR SECTION
+    ══════════════════════════════════════════════════════ */
+    #model-selector {
+      flex-shrink: 0;
+      padding: 20px 24px 0 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    #model-selector::after {
+      content: '';
+      display: block;
+      margin-top: 20px;
+      height: 2px;
+      background: #00b4d8;
+      width: 100%;
+    }
+
+    #model-selector-hint {
+      font-size: 12px;
+      color: #484848;
+      line-height: 1.45;
+    }
+
+    /* Row 1: the 5 model buttons */
+    #model-buttons-row {
+      display: flex;
+      gap: 12px;
+    }
+
+    .btn-modelo {
+      flex: 1;
+      min-width: 120px;
+      height: 52px;
+      border: 1px solid #2a2a2a;
+      border-radius: 8px;
+      background: #141414;
+      color: #888888;
+      font-family: inherit;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.25s, color 0.25s, border-color 0.25s, box-shadow 0.25s;
+      padding: 0 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 3px;
+    }
+
+    .btn-modelo .btn-name {
+      font-size: 13px;
+      font-weight: 700;
+      line-height: 1;
+      white-space: nowrap;
+    }
+
+    .btn-modelo .btn-stat {
+      font-size: 10px;
+      font-weight: 400;
+      color: #444444;
+      line-height: 1;
+      white-space: nowrap;
+      transition: color 0.25s;
+    }
+
+    .btn-modelo:not(.selected):hover {
+      background: #1e1e1e;
+      border-color: #3a3a3a;
+      color: #bbbbbb;
+    }
+
+    .btn-modelo:not(.selected):hover .btn-stat {
+      color: #666666;
+    }
+
+    /* Selected: JS sets background/borderColor/color inline */
+    .btn-modelo.selected .btn-stat {
+      color: rgba(0, 0, 0, 0.55);
+    }
+
+    .btn-modelo.dimmed {
+      background: #3a3a3a !important;
+      border-color: #2a2a2a !important;
+      color: #666666 !important;
+      transform: none !important;
+      box-shadow: none !important;
+    }
+
+    .btn-modelo.dimmed .btn-stat {
+      color: #555555 !important;
+    }
+
+    /* Row 2: AUTOMÁTICO centered */
+    #auto-row {
+      display: flex;
+      justify-content: center;
+      margin-top: 12px;
+    }
+
+    #btn-auto {
+      min-width: 200px;
+      height: 52px;
+      padding: 0 32px;
+      border-radius: 8px;
+      font-family: inherit;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      cursor: pointer;
+      transition: background 0.25s, box-shadow 0.25s, color 0.25s, border-color 0.25s, transform 0.2s;
+    }
+
+    #btn-auto.selected {
+      background: #00ff00;
+      color: #000000;
+      border-color: #00ff00;
+      box-shadow: 0 0 20px rgba(0, 255, 0, 0.35);
+    }
+
+    #btn-auto.dimmed {
+      background: #3a3a3a !important;
+      border-color: #2a2a2a !important;
+      color: #666666 !important;
+      transform: none !important;
+      box-shadow: none !important;
+    }
+
+    /* ─── Active/Initial states for model buttons (Elegant Outlined) ───────── */
+    #btn-modelo-1:not(.dimmed):not(.selected) {
+      background: #141414;
+      border-color: #FF6B35;
+      color: #FF6B35;
+    }
+
+    #btn-modelo-2:not(.dimmed):not(.selected) {
+      background: #141414;
+      border-color: #00B4D8;
+      color: #00B4D8;
+    }
+
+    #btn-modelo-3:not(.dimmed):not(.selected) {
+      background: #141414;
+      border-color: #FF006E;
+      color: #FF006E;
+    }
+
+    #btn-modelo-4:not(.dimmed):not(.selected) {
+      background: #141414;
+      border-color: #FFBE0B;
+      color: #FFBE0B;
+    }
+
+    #btn-modelo-5:not(.dimmed):not(.selected) {
+      background: #141414;
+      border-color: #8338EC;
+      color: #8338EC;
+    }
+
+    #btn-auto:not(.dimmed):not(.selected) {
+      background: #141414;
+      border-color: #00ff00;
+      color: #00ff00;
+    }
+
+    .btn-modelo:not(.dimmed):not(.selected) .btn-stat {
+      color: #888888;
+    }
+
+    /* Hover effects for active buttons (Outlined states) */
+    #btn-modelo-1:not(.dimmed):not(.selected):hover {
+      background: rgba(255, 107, 53, 0.08);
+      box-shadow: 0 4px 15px rgba(255, 107, 53, 0.35);
+      transform: translateY(-2px);
+    }
+
+    #btn-modelo-2:not(.dimmed):not(.selected):hover {
+      background: rgba(0, 180, 216, 0.08);
+      box-shadow: 0 4px 15px rgba(0, 180, 216, 0.35);
+      transform: translateY(-2px);
+    }
+
+    #btn-modelo-3:not(.dimmed):not(.selected):hover {
+      background: rgba(255, 0, 110, 0.08);
+      box-shadow: 0 4px 15px rgba(255, 0, 110, 0.35);
+      transform: translateY(-2px);
+    }
+
+    #btn-modelo-4:not(.dimmed):not(.selected):hover {
+      background: rgba(255, 190, 11, 0.08);
+      box-shadow: 0 4px 15px rgba(255, 190, 11, 0.35);
+      transform: translateY(-2px);
+    }
+
+    #btn-modelo-5:not(.dimmed):not(.selected):hover {
+      background: rgba(131, 56, 236, 0.08);
+      box-shadow: 0 4px 15px rgba(131, 56, 236, 0.35);
+      transform: translateY(-2px);
+    }
+
+    #btn-auto:not(.dimmed):not(.selected):hover {
+      background: rgba(0, 255, 0, 0.08);
+      box-shadow: 0 4px 15px rgba(0, 255, 0, 0.35);
+      transform: translateY(-2px);
+    }
+
+    /* Hover effects for active selected buttons (Solid states) */
+    #btn-modelo-1.selected:hover {
+      box-shadow: 0 4px 15px rgba(255, 107, 53, 0.45);
+      transform: translateY(-2px);
+    }
+
+    #btn-modelo-2.selected:hover {
+      box-shadow: 0 4px 15px rgba(0, 180, 216, 0.45);
+      transform: translateY(-2px);
+    }
+
+    #btn-modelo-3.selected:hover {
+      box-shadow: 0 4px 15px rgba(255, 0, 110, 0.45);
+      transform: translateY(-2px);
+    }
+
+    #btn-modelo-4.selected:hover {
+      box-shadow: 0 4px 15px rgba(255, 190, 11, 0.45);
+      transform: translateY(-2px);
+    }
+
+    #btn-modelo-5.selected:hover {
+      box-shadow: 0 4px 15px rgba(131, 56, 236, 0.45);
+      transform: translateY(-2px);
+    }
+
+    #btn-auto.selected:hover {
+      box-shadow: 0 4px 15px rgba(0, 255, 0, 0.45);
+      transform: translateY(-2px);
+    }
+
+    /* ══════════════════════════════════════════════════════
+       CHAT AREA — fills remaining vertical space
+    ══════════════════════════════════════════════════════ */
+    #chat-area {
+      flex: 1;
+      background: #0a0a0a;
+      overflow-y: auto;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    #chat-area::-webkit-scrollbar {
+      width: 4px;
+    }
+
+    #chat-area::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    #chat-area::-webkit-scrollbar-thumb {
+      background: #252525;
+      border-radius: 2px;
+    }
+
+    /* ══════════════════════════════════════════════════════
+       INPUT BAR — pinned to bottom of right-panel only
+    ══════════════════════════════════════════════════════ */
+    #footer {
+      flex-shrink: 0;
+      height: auto;
+      background: #0a0a0a;
+      border-top: none;
+      display: flex;
+      align-items: center;
+      padding: 16px 24px 24px 24px;
+      gap: 12px;
+    }
+
+    /* Mic button */
+    #btn-mic {
+      width: 44px;
+      height: 44px;
+      flex-shrink: 0;
+      border-radius: 8px;
+      border: 1px solid #222222;
+      background: #141414;
+      color: #888888;
+      font-size: 16px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 1;
+      transition: background 0.2s, color 0.2s, border-color 0.2s;
+    }
+
+    #btn-mic:hover {
+      background: #1e1e1e;
+      color: #ffffff;
+      border-color: #444444;
+    }
+
+    #btn-mic.recording {
+      animation: pulseRed 1.5s infinite;
+      background: rgba(255, 74, 74, 0.2);
+      border-color: #ff4a4a;
+      color: #ff4a4a;
+    }
+
+    @keyframes pulseRed {
+      0% {
+        box-shadow: 0 0 0 0 rgba(255, 74, 74, 0.4);
+      }
+
+      70% {
+        box-shadow: 0 0 0 10px rgba(255, 74, 74, 0);
+      }
+
+      100% {
+        box-shadow: 0 0 0 0 rgba(255, 74, 74, 0);
+      }
+    }
+
+    /* Input wrapper — grows to fill space */
+    #input-wrapper {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      background: #141414;
+      border-radius: 8px;
+      border: 1px solid #222222;
+      border-bottom: 2px solid var(--input-accent, #333333);
+      height: 44px;
+      padding: 0 4px 0 16px;
+      transition: border-bottom-color 0.3s;
+      gap: 8px;
+    }
+
+    #pregunta-input {
+      flex: 1;
+      height: 100%;
+      background: transparent;
+      border: none;
+      outline: none;
+      color: #ffffff;
+      font-family: inherit;
+      font-size: 14px;
+      padding: 0;
+    }
+
+    #pregunta-input::placeholder {
+      color: #3a3a3a;
+    }
+
+    /* Send button — inside the input wrapper */
+    #btn-send {
+      flex-shrink: 0;
+      width: 36px;
+      height: 36px;
+      border-radius: 6px;
+      border: none;
+      background: #ffffff;
+      color: #0a0a0a;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.15s, transform 0.1s;
+    }
+
+    #btn-send:hover {
+      background: #dddddd;
+      transform: scale(1.05);
+    }
+
+    #btn-send:active {
+      transform: scale(0.96);
+    }
+
+    /* ══════════════════════════════════════════════════════
+       CHAT BUBBLES & LAYOUT
+       ══════════════════════════════════════════════════════ */
+    .chat-row {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 20px;
+      width: 100%;
+    }
+
+    .chat-row.user {
+      align-items: flex-end;
+    }
+
+    .chat-row.jarvis {
+      align-items: flex-start;
+    }
+
+    .chat-bubble {
+      padding: 12px 16px;
+      font-size: 14px;
+      line-height: 1.5;
+      word-wrap: break-word;
+      word-break: break-word;
+      white-space: pre-wrap;
+    }
+
+    .chat-row.user .chat-bubble {
+      color: #000000;
+      border-radius: 18px 18px 4px 18px;
+      max-width: 65%;
+      font-weight: 500;
+    }
+
+    .chat-row.jarvis .chat-bubble {
+      color: #ffffff;
+      border-radius: 18px 18px 18px 4px;
+      max-width: 70%;
+    }
+
+    .chat-meta {
+      font-size: 11px;
+      color: #555555;
+      margin-top: 6px;
+      font-weight: 500;
+    }
+
+    .chat-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 8px;
+    }
+
+    .info-chip {
+      font-size: 11px;
+      padding: 4px 8px;
+      border-radius: 4px;
+      background: #141414;
+      color: #888888;
+      border: 1px solid #222222;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* ══════════════════════════════════════════════════════
+       BRAIN THINKING LOADER
+       ══════════════════════════════════════════════════════ */
+    #brain-thinking {
+      width: 40px;
+      height: 40px;
+      margin-bottom: 20px;
+      opacity: 0;
+      animation: fadeIn 0.3s forwards;
+    }
+
+    @keyframes fadeIn {
+      to {
+        opacity: 1;
+      }
+    }
+
+    /* ══════════════════════════════════════════════════════
+       TOAST & FLASH NOTIFICATIONS
+       ══════════════════════════════════════════════════════ */
+    #toast-container {
+      position: fixed;
+      bottom: 100px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 1000;
+      pointer-events: none;
+    }
+
+    .toast {
+      background: #1a1a1a;
+      color: #ffffff;
+      padding: 10px 20px;
+      border-radius: 8px;
+      border: 1px solid #333333;
+      font-size: 13px;
+      font-weight: 600;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity 0.3s, transform 0.3s;
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @keyframes flashBtn {
+
+      0%,
+      100% {
+        background: #141414;
+        border-color: #2a2a2a;
+        color: #888888;
+      }
+
+      50% {
+        background: var(--flash-color);
+        border-color: var(--flash-color);
+        color: #000000;
+      }
+    }
+
+    .btn-modelo.flash-active {
+      animation: flashBtn 0.5s ease-in-out 3;
+    }
+
+    #btn-nuevo-chat {
+      width: calc(100% - 24px);
+      margin: 10px 12px 14px 12px;
+      height: 38px;
+      border-radius: 6px;
+      border: 1px dashed #00ff00;
+      background: rgba(0, 255, 0, 0.05);
+      color: #00ff00;
+      font-family: inherit;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s, box-shadow 0.2s, transform 0.1s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+
+    #btn-nuevo-chat:hover {
+      background: rgba(0, 255, 0, 0.1);
+      box-shadow: 0 0 10px rgba(0, 255, 0, 0.15);
+      transform: translateY(-1px);
+    }
+
+    #btn-nuevo-chat:active {
+      transform: translateY(0);
+    }
+
+    /* ══════════════════════════════════════════════════════
+       HISTORIAL LIST ITEMS
+       ══════════════════════════════════════════════════════ */
+    .historial-item {
+      width: calc(100% - 16px);
+      margin: 4px 8px;
+      padding: 10px 12px;
+      border-radius: 6px;
+      background: #141414;
+      border: 1px solid #222222;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      transition: background 0.2s, border-color 0.2s;
+      text-align: left;
+    }
+
+    .historial-item:hover {
+      background: #1e1e1e;
+      border-color: #3a3a3a;
+    }
+
+    .historial-item.active {
+      background: rgba(0, 255, 0, 0.08) !important;
+      border-color: #00ff00 !important;
+    }
+
+
+    .historial-pregunta {
+      font-size: 12px;
+      font-weight: 500;
+      color: #dddddd;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .historial-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 10px;
+      color: #666666;
+    }
+
+    .historial-modelo {
+      font-weight: 600;
+    }
+
+    /* ══════════════════════════════════════════════════════
+       VOICE CONTROL INFRASTRUCTURE CSS
+       ══════════════════════════════════════════════════════ */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.75);
+      backdrop-filter: blur(4px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 2000;
+      transition: opacity 0.3s;
+    }
+
+    .modal-content {
+      background: #141414;
+      border: 1px solid #333333;
+      border-radius: 8px;
+      padding: 24px;
+      max-width: 420px;
+      width: calc(100% - 32px);
+      text-align: center;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
+    }
+
+    .modal-content h3 {
+      margin-bottom: 12px;
+      color: #00ff00;
+      font-size: 18px;
+      font-weight: 700;
+    }
+
+    .modal-content p {
+      color: #cccccc;
+      margin-bottom: 20px;
+      line-height: 1.6;
+      font-size: 13.5px;
+    }
+
+    #btn-close-modal {
+      background: #2a2a2a;
+      color: #ffffff;
+      border: 1px solid #444444;
+      padding: 8px 20px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: background 0.2s, border-color 0.2s;
+    }
+
+    #btn-close-modal:hover {
+      background: #3a3a3a;
+      border-color: #555555;
+    }
+
+    .btn-speaker {
+      background: transparent;
+      border: none;
+      color: #666666;
+      cursor: pointer;
+      font-size: 12px;
+      padding: 4px 6px;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: color 0.2s, background 0.2s;
+      position: relative;
+    }
+
+    .btn-speaker:hover {
+      color: #00ff00;
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .btn-speaker::after {
+      content: "Audio próximamente";
+      position: absolute;
+      bottom: 130%;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #1a1a1a;
+      border: 1px solid #333;
+      color: #dddddd;
+      padding: 4px 8px;
+      font-size: 9px;
+      border-radius: 4px;
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+      z-index: 10;
+    }
+
+    .btn-speaker:hover::after {
+      opacity: 1;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app">
+
+    <!-- ══════════════════════════════════════
+         HEADER — full width, fixed
+    ══════════════════════════════════════ -->
+    <header id="header">
+      <div id="header-brand">
+        <h1>JARVIS</h1>
+        <p id="header-subtitle">
+          Un agente de IA, corriendo de manera local en tu computadora sin necesidad de internet.
+        </p>
+      </div>
+      <div id="header-right">
+        <div id="status-indicator">
+          <span id="status-dot"></span>
+          <span id="status-text">Verificando…</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- ══════════════════════════════════════
+         MAIN — CSS Grid: sidebar | right-panel
+    ══════════════════════════════════════ -->
+    <main id="main">
+
+      <!-- Left column: 220px sidebar -->
+      <aside id="sidebar">
+        <div id="historial-cajon">
+          <div id="sidebar-label">Historial</div>
+          <button id="btn-nuevo-chat">+ Nuevo Chat</button>
+          <div id="historial-lista">
+            <!-- History entries injected by JS -->
+          </div>
+        </div>
+      </aside>
+
+      <!-- Right column: model selector + chat + input bar -->
+      <section id="right-panel">
+
+        <!-- Model selector: hint + row of 5 buttons + AUTO row -->
+        <div id="model-selector">
+          <p id="model-selector-hint">
+            Selecciona el modelo que desees probar o deja que el programa lo detecte automaticamente segun la
+            complejidad:
+          </p>
+
+          <!-- Row 1: 5 model buttons -->
+          <div id="model-buttons-row">
+            <button class="btn-modelo" id="btn-modelo-1" title="llama3.2:3b-instruct-q3_K_M">
+              <span class="btn-name">Llama Q3</span>
+              <span class="btn-stat">6.7 tok/s · más rápido</span>
+            </button>
+            <button class="btn-modelo" id="btn-modelo-2" title="llama3.2:3b-instruct-q4_K_M">
+              <span class="btn-name">Llama Q4</span>
+              <span class="btn-stat">27.8 tok/s · recomendado</span>
+            </button>
+            <button class="btn-modelo" id="btn-modelo-3" title="llama3.2:3b-instruct-q8_0">
+              <span class="btn-name">Llama Q8</span>
+              <span class="btn-stat">4.9 tok/s · mejor calidad</span>
+            </button>
+            <button class="btn-modelo" id="btn-modelo-4" title="phi4-mini:3.8b-q4_K_M">
+              <span class="btn-name">Phi Q4</span>
+              <span class="btn-stat">22.7 tok/s · código</span>
+            </button>
+            <button class="btn-modelo" id="btn-modelo-5" title="phi4-mini:3.8b-q8_0">
+              <span class="btn-name">Phi Q8</span>
+              <span class="btn-stat">4.9 tok/s · precisión</span>
+            </button>
+          </div>
+
+          <!-- Row 2: AUTOMÁTICO centered -->
+          <div id="auto-row">
+            <button id="btn-auto" title="El sistema elige el modelo óptimo automáticamente">AUTOMÁTICO</button>
+          </div>
+        </div>
+
+        <!-- Chat area: scrollable, fills remaining height -->
+        <div id="chat-area">
+          <!-- Chat bubbles injected by JS -->
+        </div>
+
+        <!-- Input bar: pinned to bottom of right-panel -->
+        <footer id="footer">
+          <button id="btn-mic" title="Control por voz" aria-label="Iniciar control por voz">🎤</button>
+
+          <div id="input-wrapper">
+            <input id="pregunta-input" type="text" placeholder="Escríbele algo a Jarvis..." autocomplete="off"
+              spellcheck="false" aria-label="Escribe tu pregunta" />
+            <button id="btn-send" title="Enviar" aria-label="Enviar mensaje">→</button>
+          </div>
+        </footer>
+
+      </section>
+
+    </main>
+
+  </div><!-- /#app -->
+
+  <!-- Toast container -->
+  <div id="toast-container"></div>
+
+  <!-- Voice Control Modal Overlay -->
+  <div id="voice-modal" class="modal-overlay" style="display: none;">
+    <div class="modal-content">
+      <h3>Control por voz próximamente</h3>
+      <p>Esta función usará Whisper para transcripción local y Piper TTS para respuesta en audio.</p>
+      <button id="btn-close-modal">Cerrar</button>
+    </div>
+  </div>
+
+  <!-- Hidden Voice Integration Elements -->
+  <audio id="jarvis-audio" style="display:none"></audio>
+  <div id="voice-status" style="display:none"></div>
+  <div id="transcript-preview" style="display:none"></div>
+
+  <script>
+    /* ════════════════════════════════════════════════════════
+       MODEL COLOR SYSTEM
+       Global state available to all future JS phases.
+    ════════════════════════════════════════════════════════ */
+
+    /** Map: technical model name → { color, displayName, stat, btnId } */
+    const MODEL_COLORS = {
+      'llama3.2:3b-instruct-q3_K_M': {
+        color: '#FF6B35',
+        displayName: 'Llama Q3',
+        stat: '6.7 tok/s · más rápido',
+        btnId: 'btn-modelo-1'
+      },
+      'llama3.2:3b-instruct-q4_K_M': {
+        color: '#00B4D8',
+        displayName: 'Llama Q4',
+        stat: '27.8 tok/s · recomendado',
+        btnId: 'btn-modelo-2'
+      },
+      'llama3.2:3b-instruct-q8_0': {
+        color: '#FF006E',
+        displayName: 'Llama Q8',
+        stat: '4.9 tok/s · mejor calidad',
+        btnId: 'btn-modelo-3'
+      },
+      'phi4-mini:3.8b-q4_K_M': {
+        color: '#FFBE0B',
+        displayName: 'Phi Q4',
+        stat: '22.7 tok/s · código',
+        btnId: 'btn-modelo-4'
+      },
+      'phi4-mini:3.8b-q8_0': {
+        color: '#8338EC',
+        displayName: 'Phi Q8',
+        stat: '4.9 tok/s · precisión',
+        btnId: 'btn-modelo-5'
+      }
+    };
+
+    /** Reverse map: btnId → technical model name */
+    const BTN_TO_MODEL = {};
+    for (const [modelName, cfg] of Object.entries(MODEL_COLORS)) {
+      BTN_TO_MODEL[cfg.btnId] = modelName;
+    }
+
+    /** Global state */
+    let modeloActivo = null;   // technical model name, or null when auto
+    let modoAuto = true;   // true = AUTOMATICO selected
+
+    // Conversation History states
+    let currentChatId = null;
+    let cachedChats = [];   // holds grouped chat objects from the server
+
+    // Voice Control Infrastructure Global Object
+    window.jarvisVoice = {
+      startRecording: async function () {
+        console.log("startRecording: Whisper se conectará aquí en el futuro.");
+      },
+      stopRecording: async function () {
+        console.log("stopRecording: Whisper se conectará aquí en el futuro.");
+      },
+      playResponse: async function (text) {
+        console.log("playResponse: Piper TTS reproducirá en audio:", text);
+      },
+      isRecording: false,
+      isPlaying: false
+    };
+
+    const COLOR_AUTO = '#00FF00';
+
+    /* ── DOM refs ──────────────────────────────────────────── */
+    const btnAuto = document.getElementById('btn-auto');
+    const inputEl = document.getElementById('pregunta-input');
+    const modelBtns = document.querySelectorAll('.btn-modelo');
+    const btnMic = document.getElementById('btn-mic');
+    const voiceModal = document.getElementById('voice-modal');
+    const btnCloseModal = document.getElementById('btn-close-modal');
+
+    /* ── Core: apply visual selection state ─────────────────
+       accentColor: hex string to highlight the chosen option
+       selectedBtnId: id of the button to light up (null = auto)
+    ────────────────────────────────────────────────────────── */
+    function applySelection(accentColor, selectedBtnId) {
+      /* 1. Update input bottom border via CSS custom property */
+      document.documentElement.style.setProperty('--input-accent', accentColor);
+
+      /* 2. Style each model button */
+      modelBtns.forEach(btn => {
+        btn.classList.remove('selected', 'dimmed');
+        btn.style.background = '';
+        btn.style.borderColor = '';
+        btn.style.color = '';
+
+        if (btn.id === selectedBtnId) {
+          /* Lit-up state */
+          btn.classList.add('selected');
+          btn.style.background = accentColor;
+          btn.style.borderColor = accentColor;
+          btn.style.color = '#000000';
+          const stat = btn.querySelector('.btn-stat');
+          if (stat) stat.style.color = 'rgba(0,0,0,0.6)';
+        } else {
+          /* Dimmed state */
+          btn.classList.add('dimmed');
+          const stat = btn.querySelector('.btn-stat');
+          if (stat) stat.style.color = '';
+        }
+      });
+
+      /* 3. Style AUTOMATICO button */
+      btnAuto.classList.remove('selected', 'dimmed');
+      if (selectedBtnId === null) {
+        btnAuto.classList.add('selected');   /* green active state via CSS */
+      } else {
+        btnAuto.classList.add('dimmed');
+      }
+    }
+
+    /* ── Event: click a model button ───────────────────────── */
+    modelBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const modelName = BTN_TO_MODEL[btn.id];
+        if (!modelName) return;
+
+        modeloActivo = modelName;
+        modoAuto = false;
+
+        const color = MODEL_COLORS[modelName].color;
+        applySelection(color, btn.id);
+      });
+    });
+
+    /* ── Event: click AUTOMATICO ───────────────────────────── */
+    btnAuto.addEventListener('click', () => {
+      modeloActivo = null;
+      modoAuto = true;
+      applySelection(COLOR_AUTO, null);
+    });
+
+    /* ── Toast notifications ────────────────────────────────── */
+    function showToast(message) {
+      const toastContainer = document.getElementById('toast-container');
+      const toast = document.createElement('div');
+      toast.className = 'toast';
+      toast.innerText = message;
+      toastContainer.appendChild(toast);
+
+      // Trigger animation
+      setTimeout(() => toast.classList.add('show'), 10);
+
+      // Remove after 2 seconds
+      setTimeout(() => {
+        toast.classList.remove('show');
+        setTimeout(() => toast.remove(), 300);
+      }, 2000);
+    }
+
+    /* ── Get Ollama Status ─────────────────────────────────── */
+    async function loadStatus() {
+      try {
+        const res = await fetch('/api/status');
+        if (!res.ok) throw new Error();
+        const data = await res.json();
+        const dot = document.getElementById('status-dot');
+        const text = document.getElementById('status-text');
+        if (data.ollama) {
+          dot.className = 'active';
+          text.innerText = 'Ollama activo';
+        } else {
+          dot.className = 'inactive';
+          text.innerText = 'Ollama inactivo';
+        }
+      } catch (e) {
+        const dot = document.getElementById('status-dot');
+        const text = document.getElementById('status-text');
+        dot.className = 'inactive';
+        text.innerText = 'Ollama inactivo';
+      }
+    }
+
+    /* ── Iniciar Nuevo Chat ────────────────────────────────── */
+    function iniciarNuevoChat() {
+      currentChatId = `chat-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
+
+      const chatArea = document.getElementById('chat-area');
+      chatArea.innerHTML = '';
+
+      inputEl.value = '';
+
+      // Deseleccionar chats activos del sidebar
+      const items = document.querySelectorAll('.historial-item');
+      items.forEach(item => item.classList.remove('active'));
+    }
+
+    /* ── Sending Message ───────────────────────────────────── */
+    async function enviarMensaje() {
+      const text = inputEl.value.trim();
+      if (!text) return;
+
+      // Si no hay chat activo, inicializamos uno nuevo
+      if (!currentChatId) {
+        iniciarNuevoChat();
+      }
+
+      const exchangeId = `exchange-${Date.now()}`;
+      const activeColor = modoAuto ? COLOR_AUTO : MODEL_COLORS[modeloActivo].color;
+      const chatArea = document.getElementById('chat-area');
+
+      // 1. Create User Bubble
+      const userRow = document.createElement('div');
+      userRow.className = 'chat-row user';
+      userRow.id = `${exchangeId}-user`;
+
+      const bubble = document.createElement('div');
+      bubble.className = 'chat-bubble';
+      bubble.style.backgroundColor = activeColor;
+      bubble.innerText = text;
+
+      const meta = document.createElement('span');
+      meta.className = 'chat-meta';
+      meta.innerText = 'tú · ahora';
+
+      userRow.appendChild(bubble);
+      userRow.appendChild(meta);
+      chatArea.appendChild(userRow);
+
+      // Scroll to bottom & clear input
+      chatArea.scrollTop = chatArea.scrollHeight;
+      inputEl.value = '';
+
+      // 2. Show Brain thinking GIF
+      const brain = document.createElement('img');
+      brain.id = 'brain-thinking';
+      brain.src = 'static/brain.gif';
+      brain.alt = 'Pensando...';
+      chatArea.appendChild(brain);
+      chatArea.scrollTop = chatArea.scrollHeight;
+
+      // 3. Call API
+      await llamarChatAPI(text, exchangeId, brain);
+    }
+
+    /* ── API Communication ─────────────────────────────────── */
+    async function llamarChatAPI(pregunta, exchangeId, brainEl) {
+      const bodyData = {
+        pregunta: pregunta,
+        modelo: modeloActivo || 'llama3.2:3b-instruct-q4_K_M',
+        modo: modoAuto ? 'auto' : 'manual'
+      };
+
+      try {
+        const res = await fetch('/api/chat', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(bodyData)
+        });
+
+        // Remove Brain loader
+        if (brainEl) brainEl.remove();
+
+        if (!res.ok) {
+          const errData = await res.json().catch(() => ({}));
+          throw new Error(errData.error || 'Error al obtener respuesta de Jarvis.');
+        }
+
+        const data = await res.json();
+
+        // Render response
+        pintarRespuestaJarvis(data, exchangeId);
+
+        // Save exchange to server history
+        await guardarHistorial(pregunta, data, exchangeId);
+
+        // Reproducir audio automáticamente al recibir respuesta
+        if (window.jarvisVoice && typeof window.jarvisVoice.playResponse === 'function') {
+          window.jarvisVoice.playResponse(data.respuesta);
+        }
+
+        // Auto selection flash feedback & toast
+        if (modoAuto && data.modelo_usado) {
+          highlightSelectedModel(data.modelo_usado);
+        }
+
+      } catch (err) {
+        if (brainEl) brainEl.remove();
+        pintarError(err.message || 'Error inesperado.', exchangeId);
+      }
+    }
+
+    /* ── Render Jarvis Bubble ──────────────────────────────── */
+    function pintarRespuestaJarvis(data, exchangeId) {
+      const chatArea = document.getElementById('chat-area');
+      const modelKey = data.modelo_usado;
+      const cfg = MODEL_COLORS[modelKey] || { color: '#00b4d8', displayName: modelKey };
+      const modelColor = cfg.color;
+
+      const jarvisRow = document.createElement('div');
+      jarvisRow.className = 'chat-row jarvis';
+      jarvisRow.id = `${exchangeId}-jarvis`;
+
+      // Bubble styling with 15% bg and 30% border opacity
+      const bubble = document.createElement('div');
+      bubble.className = 'chat-bubble';
+      bubble.style.backgroundColor = `${modelColor}26`;
+      bubble.style.border = `1px solid ${modelColor}4d`;
+      bubble.innerText = data.respuesta;
+
+      // Fila de chips
+      const chipsContainer = document.createElement('div');
+      chipsContainer.className = 'chat-chips';
+
+      // Tool chip
+      if (data.herramienta || data.tipo === 'rag') {
+        const toolChip = document.createElement('span');
+        toolChip.className = 'info-chip';
+
+        let label = '';
+        if (data.tipo === 'rag') {
+          label = '📚 RAG · Don Quijote';
+        } else {
+          const t = data.herramienta.toLowerCase();
+          if (t.includes('weather') || t.includes('clima') || t.includes('get_weather')) {
+            label = '🌤 clima · Open-Meteo';
+          } else if (t.includes('crypto') || t.includes('cripto') || t.includes('bitcoin') || t.includes('get_crypto_price')) {
+            label = '₿ cripto · CoinGecko';
+          } else if (t.includes('calendar') || t.includes('calendario') || t.includes('listar_calendarios') || t.includes('listar_eventos') || t.includes('crear_evento')) {
+            label = '📅 calendario · Google';
+          } else if (t.includes('github') || t.includes('github_api') || t.includes('obtener_repo')) {
+            label = '🐙 github · API';
+          } else {
+            label = `🔧 ${data.herramienta}`;
+          }
+        }
+
+        toolChip.innerText = label;
+        chipsContainer.appendChild(toolChip);
+      }
+
+      // Model name chip
+      const modelChip = document.createElement('span');
+      modelChip.className = 'info-chip';
+      modelChip.innerText = cfg.displayName || modelKey;
+      chipsContainer.appendChild(modelChip);
+
+      // Latency chip
+      const timeChip = document.createElement('span');
+      timeChip.className = 'info-chip';
+      timeChip.innerText = `${data.tiempo_s}s`;
+      chipsContainer.appendChild(timeChip);
+
+      // Speaker button chip
+      const speakerBtn = document.createElement('button');
+      speakerBtn.className = 'btn-speaker';
+      speakerBtn.innerHTML = '🔊';
+      speakerBtn.title = 'Audio próximamente';
+      speakerBtn.addEventListener('click', () => {
+        if (window.jarvisVoice && typeof window.jarvisVoice.playResponse === 'function') {
+          window.jarvisVoice.playResponse(data.respuesta);
+        }
+      });
+      chipsContainer.appendChild(speakerBtn);
+
+      jarvisRow.appendChild(bubble);
+      jarvisRow.appendChild(chipsContainer);
+      chatArea.appendChild(jarvisRow);
+
+      chatArea.scrollTop = chatArea.scrollHeight;
+    }
+
+    /* ── Render Error Bubble ───────────────────────────────── */
+    function pintarError(msg, exchangeId) {
+      const chatArea = document.getElementById('chat-area');
+      const errorRow = document.createElement('div');
+      errorRow.className = 'chat-row jarvis';
+      errorRow.id = `${exchangeId}-error`;
+
+      const bubble = document.createElement('div');
+      bubble.className = 'chat-bubble';
+      bubble.style.backgroundColor = '#ff4a4a26';
+      bubble.style.border = '1px solid #ff4a4a4d';
+      bubble.innerText = msg;
+
+      errorRow.appendChild(bubble);
+      chatArea.appendChild(errorRow);
+      chatArea.scrollTop = chatArea.scrollHeight;
+    }
+
+    /* ── Save exchange & Update history ────────────────────── */
+    async function guardarHistorial(pregunta, responseData, exchangeId) {
+      const exchange = {
+        chat_id: currentChatId,
+        pregunta: pregunta,
+        respuesta: responseData.respuesta,
+        modelo: responseData.modelo_usado,
+        herramienta: responseData.herramienta,
+        tiempo_s: responseData.tiempo_s
+      };
+
+      try {
+        const res = await fetch('/api/historial/guardar', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(exchange)
+        });
+
+        if (res.ok) {
+          // Obtener la lista actualizada de chats
+          const histRes = await fetch('/api/historial');
+          if (histRes.ok) {
+            cachedChats = await histRes.json();
+            renderSidebar();
+          }
+        }
+      } catch (e) {
+        console.error('Error al registrar historial:', e);
+      }
+    }
+
+    /* ── Render Sidebar Chats ──────────────────────────────── */
+    function renderSidebar() {
+      const lista = document.getElementById('historial-lista');
+      lista.innerHTML = '';
+
+      cachedChats.forEach((chat) => {
+        const item = document.createElement('button');
+        item.className = 'historial-item';
+        if (chat.chat_id === currentChatId) {
+          item.classList.add('active');
+        }
+
+        // Obtener info del último mensaje del chat
+        let ultimoMsg = null;
+        if (chat.mensajes && chat.mensajes.length > 0) {
+          ultimoMsg = chat.mensajes[chat.mensajes.length - 1];
+        }
+
+        const textExcerpt = chat.titulo || 'Chat vacío';
+
+        let modeloName = '';
+        let modeloColor = '#888888';
+        if (ultimoMsg) {
+          const cfg = MODEL_COLORS[ultimoMsg.modelo] || {};
+          modeloName = cfg.displayName || ultimoMsg.modelo;
+          modeloColor = cfg.color || '#888888';
+        }
+
+        let horaStr = '00:00';
+        if (chat.timestamp) {
+          try {
+            const date = new Date(chat.timestamp);
+            horaStr = date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false });
+          } catch (e) { }
+        }
+
+        item.innerHTML = `
+          <span class="historial-pregunta">${textExcerpt}</span>
+          <div class="historial-meta">
+            <span class="historial-modelo" style="color: ${modeloColor}">${modeloName}</span>
+            <span class="historial-hora">${horaStr}</span>
+          </div>
+        `;
+
+        item.addEventListener('click', () => {
+          if (currentChatId === chat.chat_id) return;
+          currentChatId = chat.chat_id;
+
+          // Actualizar estado activo
+          document.querySelectorAll('.historial-item').forEach(el => el.classList.remove('active'));
+          item.classList.add('active');
+
+          cargarConversacionEnPantalla(chat.chat_id);
+        });
+
+        lista.appendChild(item);
+      });
+    }
+
+    /* ── Render Chat Message Sequence ──────────────────────── */
+    function pintarConversacion(mensajes) {
+      const chatArea = document.getElementById('chat-area');
+      chatArea.innerHTML = '';
+
+      mensajes.forEach((msg, idx) => {
+        const exchangeId = `msg-${idx}-${Date.now()}`;
+
+        let horaStr = '00:00';
+        if (msg.timestamp) {
+          try {
+            const date = new Date(msg.timestamp);
+            horaStr = date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false });
+          } catch (e) { }
+        }
+
+        // 1. Burbuja del usuario
+        const userRow = document.createElement('div');
+        userRow.className = 'chat-row user';
+        userRow.id = `${exchangeId}-user`;
+
+        const cfg = MODEL_COLORS[msg.modelo] || { color: '#00FF00' };
+        const userBubbleColor = cfg.color;
+
+        const bubbleUser = document.createElement('div');
+        bubbleUser.className = 'chat-bubble';
+        bubbleUser.style.backgroundColor = userBubbleColor;
+        bubbleUser.innerText = msg.pregunta;
+
+        const metaUser = document.createElement('span');
+        metaUser.className = 'chat-meta';
+        metaUser.innerText = `tú · ${horaStr}`;
+
+        userRow.appendChild(bubbleUser);
+        userRow.appendChild(metaUser);
+        chatArea.appendChild(userRow);
+
+        // 2. Burbuja de Jarvis
+        const jarvisRow = document.createElement('div');
+        jarvisRow.className = 'chat-row jarvis';
+        jarvisRow.id = `${exchangeId}-jarvis`;
+
+        const modelColor = cfg.color || '#00b4d8';
+        const bubbleJarvis = document.createElement('div');
+        bubbleJarvis.className = 'chat-bubble';
+        bubbleJarvis.style.backgroundColor = `${modelColor}26`;
+        bubbleJarvis.style.border = `1px solid ${modelColor}4d`;
+        bubbleJarvis.innerText = msg.respuesta;
+
+        // Fila de chips
+        const chipsContainer = document.createElement('div');
+        chipsContainer.className = 'chat-chips';
+
+        // Determinar RAG
+        const pregLower = msg.pregunta.toLowerCase();
+        const esRag = msg.tipo === 'rag' || (!msg.herramienta && (pregLower.includes('quijote') || pregLower.includes('cervantes') || pregLower.includes('sancho') || pregLower.includes('dulcinea')));
+
+        if (esRag) {
+          const toolChip = document.createElement('span');
+          toolChip.className = 'info-chip';
+          toolChip.innerText = '📚 RAG · Don Quijote';
+          chipsContainer.appendChild(toolChip);
+        } else if (msg.herramienta) {
+          const toolChip = document.createElement('span');
+          toolChip.className = 'info-chip';
+
+          const t = msg.herramienta.toLowerCase();
+          let label = '';
+          if (t.includes('weather') || t.includes('clima') || t.includes('get_weather')) {
+            label = '🌤 clima · Open-Meteo';
+          } else if (t.includes('crypto') || t.includes('cripto') || t.includes('bitcoin') || t.includes('get_crypto_price')) {
+            label = '₿ cripto · CoinGecko';
+          } else if (t.includes('calendar') || t.includes('calendario') || t.includes('listar_calendarios') || t.includes('listar_eventos') || t.includes('crear_evento')) {
+            label = '📅 calendario · Google';
+          } else if (t.includes('github') || t.includes('github_api') || t.includes('obtener_repo')) {
+            label = '🐙 github · API';
+          } else {
+            label = `🔧 ${msg.herramienta}`;
+          }
+          toolChip.innerText = label;
+          chipsContainer.appendChild(toolChip);
+        }
+
+        // Model name chip
+        const modelChip = document.createElement('span');
+        modelChip.className = 'info-chip';
+        modelChip.innerText = cfg.displayName || msg.modelo;
+        chipsContainer.appendChild(modelChip);
+
+        // Latency chip
+        const timeChip = document.createElement('span');
+        timeChip.className = 'info-chip';
+        timeChip.innerText = `${msg.tiempo_s || 0}s`;
+        chipsContainer.appendChild(timeChip);
+
+        // Speaker button chip
+        const speakerBtn = document.createElement('button');
+        speakerBtn.className = 'btn-speaker';
+        speakerBtn.innerHTML = '🔊';
+        speakerBtn.title = 'Audio próximamente';
+        speakerBtn.addEventListener('click', () => {
+          if (window.jarvisVoice && typeof window.jarvisVoice.playResponse === 'function') {
+            window.jarvisVoice.playResponse(msg.respuesta);
+          }
+        });
+        chipsContainer.appendChild(speakerBtn);
+
+        jarvisRow.appendChild(bubbleJarvis);
+        jarvisRow.appendChild(chipsContainer);
+        chatArea.appendChild(jarvisRow);
+      });
+
+      chatArea.scrollTop = chatArea.scrollHeight;
+    }
+
+    /* ── Load Active Chat's Messages ───────────────────────── */
+    function cargarConversacionEnPantalla(chatId) {
+      const chat = cachedChats.find(c => c.chat_id === chatId);
+      if (!chat) return;
+      pintarConversacion(chat.mensajes || []);
+    }
+
+    /* ── Flash selected model button ───────────────────────── */
+    function highlightSelectedModel(modeloUsado) {
+      const cfg = MODEL_COLORS[modeloUsado];
+      if (!cfg) return;
+
+      const btn = document.getElementById(cfg.btnId);
+      if (btn) {
+        btn.style.setProperty('--flash-color', cfg.color);
+        btn.classList.add('flash-active');
+
+        // Show selection toast
+        showToast(`Jarvis eligió: ${cfg.displayName}`);
+
+        // Clear flash animation
+        setTimeout(() => {
+          btn.classList.remove('flash-active');
+        }, 1500);
+      }
+    }
+
+    /* ── Load History on Page Load ─────────────────────────── */
+    async function loadHistorial() {
+      try {
+        const res = await fetch('/api/historial');
+        if (!res.ok) throw new Error();
+        cachedChats = await res.json();
+
+        if (cachedChats.length > 0) {
+          currentChatId = cachedChats[0].chat_id;
+          renderSidebar();
+          cargarConversacionEnPantalla(currentChatId);
+        } else {
+          iniciarNuevoChat();
+          renderSidebar();
+        }
+      } catch (e) {
+        console.error('Error al cargar historial inicial:', e);
+        iniciarNuevoChat();
+      }
+    }
+
+    /* ── Register Action Listeners ─────────────────────────── */
+    inputEl.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') {
+        enviarMensaje();
+      }
+    });
+
+    const btnSend = document.getElementById('btn-send');
+    if (btnSend) {
+      btnSend.addEventListener('click', enviarMensaje);
+    }
+
+    const btnNuevoChat = document.getElementById('btn-nuevo-chat');
+    if (btnNuevoChat) {
+      btnNuevoChat.addEventListener('click', iniciarNuevoChat);
+    }
+
+    // Voice control modal listeners
+    if (btnMic && voiceModal && btnCloseModal) {
+      btnMic.addEventListener('click', () => {
+        voiceModal.style.display = 'flex';
+      });
+
+      btnCloseModal.addEventListener('click', () => {
+        voiceModal.style.display = 'none';
+      });
+
+      voiceModal.addEventListener('click', (e) => {
+        if (e.target === voiceModal) {
+          voiceModal.style.display = 'none';
+        }
+      });
+    }
+
+    /* ── Init: Clean active states on startup & Startup APIs ─ */
+    document.documentElement.style.setProperty('--input-accent', COLOR_AUTO);
+    modelBtns.forEach(btn => {
+      btn.classList.remove('selected', 'dimmed');
+      btn.style.background = '';
+      btn.style.borderColor = '';
+      btn.style.color = '';
+    });
+    btnAuto.classList.remove('selected', 'dimmed');
+    loadStatus();
+    loadHistorial();
+  </script>
+</body>
+
+</html>
