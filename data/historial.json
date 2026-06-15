@@ -1,8 +1,127 @@
 [
   {
+    "chat_id": "chat-1781507581296-634",
+    "titulo": "Dime los eventos de mi calendario",
+    "timestamp": "2026-06-15T07:49:58.615999+00:00",
+    "mensajes": [
+      {
+        "pregunta": "Dime los eventos de mi calendario",
+        "respuesta": "\"Tenemos varios eventos programados para ti este día. En primer lugar, tienes un día completo en la universidad para evaluar tu defensa de tesis sobre el tema 'Bias vs Variance'. Además, hay partidos de fútbol internacionales: España se enfrenta a Cape Verde a las 11:00, seguido de Belgium vs Egypt a las 14:00 y Saudi Arabia vs Uruguay a las 17:00. También tienes una reunión con el titular 'Jarvis' a las 23:58, y finalmente, un día completo en la universidad para entregar tu trabajo 'Entregable 3 (PRACTICAS Y HERRAMIENTAS DE BIG DATA 06-SIN-A)'\".",
+        "modelo": "llama3.2:3b-instruct-q4_K_M",
+        "herramienta": "eventos_de_hoy",
+        "tiempo_s": 48.28,
+        "timestamp": "2026-06-15T07:13:58.467441+00:00"
+      },
+      {
+        "pregunta": "Dime el precio de la criptomoneda más cara que existe",
+        "respuesta": "El precio actual de Bitcoin es de aproximadamente $65,829 por unidad, lo que representa un aumento del 2,44% en las últimas 24 horas. Su capitalización de mercado se estima en más de 13 billones de dólares.",
+        "modelo": "llama3.2:3b-instruct-q4_K_M",
+        "herramienta": "precio_cripto",
+        "tiempo_s": 17.06,
+        "timestamp": "2026-06-15T07:17:48.505345+00:00"
+      },
+      {
+        "pregunta": "Cuándo juega Ecuador según mi calendario",
+        "respuesta": "\"En el calendario de Ecuador, tienes varios eventos importantes programados. El 20 de junio de 2026 jugarás contra Curacao en un partido de MUNDIAL 2026 a las 19:00, y el 25 de junio jugarás contra Alemania también en un partido de MUNDIAL 2026 a las 15:00. Además, el 24 de julio es el Natalicio de Simón Bolivar, y el 10 de agosto es el Día de la Independencia, ambos días se celebran como festividades.\"",
+        "modelo": "llama3.2:3b-instruct-q4_K_M",
+        "herramienta": "buscar_eventos",
+        "tiempo_s": 40.34,
+        "timestamp": "2026-06-15T07:25:19.943003+00:00"
+      },
+      {
+        "pregunta": "Hola",
+        "respuesta": "Hola! Soy Jarvis, tu asistente local. Estoy listo para ayudarte.",
+        "modelo": "llama3.2:3b-instruct-q3_K_M",
+        "herramienta": null,
+        "tiempo_s": 7.05,
+        "timestamp": "2026-06-15T07:26:59.678819+00:00"
+      },
+      {
+        "pregunta": "clima de Quito hoy",
+        "respuesta": "\"Hoy en Quito está nublado con una temperatura de 9.3 grados Celsius y un humedad del 80%. También hay un viento suave de 1.7 kilómetros por hora.\"",
+        "modelo": "llama3.2:3b-instruct-q4_K_M",
+        "herramienta": "obtener_clima",
+        "tiempo_s": 15.9,
+        "timestamp": "2026-06-15T07:27:37.049036+00:00"
+      },
+      {
+        "pregunta": "Ecuador en el mundial",
+        "respuesta": "Claro, Ecuador estará presente en el Mundial de fútbol de 2026 con partidos contra Curacao y Alemania. Además, hay eventos relacionados con festivales como el natalicio de Simón Bolivar y el Día de la Independencia del Ecuador.",
+        "modelo": "llama3.2:3b-instruct-q3_K_M",
+        "herramienta": "buscar_eventos",
+        "tiempo_s": 9.83,
+        "timestamp": "2026-06-15T07:28:04.005809+00:00"
+      },
+      {
+        "pregunta": "cuanto es 10+10",
+        "respuesta": "La respuesta a la pregunta es 20",
+        "modelo": "llama3.2:3b-instruct-q3_K_M",
+        "herramienta": null,
+        "tiempo_s": 3.37,
+        "timestamp": "2026-06-15T07:29:02.748845+00:00"
+      },
+      {
+        "pregunta": "Cuanto vale la criptomoneda mas barata que existe",
+        "respuesta": "La criptomoneda más barata actualmente es Bitcoin, con un precio de aproximadamente $65,736 USD. Es importante tener en cuenta que los precios de las criptomonedas pueden variar rápidamente y pueden cambiar desde el momento en el que se obtienen estos datos.",
+        "modelo": "llama3.2:3b-instruct-q4_K_M",
+        "herramienta": "precio_cripto",
+        "tiempo_s": 31.98,
+        "timestamp": "2026-06-15T07:35:38.488198+00:00"
+      },
+      {
+        "pregunta": "cuanto vale la criptomoneda BitTorrent (BTT)",
+        "respuesta": "Error: Criptomoneda no encontrada: btt",
+        "modelo": "llama3.2:3b-instruct-q4_K_M",
+        "herramienta": "precio_cripto",
+        "tiempo_s": 7.38,
+        "timestamp": "2026-06-15T07:36:55.595486+00:00"
+      },
+      {
+        "pregunta": "nombre del autor de Don Quijote de la Mancha",
+        "respuesta": "Según el texto del libro \"Don Quijote de la Mancha\", el autor es Cide Hamete Benengeli, un historiador arábigo.",
+        "modelo": "llama3.2:3b-instruct-q4_K_M",
+        "herramienta": null,
+        "tiempo_s": 22.1,
+        "timestamp": "2026-06-15T07:38:05.076992+00:00"
+      },
+      {
+        "pregunta": "Quién es Don Quijote según el libro",
+        "respuesta": "Según el libro \"Don Quijote de la Mancha\", Don Quijote es un caballero andante que se cree que tiene una fuente de inspiración en un poeta famoso del mundo, pero no se menciona su nombre específico. Sin embargo, se menciona que Don Quijote quiere ser llamado \"don Quijote de la Mancha\" y que este sobrenombre le da identidad y honor.\n\nEn el texto, se describe a Don Quijote como un hombre que cree en la caballería y busca aventuras, pero que ha sido afectado por los libros de caballerías que ha leído. Se menciona que estos libros han vuelto loco a su ama y que Don Quijote mismo ha sido influenciado por ellos.\n\nEn resumen, según el libro \"Don Quijote de la Mancha\", Don Quijote es un personaje que se cree que tiene una fuente de inspiración en un poeta famoso, pero que ha sido afectado por los libros de caballerías y busca aventuras como un caballero andante.",
+        "modelo": "llama3.2:3b-instruct-q4_K_M",
+        "herramienta": null,
+        "tiempo_s": 43.54,
+        "timestamp": "2026-06-15T07:39:34.070871+00:00"
+      },
+      {
+        "pregunta": "escribe un código básico de python",
+        "respuesta": "Aquí tienes un ejemplo de un código básico en Python:\n\npython\ndef hello_world():\n    print(\"Hello, World!\")\nhello_world()\n\nEste programa define una función llamada `hello_world` que imprime \"Hello, World!\" al ejecutarse.",
+        "modelo": "phi4-mini:3.8b-q4_K_M",
+        "herramienta": null,
+        "tiempo_s": 9.89,
+        "timestamp": "2026-06-15T07:41:35.690590+00:00"
+      },
+      {
+        "pregunta": "lo que puedes hacer",
+        "respuesta": "Error: Herramienta desconocida: lista_herramientas",
+        "modelo": "llama3.2:3b-instruct-q3_K_M",
+        "herramienta": "lista_herramientas",
+        "tiempo_s": 27.65,
+        "timestamp": "2026-06-15T07:49:37.342475+00:00"
+      },
+      {
+        "pregunta": "Qué puedes hacer",
+        "respuesta": "Puedo obtener información sobre el clima, precio de criptomonedas, eventos del calendario y buscar eventos. También puedo responder preguntas generales de conocimiento.",
+        "modelo": "llama3.2:3b-instruct-q3_K_M",
+        "herramienta": null,
+        "tiempo_s": 10.22,
+        "timestamp": "2026-06-15T07:49:58.615999+00:00"
+      }
+    ]
+  },
+  {
     "chat_id": "chat-1781505110289-128",
     "titulo": "Dame el clima de londres actualmente",
-    "timestamp": "2026-06-15T06:32:26.475607+00:00",
+    "timestamp": "2026-06-15T07:12:46.711892+00:00",
     "mensajes": [
       {
         "pregunta": "Dame el clima de londres actualmente",
@@ -11,6 +130,14 @@
         "herramienta": "obtener_clima",
         "tiempo_s": 23.36,
         "timestamp": "2026-06-15T06:32:26.475607+00:00"
+      },
+      {
+        "pregunta": "Hola dime cuánto es 2 * 2",
+        "respuesta": "4",
+        "modelo": "llama3.2:3b-instruct-q3_K_M",
+        "herramienta": null,
+        "tiempo_s": 26.93,
+        "timestamp": "2026-06-15T07:12:46.711892+00:00"
       }
     ]
   },
