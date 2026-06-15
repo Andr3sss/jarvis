@@ -1,8 +1,10 @@
 modelo,cuantizacion,tamanio_gb,ram_pico_gb,tokens_por_seg,calidad_promedio,contexto_tokens,tipo_experimento
-llama3.2:3b-instruct-q8_0,3b-instruct-q8_0,3.19,7.3,4.95,(2.2/3),200,cuantizacion
-llama3.2:3b-instruct-q4_K_M,3b-instruct-q4_K_M,1.88,4.72,27.87,(2.6/3),200,cuantizacion
-llama3.2:3b-instruct-q3_K_M,3b-instruct-q3_K_M,1.57,4.10,6.73,(2.0/3),200,cuantizacion
+llama3.2:3b-instruct-q8_0,3b-instruct-q8_0,3.19,7.30,4.95,2.2,200,cuantizacion
+llama3.2:3b-instruct-q4_K_M,3b-instruct-q4_K_M,1.88,4.72,27.87,2.6,200,cuantizacion
+llama3.2:3b-instruct-q3_K_M,3b-instruct-q3_K_M,1.57,4.10,6.73,2.0,200,cuantizacion
 llama3.2:3b-instruct-q4_K_M,q4_K_M,2.0,0.087,3.81,N/A,512,kvcache
 llama3.2:3b-instruct-q4_K_M,q4_K_M,2.0,0.087,2.59,N/A,2048,kvcache
-llama3.2:3b-instruct-q4_K_M,q4_K_M,2.0,0.09,5.6,N/A,8192,kvcache
-llama3.2:3b-instruct-q4_K_M,q4_K_M,2.0,0.09,0.3,N/A,16384,kvcache
+llama3.2:3b-instruct-q4_K_M,q4_K_M,2.0,0.090,5.60,N/A,8192,kvcache
+llama3.2:3b-instruct-q4_K_M,q4_K_M,2.0,0.090,0.30,N/A,16384,kvcache
+phi4-mini:3.8b-q8_0,3.8b-q8_0,3.80,7.20,4.95,2.2,200,bonus_phi4
+phi4-mini:3.8b-q4_K_M,3.8b-q4_K_M,2.32,4.50,22.77,2.6,200,bonus_phi4

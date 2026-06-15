@@ -1,0 +1,247 @@
+
+RUBRICA DE CALIDAD (0-3 puntos por pregunta):
+  0 = Respuesta incorrecta, sin sentido, o completamente inventada
+  1 = Parcialmente correcta pero con errores importantes o muy incompleta
+  2 = Correcta en lo principal pero con detalles faltantes o imprecisos
+  3 = Correcta, completa, precisa y bien explicada
+
+Respuestas esperadas:
+  Q1: x=5, x^2=25
+  Q2: Clase Node con val y next. Funcion que itera invirtiendo punteros.
+  Q3: 3 oraciones capturando IA, ML y redes neuronales
+  Q4: 2017, Vaswani et al. Google Brain, arquitectura Transformer
+  Q5: Orden: C=B < A < E, con D entre B y A o entre A y E segun logica
+
+
+=================================================================
+RESPUESTAS PHI-4-MINI PARA PUNTUAR
+Reemplaza ?? con tu puntuacion (0, 1, 2 o 3)
+=================================================================
+
+
+=================================================================
+MODELO: phi4-mini:3.8b-q8_0
+=================================================================
+
+[Q1_matematicas] Tipo: Matematicas
+Pregunta: Si 3x + 7 = 22, cuanto es x al cuadrado? Muestra todos los pasos.
+Tiempo: 30.34s
+Respuesta:
+Para resolver la ecuación y encontrar el valor de \( x \), primero aislamos \( x \) en un lado:
+
+1. Restar 7 a ambos lados:
+\[ 3x + 7 - 7 = 22 - 7 \]
+\[ 3x = 15 \]
+
+2. Dividir por 3 para resolver \( x \):
+\[ \frac{3x}{3} = \frac{15}{3} \]
+\[ x = 5 \]
+
+Ahora, necesitamos encontrar el cuadrado de \( x \):
+
+\( (x)^2 = (5)^2 = 25 \)
+
+Entonces, al cuadrado del valor de \( x \) es 25.
+TU PUNTUACION (0-3): ??
+----------------------------------------
+
+[Q2_codigo] Tipo: Codigo
+Pregunta: Write a Python function that reverses a singly linked list. Include the Node class definition and a brief explanation of how it works.
+Tiempo: 57.69s
+Respuesta:
+Here's an implementation for reversing a singly linked list in Python, including both the `Node` class definition as well as comments explaining each part.
+
+```python
+class Node:
+    def __init__(self, data):
+        self.data = data  # Initialize node with given data
+        self.next = None  # Pointer to next node initialized to None
+
+def reverse_linked_list(head: Node) -> Node:
+    prev = None  # This will hold the previous node as we traverse through the list
+    current = head  # Start from the head of the linked list
+    
+    while current is not None:  # Traverse until reaching the end of the list (None)
+        next_node = current.next  # Store reference to the next node
+        current.next = prev      # Reverse the link by pointing it back to previous node
+        prev = current           # Move 'prev' one step forward in reversed order
+        current = next_node     # Move to the original next node
+    
+    return prev  # At the end, 'prev' will be at the new head of the list
+
+# Example usage:
+if __name__ == "__main__":
+    # Creating a linked list: 1 -> 2 -> 3 -> None
+    head = Node(1)
+    second = Node(2)
+    third = Node(3)
+
+    head.next = second
+    second.next = third
+    
+    print("Original Linked List:")
+    current_node = head
+   
+TU PUNTUACION (0-3): ??
+----------------------------------------
+
+[Q3_resumen] Tipo: Resumen
+Pregunta: Resume el siguiente texto en maximo 3 oraciones: La inteligencia artificial es un campo de la informatica que busca crear sistemas capaces de realizar tareas que normalmente requieren inteligencia humana. Estas tareas incluyen el reconocimiento de voz, la toma de decisiones, la traduccion de idiomas y el reconocimiento visual de patrones. El aprendizaje automatico, una subdisciplina de la IA, permite a los sistemas aprender de los datos sin ser programados explicitamente para cada tarea. Las redes neuronales profundas han revolucionado el campo al lograr resultados superiores a los humanos en tareas especificas como el diagnostico medico por imagen.
+Tiempo: 58.77s
+Respuesta:
+La inteligencia artificial (IA) es un área de informática que busca desarrollar sistemas capaces de realizar actividades típicamente realizadas por la inteligencia humana, tales como reconocimiento de voz y toma de decisiones. El aprendizaje automático, una rama de IA, permite que estos sistemas aprendan a partir de datos sin programación explícita para cada tarea específica. Las redes neuronales profundas han revolucionado el campo al lograr resultados superiores a los humanos en tareas específicas, como el diagnóstico médico por imagen.
+
+La inteligencia artificial (IA) es un área del conocimiento computacional enfocada en crear máquinas capaces de realizar actividades que normalmente requieren la inteligencia humana. Estas actividades incluyen reconocimiento de voz, toma de decisiones y traducción de idiomas. El aprendizaje automático, una rama específica dentro de IA, permite a los sistemas aprender automáticamente sin necesidad de programación explícita para cada tarea.
+
+Las redes neuronales profundas han revolucionado el campo de la IA al lograr resultados superiores a los humanos en tareas específicas como diagnóstico médico por imagen. La inteligencia artificial (IA) busca crear máquinas capaces de realizar actividades típicamente realizadas por la inteligencia humana, incluyendo reconocimiento de voz y toma de decisiones. El aprendizaje automático permite que estos sistemas aprendan automáticamente sin programación explícita para cada tarea específica.
+
+Las redes neuronales profundas han revolucionado el campo de la IA al lograr resultados superiores a los humanos en tareas específicas como diagnóstico médico por imagen. La inteligencia artificial (IA) busca crear máquinas capaces de realizar actividades típicamente realizadas por la inteligencia humana, incluyendo reconocimiento de voz y toma de
+TU PUNTUACION (0-3): ??
+----------------------------------------
+
+[Q4_hecho] Tipo: Hecho historico
+Pregunta: En que año se publico el paper Attention is All You Need y quienes fueron sus autores principales? Que arquitectura introdujo?
+Tiempo: 28.14s
+Respuesta:
+El artículo "Attention is All You Need" fue publicado en 2017. Los autores principales son Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit e Illia Polosukhin.
+
+Este paper introduce la arquitectura del Transformer, que revolucionó el procesamiento de lenguaje natural al eliminar las dependencias secuenciales y permitir una mayor paralelización. El Transformer utiliza mecanismos como self-attention para capturar relaciones entre palabras en un texto independientemente de su posición relativa, lo cual es fundamentalmente diferente a los modelos RNNs o LSTMs tradicionales que dependen del procesamiento secuencial.
+TU PUNTUACION (0-3): ??
+----------------------------------------
+
+[Q5_razonamiento] Tipo: Razonamiento
+Pregunta: Hay 5 cajas. La caja A es mas pesada que la B. La caja C es mas liviana que la D. La caja B pesa lo mismo que la C. La caja E es mas pesada que la A. Ordena todas las cajas de mas liviana a mas pesada y explica tu razonamiento paso a paso.
+Tiempo: 61.93s
+Respuesta:
+1. Sabemos que la caja A es más pesada que la B (A > B).
+
+2. También sabemos que la caja B pesa lo mismo que la C, por lo tanto, B = C.
+
+3. Dado el punto 2, podemos inferir que A > B = C.
+
+4. La caja C es más liviana que la D, entonces C < D o en términos de peso, D > C (y por ende, D > B).
+
+5. Finalmente, sabemos que la E es mas pesada que la A, lo cual significa E > A y por tanto E > B = C.
+
+Ahora tenemos las relaciones:
+
+- La caja C no se compara directamente con la A ni con la E en el problema original, pero podemos inferir su posición basándonos en los otros pesos. Dado que la D es más pesada que la C (D > C) y la E es mas pesada que la A (E > A), y sabemos que A > B = C, entonces también debe ser cierto que D > E.
+
+6. Con todo esto, podemos ordenar las cajas de lo más liviana a lo más pesada:
+
+   - La caja C es la menos pesada porque no se compara directamente con ninguna otra en el problema original (pero por inferencia, sabemos que A y B son más pesadas).
+
+   - La siguiente sería la B o la C, pero dado que B = C, podemos decir cualquiera de las dos.
+
+   - Luego viene la
+TU PUNTUACION (0-3): ??
+----------------------------------------
+
+=================================================================
+MODELO: phi4-mini:3.8b-q4_K_M
+=================================================================
+
+[Q1_matematicas] Tipo: Matematicas
+Pregunta: Si 3x + 7 = 22, cuanto es x al cuadrado? Muestra todos los pasos.
+Tiempo: 7.89s
+Respuesta:
+Vamos a resolver para \( x \) primero:
+
+1. Comenzamos con la ecuación dada: \( 3x + 7 = 22 \).
+2. Para aislar el término con \( x \), restamos 7 de ambos lados:
+   \( 3x + 7 - 7 = 22 - 7 \)
+   lo que se simplifica a:
+   \( 3x = 15 \)
+
+3. Ahora, para resolver \( x \), dividimos ambos lados por 3:
+   \( (3x)/3 = 15/3 \),
+   lo cual nos da:
+   \( x = 5 \).
+
+Ahora tenemos el valor de \( x \). Para encontrar \( x^2 \):
+
+4. Elevamos \( x \) al cuadrado:
+   \( x^2 = 5^2 \)
+   \( x^2 = 25 \)
+
+Entonces, cuando \( 3x + 7 = 22 \), \( x^2 es igual a 25.
+TU PUNTUACION (0-3): ??
+----------------------------------------
+
+[Q2_codigo] Tipo: Codigo
+Pregunta: Write a Python function that reverses a singly linked list. Include the Node class definition and a brief explanation of how it works.
+Tiempo: 9.98s
+Respuesta:
+Here's an implementation for reversing a singly linked list in Python, including both the `Node` class definition as well as comments explaining each part.
+
+```python
+class Node:
+    def __init__(self, data):
+        self.data = data  # Initialize node with its value/data
+        self.next = None   # Pointer to next node is initially set to None
+
+def reverse_linked_list(head: Node) -> Node:
+    prev = None          # This will hold the previous node as we traverse through the list.
+    current = head       # Start from the beginning of the linked list.
+
+    while current is not None:  # Traverse until there are no more nodes left to process
+        next_node = current.next   # Store reference to the next node temporarily
+        current.next = prev         # Reverse the link by pointing it back to previous node.
+        prev = current              # Move 'prev' one step forward (to new current).
+        current = next_node          # Move to what was previously stored as "next".
+
+    return prev  # At this point, `prev` will be at the head of the reversed linked list.
+
+# Example usage:
+if __name__ == "__main__":
+    # Creating a simple linked list: 1 -> 2 -> 3
+    node1 = Node(1)
+    node2 = Node(2)
+    node3 = Node(3)
+
+    node1.next = node2   # Link first to second.
+   
+TU PUNTUACION (0-3): ??
+----------------------------------------
+
+[Q3_resumen] Tipo: Resumen
+Pregunta: Resume el siguiente texto en maximo 3 oraciones: La inteligencia artificial es un campo de la informatica que busca crear sistemas capaces de realizar tareas que normalmente requieren inteligencia humana. Estas tareas incluyen el reconocimiento de voz, la toma de decisiones, la traduccion de idiomas y el reconocimiento visual de patrones. El aprendizaje automatico, una subdisciplina de la IA, permite a los sistemas aprender de los datos sin ser programados explicitamente para cada tarea. Las redes neuronales profundas han revolucionado el campo al lograr resultados superiores a los humanos en tareas especificas como el diagnostico medico por imagen.
+Tiempo: 5.13s
+Respuesta:
+La inteligencia artificial (IA) es un área de informática que busca desarrollar sistemas capaces de realizar actividades típicamente realizadas con inteligencia humana, tales como reconocimiento de voz y toma de decisiones. El aprendizaje automático, una rama de la IA, permite que las máquinas aprendan a partir de datos sin programación explícita para cada tarea específica. Las redes neuronales profundas han transformado el campo al lograr resultados superiores humanos en tareas específicas, como el diagnóstico médico por imágenes.
+TU PUNTUACION (0-3): ??
+----------------------------------------
+
+[Q4_hecho] Tipo: Hecho historico
+Pregunta: En que año se publico el paper Attention is All You Need y quienes fueron sus autores principales? Que arquitectura introdujo?
+Tiempo: 6.21s
+Respuesta:
+El artículo "Attention is All You Need" fue publicado en el año 2017. Los autores principales son Vaswani, Ashish Vaswani, Noam Shazeer, Niki Parmar, Imperial College London, John Langford, Andreas Mueller y Hanoom Hussain.
+
+La arquitectura que introdujo es la Transformer, específicamente diseñada para tareas de procesamiento del lenguaje natural (NLP). La Transformer se basa en mecanismos de atención no secuenciales, permitiendo una mayor eficiencia al procesar grandes cantidades de datos. Este modelo revolucionó el campo del aprendizaje automático con su capacidad para manejar secuencias largas y complejas sin depender de la memoria histórica.
+TU PUNTUACION (0-3): ??
+----------------------------------------
+
+[Q5_razonamiento] Tipo: Razonamiento
+Pregunta: Hay 5 cajas. La caja A es mas pesada que la B. La caja C es mas liviana que la D. La caja B pesa lo mismo que la C. La caja E es mas pesada que la A. Ordena todas las cajas de mas liviana a mas pesada y explica tu razonamiento paso a paso.
+Tiempo: 9.97s
+Respuesta:
+1. Sabemos que la caja A es más pesada que la B (A > B).
+
+2. También sabemos que la caja C pesa lo mismo que la B (B = C), por lo tanto, el peso de la A también debe ser mayor que el del C.
+
+3. La caja D se sabe que es mas liviana que la C (D < C). Como el peso de la C y la B son iguales, esto significa que la D es más liviana aún.
+
+4. Finalmente, sabemos que la E es mas pesada que A (E > A).
+
+Ahora podemos ordenar las cajas con base en su peso:
+
+- La caja D es la más liviana porque se sabe que pesa menos que el resto de las cajas.
+
+- Las cajas B y C pesan lo mismo; sin embargo, dado que no tenemos información sobre si son iguales o diferentes del peso de la A (que sabemos es mayor que el de la B), colocamos primero al lado con D. Sin pérdida generalizable, podemos colocar cualquiera en primer lugar: digamos B para este ejemplo.
+
+- La caja A pesa más que las cajas B y C pero no se sabe cuánto más pesado es comparado con E; sin embargo, dado que sabemos que E es mas pesada que A (E > A), el orden actual de la D, B/C, A debe ser seguido por una E. Por lo tanto, tenemos: D, B/C, A, E.
+
+- La caja E se coloca al
+TU PUNTUACION (0-3): ??
+----------------------------------------
