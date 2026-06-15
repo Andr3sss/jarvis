@@ -505,6 +505,64 @@ jarvis/
 
 ---
 
+# Bonus 
+## Comparativa entre familias de modelos
+
+Como extensión del estudio principal, se evaluó una segunda familia de modelos para comparar directamente el comportamiento de arquitecturas distintas bajo las mismas condiciones de hardware y las mismas tareas.
+
+### Modelos evaluados
+
+| Familia | Empresa | Modelo | Parámetros |
+|---|---|---|---|
+| Llama 3.2 | Meta | llama3.2:3b-instruct | 3B |
+| Phi-4-mini | Microsoft | phi4-mini:3.8b | 3.8B |
+
+Llama 3.2 fue entrenado sobre un corpus generalista masivo. Phi-4-mini fue entrenado principalmente sobre datos sintéticos de alta calidad con foco específico en razonamiento, matemáticas y function calling nativo. Esa diferencia de filosofía de entrenamiento se refleja en los resultados.
+
+---
+
+### Tabla comparativa completa
+
+![Tabla comparativa Llama vs Phi-4-mini](report/capturas/grafica_tabla_comparativa.png)
+
+---
+
+### Velocidad y calidad lado a lado
+
+![Comparativa de velocidad y calidad](report/capturas/grafica_comparativa_familias.png)
+
+**En velocidad:** Llama 3.2 Q4_K_M fue más rápido (27.87 tok/s) que Phi-4-mini Q4_K_M (22.77 tok/s) con un modelo base más pequeño. Ambos modelos en Q8_0 llegaron exactamente al mismo resultado de 4.95 tok/s, lo que sugiere que en ese nivel el cuello de botella es el ancho de banda del bus de memoria y no la arquitectura del modelo.
+
+**En calidad:** Ambas familias alcanzaron el mismo promedio en Q4_K_M (2.6/3.0) y Q8_0 (2.2/3.0), pero con patrones de fallo distintos. Phi-4-mini fue superior en código generando comentarios explicativos línea por línea. Por otro lado, Phi-4-mini Q8_0 falló en la pregunta de resumen generando tres párrafos distintos en lugar de un único resumen de 3 oraciones, lo que sugiere menor robustez ante instrucciones de formato estricto.
+
+**En hechos históricos:** Phi-4-mini Q4_K_M inventó autores del paper "Attention is All You Need" que no existen, mientras que Llama 3.2 Q4_K_M identificó correctamente a Vaswani et al. Esto es llamativo dado que Phi-4-mini se promociona con mayor precisión en razonamiento.
+
+---
+
+### Tamaño vs velocidad ambas familias
+
+![Tamaño vs velocidad ambas familias](report/capturas/grafica_comparativa_tamano.png)
+
+**Conclusión:** para este hardware y estas tareas, Llama 3.2 3B Q4_K_M sigue siendo la mejor opción: es más rápido, ocupa menos RAM y tiene comportamiento más predecible ante instrucciones de formato. Phi-4-mini es una alternativa válida especialmente si las tareas involucran principalmente código o razonamiento lógico paso a paso.
+
+---
+
+### Reproducir la comparativa
+
+```bash
+# Descargar los modelos de Phi-4-mini
+ollama pull phi4-mini:3.8b-q4_K_M
+ollama pull phi4-mini:3.8b-q8_0
+
+# Ejecutar el benchmark comparativo
+python benchmarks/benchmark_phi4.py
+
+# Generar las 3 graficas comparativas
+python benchmarks/generar_grafica_bonus.py
+```
+
+---
+
 ## Declaración de uso de IA
 
 Este proyecto utilizó Claude Sonnet 4.6 de Anthropic como asistente durante el desarrollo. A continuación el detalle de cómo y en qué secciones:
