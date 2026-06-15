@@ -563,6 +563,107 @@ python benchmarks/generar_grafica_bonus.py
 
 ---
 
+## Interfaz gráfica local
+
+Jarvis tiene una interfaz web que corre completamente en tu máquina. No necesita internet, no sube nada a ningún servidor. La abres en el navegador como cualquier página web pero todo el procesamiento ocurre localmente.
+
+### Cómo levantar la interfaz
+
+**Paso 1 — Instalar Flask si no lo tienes:**
+```bash
+pip install flask flask-cors
+```
+
+**Paso 2 — Arrancar el servidor:**
+```bash
+python jarvis_server.py
+```
+
+Verás esto en la terminal cuando esté listo:
+```
+=======================================================
+  JARVIS SERVER
+  http://localhost:5000
+=======================================================
+[RAG] Cargando indice ChromaDB...
+[RAG] Indice cargado: 178 chunks disponibles
+=======================================================
+```
+
+**Paso 3 — Abrir en Chrome:**
+```
+http://localhost:5000
+```
+
+Usa Chrome o Edge. Firefox no soporta el control por voz.
+
+---
+
+### Pantalla principal
+
+![Jarvis interfaz principal](report/capturas/interfaz_principal.png)
+
+La interfaz tiene tres zonas principales:
+
+El **historial** en el panel izquierdo guarda todas las conversaciones anteriores con el nombre del modelo que se usó en cada una y la hora. Haz clic en cualquier conversación para volver a verla. El botón "Nuevo Chat" limpia el área de conversación para empezar desde cero.
+
+Los **5 botones de modelo** en la parte superior te permiten elegir manualmente con qué modelo quieres hablar. Cada botón muestra la velocidad real medida en tok/s y una descripción de para qué es mejor ese modelo. El botón AUTOMÁTICO deja que Jarvis elija el modelo más adecuado según el contenido de tu pregunta.
+
+El **cajón de texto** en la parte inferior es donde escribes tus preguntas. El borde del cajón cambia de color según el modelo activo.
+
+---
+
+### Conversación activa con enrutamiento automático
+
+![Jarvis conversación activa](report/capturas/interfaz_conversacion.png)
+
+Cuando recibes una respuesta, debajo de cada burbuja aparecen tres chips de información:
+
+El primero indica qué herramienta externa usó Jarvis, si es que usó alguna. Por ejemplo `clima · Open-Meteo` cuando consultó el clima, `github · API` cuando consultó un repositorio, o `RAG · Don Quijote` cuando buscó en el corpus del libro.
+
+El segundo muestra el modelo que generó la respuesta. Si tienes el modo AUTOMÁTICO activo, este chip te dice cuál eligió Jarvis por ti y por qué.
+
+El tercero muestra cuántos segundos tardó en responder. Esto es útil para comparar la velocidad entre modelos directamente en la conversación.
+
+---
+
+### Enrutamiento automático de modelos
+
+Con el botón AUTOMÁTICO activo, Jarvis analiza cada pregunta y elige el modelo óptimo antes de responder. La lógica es esta:
+
+| Tipo de pregunta | Modelo elegido | Razón |
+|---|---|---|
+| Preguntas sobre clima, cripto, calendario, GitHub | Llama Q4 | Tool calling confiable |
+| Preguntas sobre Don Quijote | Llama Q4 | RAG con contexto largo |
+| Preguntas de código, matemáticas, lógica | Phi Q4 | Entrenado en razonamiento |
+| Preguntas complejas que piden análisis o comparación | Llama Q8 | Mayor calidad de respuesta |
+| Preguntas cortas y simples | Llama Q3 | Más rápido para respuestas directas |
+
+El historial muestra exactamente qué modelo se usó en cada conversación, lo que permite comparar resultados entre modelos de forma visual.
+
+---
+
+### Control por voz
+
+![Jarvis control por voz activo](report/capturas/interfaz_voz.png)
+
+Jarvis tiene control por voz de entrada y salida usando la Web Speech API nativa de Chrome.
+
+**Para hablar:** haz clic en el ícono del micrófono en la esquina inferior izquierda o presiona la **barra espaciadora** cuando el cajón de texto no esté enfocado. El botón se pone rojo con una animación pulsante y aparece la barra roja "Escuchando..." en la parte inferior. Habla tu pregunta con normalidad. Cuando terminas de hablar, el texto aparece en el cajón y se envía automáticamente a Jarvis sin que tengas que tocar nada.
+
+**Para cancelar mientras grabas:** presiona **Escape**.
+
+**Jarvis responde en voz alta:** cada respuesta de Jarvis se lee automáticamente por los parlantes. El ícono de altavoz en el encabezado permite silenciar esta función. También puedes hacer clic en el ícono de sonido que aparece en cada burbuja para escuchar cualquier respuesta anterior.
+
+**Nota técnica:** el reconocimiento de voz usa la Web Speech API del navegador, que delega la transcripción al motor nativo de Chrome. La inferencia del modelo de lenguaje sigue siendo 100% local. Como mejora futura, integrar Whisper local eliminaría esta dependencia externa para lograr un sistema completamente offline de punta a punta.
+
+
+### Cómo parar el servidor
+
+En la terminal donde corre `jarvis_server.py` presiona `Ctrl + C`.
+
+---
+
 ## Declaración de uso de IA
 
 Este proyecto utilizó Claude Sonnet 4.6 de Anthropic como asistente durante el desarrollo. A continuación el detalle de cómo y en qué secciones:
