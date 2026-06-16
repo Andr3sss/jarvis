@@ -1,0 +1,7 @@
+NOTA: Clima Quito y Cuenca
+==========================
+Creada:        15/06/2026 16:40
+Ultima edicion: 15/06/2026 16:40
+==========================
+
+Clima actual en Quito: consultar clima obtenido. Clima actual en Cuenca: consultar clima obtenido.

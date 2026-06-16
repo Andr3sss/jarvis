@@ -1,0 +1,7 @@
+NOTA: Apuntes Python
+====================
+Creada:        15/06/2026 14:37
+Ultima edicion: 15/06/2026 15:10
+====================
+
+Python es un lenguaje de alto nivel muy usado en IA y ciencia de datos.

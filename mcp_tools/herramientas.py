@@ -11,6 +11,14 @@ Define las 6 herramientas externas que Jarvis puede usar:
 """
 
 import requests
+
+from gestor_notas import (
+    crear_nota, leer_nota, listar_notas, eliminar_nota,
+    crear_tarea, completar_tarea, listar_tareas_pendientes,
+    listar_tareas_completadas, eliminar_tarea
+)
+
+
 import json
 import sys
 import os
@@ -18,8 +26,10 @@ from typing import Optional
 
 # Importar funciones de calendario (estan en el mismo directorio)
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from calendario_google import eventos_de_hoy, eventos_proximos, buscar_eventos
-
+from calendario_google import (
+    eventos_de_hoy, eventos_proximos, buscar_eventos,
+    crear_evento, editar_evento, eliminar_evento, listar_eventos_con_ids
+)
 
 # ─────────────────────────────────────────────
 # HERRAMIENTA 1: CLIMA (Open-Meteo)
@@ -231,7 +241,122 @@ HERRAMIENTAS_DISPONIBLES = {
             "palabra_clave": "Texto a buscar en titulos de eventos (ej: 'Ecuador', 'partido', 'examen', 'reunion')"
         },
         "ejemplo": '{"tool": "buscar_eventos", "parametros": {"palabra_clave": "Ecuador"}}'
+    },
+
+    "crear_nota": {
+        "funcion":     crear_nota,
+        "descripcion": "Crea o actualiza una nota personal con titulo y contenido.",
+        "parametros": {
+            "titulo":    "Titulo de la nota (ej: 'Apuntes de Python')",
+            "contenido": "Contenido completo de la nota"
+        },
+        "ejemplo": '{"tool": "crear_nota", "parametros": {"titulo": "Mi nota", "contenido": "Contenido aqui"}}'
+    },
+    "leer_nota": {
+        "funcion":     leer_nota,
+        "descripcion": "Lee y devuelve el contenido de una nota por su titulo.",
+        "parametros": {
+            "titulo": "Titulo exacto de la nota a leer"
+        },
+        "ejemplo": '{"tool": "leer_nota", "parametros": {"titulo": "Mi nota"}}'
+    },
+    "listar_notas": {
+        "funcion":     listar_notas,
+        "descripcion": "Lista todas las notas guardadas con sus titulos y una preview.",
+        "parametros": {},
+        "ejemplo": '{"tool": "listar_notas", "parametros": {}}'
+    },
+    "eliminar_nota": {
+        "funcion":     eliminar_nota,
+        "descripcion": "Elimina una nota por su titulo.",
+        "parametros": {
+            "titulo": "Titulo de la nota a eliminar"
+        },
+        "ejemplo": '{"tool": "eliminar_nota", "parametros": {"titulo": "Mi nota"}}'
+    },
+    "crear_tarea": {
+        "funcion":     crear_tarea,
+        "descripcion": "Crea una nueva tarea pendiente con titulo, descripcion opcional y fecha limite opcional.",
+        "parametros": {
+            "titulo":       "Titulo de la tarea (ej: 'Estudiar para el examen')",
+            "descripcion":  "Descripcion detallada de la tarea (opcional)",
+            "fecha_limite": "Fecha limite en formato DD/MM/YYYY (opcional)"
+        },
+        "ejemplo": '{"tool": "crear_tarea", "parametros": {"titulo": "Estudiar", "descripcion": "Repasar capitulos 1 al 5", "fecha_limite": "20/06/2026"}}'
+    },
+    "completar_tarea": {
+        "funcion":     completar_tarea,
+        "descripcion": "Marca una tarea pendiente como completada.",
+        "parametros": {
+            "titulo": "Titulo exacto de la tarea a completar"
+        },
+        "ejemplo": '{"tool": "completar_tarea", "parametros": {"titulo": "Estudiar"}}'
+    },
+    "listar_tareas_pendientes": {
+        "funcion":     listar_tareas_pendientes,
+        "descripcion": "Lista todas las tareas que estan pendientes de completar.",
+        "parametros": {},
+        "ejemplo": '{"tool": "listar_tareas_pendientes", "parametros": {}}'
+    },
+    "listar_tareas_completadas": {
+        "funcion":     listar_tareas_completadas,
+        "descripcion": "Lista todas las tareas que ya fueron completadas.",
+        "parametros": {},
+        "ejemplo": '{"tool": "listar_tareas_completadas", "parametros": {}}'
+    },
+    "eliminar_tarea": {
+        "funcion":     eliminar_tarea,
+        "descripcion": "Elimina una tarea por su titulo (pendiente o completada).",
+        "parametros": {
+            "titulo": "Titulo exacto de la tarea a eliminar"
+        },
+        "ejemplo": '{"tool": "eliminar_tarea", "parametros": {"titulo": "Estudiar"}}'
+    },
+
+    "crear_evento_calendario": {
+        "funcion":     crear_evento,
+        "descripcion": "Crea un nuevo evento en Google Calendar del usuario.",
+        "parametros": {
+            "titulo":      "Nombre del evento (ej: 'Examen de Machine Learning')",
+            "fecha":       "Fecha en formato DD/MM/YYYY (ej: '20/06/2026')",
+            "hora_inicio": "Hora de inicio HH:MM (ej: '09:00'). Opcional, si no se pone es todo el dia",
+            "hora_fin":    "Hora de fin HH:MM (ej: '11:00'). Opcional",
+            "descripcion": "Descripcion adicional del evento. Opcional"
+        },
+        "ejemplo": '{"tool": "crear_evento_calendario", "parametros": {"titulo": "Examen", "fecha": "20/06/2026", "hora_inicio": "09:00", "hora_fin": "11:00"}}'
+    },
+
+    "listar_eventos_con_ids": {
+        "funcion":     listar_eventos_con_ids,
+        "descripcion": "Lista los proximos eventos del calendario principal con sus IDs para poder editarlos o eliminarlos.",
+        "parametros": {
+            "dias": "Numero de dias hacia adelante a consultar (default: 7)"
+        },
+        "ejemplo": '{"tool": "listar_eventos_con_ids", "parametros": {"dias": 7}}'
+    },
+    "editar_evento_calendario": {
+        "funcion":     editar_evento,
+        "descripcion": "Edita un evento existente en Google Calendar. Requiere el ID del evento obtenido con listar_eventos_con_ids.",
+        "parametros": {
+            "evento_id":        "ID unico del evento a editar (obligatorio)",
+            "nuevo_titulo":     "Nuevo titulo del evento (opcional)",
+            "nueva_fecha":      "Nueva fecha en formato DD/MM/YYYY (opcional)",
+            "nueva_hora_inicio": "Nueva hora de inicio HH:MM (opcional)",
+            "nueva_hora_fin":   "Nueva hora de fin HH:MM (opcional)",
+            "nueva_descripcion": "Nueva descripcion del evento (opcional)"
+        },
+        "ejemplo": '{"tool": "editar_evento_calendario", "parametros": {"evento_id": "abc123", "nuevo_titulo": "Nuevo nombre"}}'
+    },
+    "eliminar_evento_calendario": {
+        "funcion":     eliminar_evento,
+        "descripcion": "Elimina un evento de Google Calendar por su ID. Requiere el ID obtenido con listar_eventos_con_ids.",
+        "parametros": {
+            "evento_id": "ID unico del evento a eliminar (obligatorio)"
+        },
+        "ejemplo": '{"tool": "eliminar_evento_calendario", "parametros": {"evento_id": "abc123"}}'
     }
+
+    
 }
 
 

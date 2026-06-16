@@ -1,0 +1,98 @@
+{
+  "notas": [
+    {
+      "titulo": "Apuntes Python",
+      "contenido": "Python es un lenguaje de alto nivel muy usado en IA y ciencia de datos.",
+      "fecha_creacion": "15/06/2026 14:37",
+      "ultima_edicion": "15/06/2026 15:10"
+    },
+    {
+      "titulo": "Resumen Python",
+      "contenido": "Python es el lenguaje mas usado en ciencia de datos por su simplicidad y sus librerias como pandas y numpy",
+      "fecha_creacion": "15/06/2026 14:46",
+      "ultima_edicion": "15/06/2026 14:46"
+    },
+    {
+      "titulo": "Precio Bitcoin hoy",
+      "contenido": "BITCOIN vale 66490 USD (cambio 24h: 2.79%)",
+      "fecha_creacion": "15/06/2026 14:56",
+      "ultima_edicion": "15/06/2026 16:20"
+    },
+    {
+      "titulo": "Precio Bitcoin",
+      "contenido": "Bitcoin vale 64,500 USD al 15/06/2026 con cambio +1.3% en 24h.",
+      "fecha_creacion": "15/06/2026 15:10",
+      "ultima_edicion": "15/06/2026 15:10"
+    },
+    {
+      "titulo": "Resultados del mundial de Qatar 2022",
+      "contenido": "Se presentan los resultados de las 4 selecciones semifinalistas del mundial de Qatar 2022: [insertar resultado de la búsqueda]",
+      "fecha_creacion": "15/06/2026 16:37",
+      "ultima_edicion": "15/06/2026 16:37"
+    },
+    {
+      "titulo": "Resultados Mundial 1998",
+      "contenido": "Los cuatro equipos que clasificaron a la final del mundial de Francia 1998 fueron: El equipo ganador, El segundo lugar, El tercer lugar y El cuarto lugar",
+      "fecha_creacion": "15/06/2026 16:38",
+      "ultima_edicion": "15/06/2026 16:38"
+    },
+    {
+      "titulo": "Posiciones en el podio",
+      "contenido": "El equipo ganador quedo en el primer lugar, el segundo en el segundo lugar, el tercero en el tercer lugar y el cuarto en el cuarto lugar",
+      "fecha_creacion": "15/06/2026 16:38",
+      "ultima_edicion": "15/06/2026 16:38"
+    },
+    {
+      "titulo": "Clima Quito y Cuenca",
+      "contenido": "Clima actual en Quito: consultar clima obtenido. Clima actual en Cuenca: consultar clima obtenido.",
+      "fecha_creacion": "15/06/2026 16:40",
+      "ultima_edicion": "15/06/2026 16:40"
+    },
+    {
+      "titulo": "Precios criptomonedas",
+      "contenido": "Consultar precios obtenidos",
+      "fecha_creacion": "15/06/2026 17:21",
+      "ultima_edicion": "15/06/2026 17:24"
+    },
+    {
+      "titulo": "Detalles de cuando juega Ecuador",
+      "contenido": "Consultar calendario para obtener detalles",
+      "fecha_creacion": "15/06/2026 21:26",
+      "ultima_edicion": "15/06/2026 21:26"
+    }
+  ],
+  "tareas": [
+    {
+      "titulo": "Entregar proyecto Jarvis",
+      "descripcion": "Subir el repo final a GitHub con todos los entregables",
+      "fecha_limite": "16/06/2026",
+      "estado": "completada",
+      "fecha_creacion": "15/06/2026 14:37",
+      "fecha_completado": "15/06/2026 14:37"
+    },
+    {
+      "titulo": "Estudiar para el examen",
+      "descripcion": "",
+      "fecha_limite": "20/06/2026",
+      "estado": "pendiente",
+      "fecha_creacion": "15/06/2026 14:47",
+      "fecha_completado": null
+    },
+    {
+      "titulo": "Defensa del proyecto Jarvis",
+      "descripcion": "Preparar los comandos de demostracion en vivo",
+      "fecha_limite": "16/06/2026",
+      "estado": "pendiente",
+      "fecha_creacion": "15/06/2026 14:50",
+      "fecha_completado": null
+    },
+    {
+      "titulo": "Defensa Jarvis",
+      "descripcion": "",
+      "fecha_limite": "16/06/2026",
+      "estado": "pendiente",
+      "fecha_creacion": "15/06/2026 15:04",
+      "fecha_completado": null
+    }
+  ]
+}

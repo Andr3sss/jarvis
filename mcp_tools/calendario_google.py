@@ -1,11 +1,19 @@
 """
-calendario_google.py — VERSION FINAL CON VISTA BONITA
-------------------------------------------------------
+calendario_google.py — VERSION FINAL CON CRUD COMPLETO
+-------------------------------------------------------
 Herramienta de Google Calendar para Jarvis.
 
-Dos modos de uso:
-  1. Como modulo (Jarvis lo importa): devuelve JSON estructurado
-  2. Ejecucion directa: muestra vista bonita tipo agenda
+Funciones disponibles:
+  LECTURA:
+    eventos_de_hoy()
+    eventos_proximos(dias)
+    buscar_eventos(palabra_clave)
+    listar_eventos_con_ids(dias)    <- NUEVO
+
+  ESCRITURA:
+    crear_evento(titulo, fecha, hora_inicio, hora_fin, descripcion)
+    editar_evento(evento_id, ...)   <- NUEVO
+    eliminar_evento(evento_id)      <- NUEVO
 """
 
 import os
@@ -25,18 +33,17 @@ except ImportError:
     print("[ERROR] Faltan librerias de Google.")
     sys.exit(1)
 
-SCOPES = ['https://www.googleapis.com/auth/calendar.readonly']
-# Zona horaria de Ecuador (UTC-5)
-ZONA_LOCAL = datetime.timezone(datetime.timedelta(hours=-5))
+SCOPES = ['https://www.googleapis.com/auth/calendar']
+
+ZONA_LOCAL       = datetime.timezone(datetime.timedelta(hours=-5))
 DIR_SCRIPT       = os.path.dirname(os.path.abspath(__file__))
 CREDENTIALS_PATH = os.path.join(DIR_SCRIPT, 'credentials.json')
 TOKEN_PATH       = os.path.join(DIR_SCRIPT, 'token.json')
 
-# Mapeo de calendarios a categorias para agrupar y mostrar bonito
 CATEGORIAS_CALENDARIO = {
-    "Calendario (Canvas)": ("UNIVERSIDAD",      "academico"),
-    "World Cup":           ("MUNDIAL 2026",     "deportes"),
-    "Festivos en Ecuador": ("FESTIVOS",         "festivo"),
+    "Calendario (Canvas)": ("UNIVERSIDAD",  "academico"),
+    "World Cup":           ("MUNDIAL 2026", "deportes"),
+    "Festivos en Ecuador": ("FESTIVOS",     "festivo"),
 }
 
 
@@ -87,58 +94,43 @@ def obtener_ids_calendarios(servicio):
     except Exception:
         return [('primary', 'primary')]
 
-
 def categorizar_calendario(nombre):
-    """Devuelve (etiqueta_corta, categoria) para un nombre de calendario."""
     for clave, (etiqueta, categoria) in CATEGORIAS_CALENDARIO.items():
         if clave in nombre:
             return etiqueta, categoria
     return "PERSONAL", "personal"
 
-
 def limpiar_titulo(titulo):
-    """Quita texto entre corchetes y emojis para una version mas limpia."""
-    # Quitar [MACHINE LEARNING 06-SIN-A] y similares
     titulo_limpio = re.sub(r'\[[^\]]+\]', '', titulo).strip()
     return titulo_limpio if titulo_limpio else titulo
 
-
 def formato_partido_mundial(titulo):
-    """Convierte '🇨🇮 Ivory Coast - 🇪🇨 Ecuador' a 'Ivory Coast vs Ecuador'."""
     titulo_sin_emoji = re.sub(r'[\U0001F1E6-\U0001F1FF]+\s*', '', titulo)
     titulo_sin_emoji = titulo_sin_emoji.replace(' - ', ' vs ').strip()
     return titulo_sin_emoji
 
-
 def formatear_fecha_evento(evento):
-    start = evento.get('start', {})
+    start     = evento.get('start', {})
     fecha_str = start.get('dateTime', start.get('date', ''))
     if not fecha_str:
         return "Sin fecha", None
     try:
         if 'T' in fecha_str:
-            dt = datetime.datetime.fromisoformat(fecha_str.replace('Z', '+00:00'))
-            # Convertir a hora local de Ecuador (UTC-5)
+            dt       = datetime.datetime.fromisoformat(fecha_str.replace('Z', '+00:00'))
             dt_local = dt.astimezone(ZONA_LOCAL)
             return dt_local.strftime('%d/%m/%Y a las %H:%M'), dt_local
         else:
             dt = datetime.datetime.strptime(fecha_str, '%Y-%m-%d')
-            # Eventos de dia completo: marcar como zona local
             dt = dt.replace(tzinfo=ZONA_LOCAL)
             return dt.strftime('%d/%m/%Y (todo el dia)'), dt
     except Exception:
         return fecha_str, None
 
-
 def resumir_evento(evento, nombre_calendario):
-    """
-    Devuelve un dict simple optimizado para que el modelo Llama lo entienda
-    """
     fecha_legible, fecha_obj = formatear_fecha_evento(evento)
     etiqueta, categoria      = categorizar_calendario(nombre_calendario)
     titulo_raw               = evento.get('summary', '(sin titulo)')
 
-    # Limpiar titulo segun categoria
     if categoria == "deportes":
         titulo = formato_partido_mundial(titulo_raw)
     elif categoria == "academico":
@@ -147,14 +139,13 @@ def resumir_evento(evento, nombre_calendario):
         titulo = titulo_raw
 
     return {
-        "titulo":     titulo,
-        "fecha":      fecha_legible,
-        "tipo":       etiqueta,
-        "categoria":  categoria,
-        "_fecha_obj": fecha_obj,
+        "titulo":           titulo,
+        "fecha":            fecha_legible,
+        "tipo":             etiqueta,
+        "categoria":        categoria,
+        "_fecha_obj":       fecha_obj,
         "_titulo_original": titulo_raw,
     }
-
 
 def consultar_todos_calendarios(servicio, time_min, time_max, query=None, max_per_cal=10):
     todos_eventos = []
@@ -178,23 +169,30 @@ def consultar_todos_calendarios(servicio, time_min, time_max, query=None, max_pe
         except Exception:
             continue
 
-    todos_eventos.sort(key=lambda ev: ev.get('_fecha_obj') or datetime.datetime.max.replace(tzinfo=datetime.timezone.utc))
+    todos_eventos.sort(key=lambda ev: ev.get('_fecha_obj') or
+                       datetime.datetime.max.replace(tzinfo=datetime.timezone.utc))
     return todos_eventos
+
+def limpiar_para_jarvis(eventos):
+    return [{
+        "titulo": ev["titulo"],
+        "fecha":  ev["fecha"],
+        "tipo":   ev["tipo"],
+    } for ev in eventos]
 
 
 # ─────────────────────────────────────────────
-# VISTA BONITA TIPO AGENDA
+# VISTA BONITA
 # ─────────────────────────────────────────────
 
 ICONOS_TIPO = {
-    "UNIVERSIDAD": "🎓",
+    "UNIVERSIDAD":  "🎓",
     "MUNDIAL 2026": "⚽",
-    "FESTIVOS":   "🎉",
-    "PERSONAL":   "📌",
+    "FESTIVOS":     "🎉",
+    "PERSONAL":     "📌",
 }
 
 def imprimir_agenda(titulo, eventos):
-    """Imprime los eventos en formato agenda visualmente atractivo."""
     print("\n" + "═" * 60)
     print(f"  📅 {titulo}")
     print("═" * 60)
@@ -203,7 +201,6 @@ def imprimir_agenda(titulo, eventos):
         print("\n   No hay eventos en este rango.\n")
         return
 
-    # Agrupar por tipo
     grupos = {}
     for ev in eventos:
         tipo = ev["tipo"]
@@ -211,7 +208,6 @@ def imprimir_agenda(titulo, eventos):
             grupos[tipo] = []
         grupos[tipo].append(ev)
 
-    # Orden de presentacion
     orden = ["UNIVERSIDAD", "MUNDIAL 2026", "FESTIVOS", "PERSONAL"]
     for tipo in orden:
         if tipo not in grupos:
@@ -219,17 +215,14 @@ def imprimir_agenda(titulo, eventos):
         icono = ICONOS_TIPO.get(tipo, "•")
         print(f"\n  {icono} {tipo}")
         print("  " + "─" * 56)
-
         for ev in grupos[tipo]:
-            # Hora visible si hay
             fecha = ev["fecha"]
             if "a las" in fecha:
-                hora = fecha.split("a las")[1].strip()
-                dia  = fecha.split("a las")[0].strip()
+                hora     = fecha.split("a las")[1].strip()
+                dia      = fecha.split("a las")[0].strip()
                 etiqueta = f"  • [{hora}] {dia}  →  {ev['titulo']}"
             else:
                 etiqueta = f"  • {fecha}  →  {ev['titulo']}"
-            # Truncar si es muy largo
             if len(etiqueta) > 95:
                 etiqueta = etiqueta[:92] + "..."
             print(etiqueta)
@@ -240,23 +233,7 @@ def imprimir_agenda(titulo, eventos):
 
 
 # ─────────────────────────────────────────────
-# LIMPIAR DATOS PARA RETORNAR (sin campos privados)
-# ─────────────────────────────────────────────
-
-def limpiar_para_jarvis(eventos):
-    """Quita campos internos antes de devolver a Jarvis."""
-    limpios = []
-    for ev in eventos:
-        limpios.append({
-            "titulo":     ev["titulo"],
-            "fecha":      ev["fecha"],
-            "tipo":       ev["tipo"],
-        })
-    return limpios
-
-
-# ─────────────────────────────────────────────
-# FUNCIONES PUBLICAS PARA JARVIS
+# FUNCIONES PUBLICAS — LECTURA
 # ─────────────────────────────────────────────
 
 def eventos_proximos(dias=7):
@@ -279,7 +256,6 @@ def eventos_proximos(dias=7):
                 "eventos": [],
                 "mensaje": f"No tienes eventos en los proximos {dias} dias."
             }
-
         return {
             "total":   len(eventos),
             "rango":   f"proximos {dias} dias",
@@ -291,21 +267,16 @@ def eventos_proximos(dias=7):
 
 def eventos_de_hoy():
     try:
-        servicio = autenticar()
-        # "Hoy" segun la hora local de Ecuador, no UTC
+        servicio    = autenticar()
         ahora_local = datetime.datetime.now(ZONA_LOCAL)
         inicio_dia  = ahora_local.replace(hour=0,  minute=0,  second=0, microsecond=0)
         fin_dia     = ahora_local.replace(hour=23, minute=59, second=59)
-
-        # Convertir a UTC para enviarlo a la API de Google
-        inicio_utc = inicio_dia.astimezone(datetime.timezone.utc)
-        fin_utc    = fin_dia.astimezone(datetime.timezone.utc)
-
-        time_min = inicio_utc.isoformat().replace('+00:00', 'Z')
-        time_max = fin_utc.isoformat().replace('+00:00', 'Z')
-
-        eventos   = consultar_todos_calendarios(servicio, time_min, time_max)
-        fecha_hoy = ahora_local.strftime('%d/%m/%Y')
+        inicio_utc  = inicio_dia.astimezone(datetime.timezone.utc)
+        fin_utc     = fin_dia.astimezone(datetime.timezone.utc)
+        time_min    = inicio_utc.isoformat().replace('+00:00', 'Z')
+        time_max    = fin_utc.isoformat().replace('+00:00', 'Z')
+        eventos     = consultar_todos_calendarios(servicio, time_min, time_max)
+        fecha_hoy   = ahora_local.strftime('%d/%m/%Y')
 
         if not eventos:
             return {
@@ -314,7 +285,6 @@ def eventos_de_hoy():
                 "eventos": [],
                 "mensaje": f"No tienes eventos hoy ({fecha_hoy})."
             }
-
         return {
             "fecha":   fecha_hoy,
             "total":   len(eventos),
@@ -324,17 +294,15 @@ def eventos_de_hoy():
         return {"error": f"Error: {str(e)}"}
 
 
-
 def buscar_eventos(palabra_clave):
     try:
         if not palabra_clave or len(palabra_clave) < 2:
             return {"error": "Palabra clave muy corta."}
-
         servicio = autenticar()
         time_min = ahora_utc_iso()
         time_max = fecha_utc_futura(90)
-        eventos  = consultar_todos_calendarios(servicio, time_min, time_max, query=palabra_clave)
-
+        eventos  = consultar_todos_calendarios(servicio, time_min, time_max,
+                                                query=palabra_clave)
         if not eventos:
             return {
                 "palabra_clave": palabra_clave,
@@ -342,7 +310,6 @@ def buscar_eventos(palabra_clave):
                 "eventos": [],
                 "mensaje": f"No encontre eventos con '{palabra_clave}' en los proximos 90 dias."
             }
-
         return {
             "palabra_clave": palabra_clave,
             "total":   len(eventos),
@@ -352,12 +319,237 @@ def buscar_eventos(palabra_clave):
         return {"error": f"Error: {str(e)}"}
 
 
+def listar_eventos_con_ids(dias: int = 7,
+                            calendario_id: str = "primary") -> dict:
+    """
+    Lista proximos eventos del calendario principal con sus IDs.
+    Solo consulta el calendario primario para que los eventos
+    sean editables (los calendarios de terceros son solo lectura).
+    """
+    try:
+        servicio  = autenticar()
+        time_min  = ahora_utc_iso()
+        time_max  = fecha_utc_futura(dias)
+
+        resultado = servicio.events().list(
+            calendarId   = calendario_id,
+            timeMin      = time_min,
+            timeMax      = time_max,
+            maxResults   = 20,
+            singleEvents = True,
+            orderBy      = "startTime"
+        ).execute()
+
+        eventos = resultado.get("items", [])
+
+        if not eventos:
+            return {
+                "total":   0,
+                "eventos": [],
+                "mensaje": f"No tienes eventos editables en los proximos {dias} dias."
+            }
+
+        return {
+            "total":   len(eventos),
+            "rango":   f"Proximos {dias} dias",
+            "eventos": [{
+                "id":          ev.get("id", ""),
+                "titulo":      ev.get("summary", "(sin titulo)"),
+                "fecha":       formatear_fecha_evento(ev)[0],
+                "descripcion": ev.get("description", ""),
+                "link":        ev.get("htmlLink", "")
+            } for ev in eventos]
+        }
+
+    except HttpError as e:
+        return {"error": f"Error de Google Calendar API: {str(e)}"}
+    except Exception as e:
+        return {"error": f"Error al listar eventos: {str(e)}"}
+
+
 # ─────────────────────────────────────────────
-# WRAPPERS CON VISTA BONITA (solo ejecucion directa)
+# FUNCIONES PUBLICAS — ESCRITURA
+# ─────────────────────────────────────────────
+
+def crear_evento(titulo: str,
+                 fecha: str,
+                 hora_inicio: str = "",
+                 hora_fin: str = "",
+                 descripcion: str = "",
+                 calendario_id: str = "primary") -> dict:
+    """Crea un evento en Google Calendar."""
+    try:
+        servicio = autenticar()
+
+        try:
+            partes    = fecha.strip().split("/")
+            fecha_iso = f"{partes[2]}-{partes[1].zfill(2)}-{partes[0].zfill(2)}"
+        except (IndexError, ValueError):
+            return {"error": f"Formato de fecha incorrecto: '{fecha}'. Usa DD/MM/YYYY"}
+
+        if not hora_inicio:
+            evento = {
+                "summary":     titulo,
+                "description": descripcion,
+                "start": {"date": fecha_iso},
+                "end":   {"date": fecha_iso},
+            }
+        else:
+            if not hora_fin:
+                hora_parts = hora_inicio.split(":")
+                hora_fin   = f"{int(hora_parts[0]) + 1:02d}:{hora_parts[1]}"
+
+            zona_horaria = "America/Guayaquil"
+            evento = {
+                "summary":     titulo,
+                "description": descripcion,
+                "start": {
+                    "dateTime": f"{fecha_iso}T{hora_inicio}:00",
+                    "timeZone": zona_horaria
+                },
+                "end": {
+                    "dateTime": f"{fecha_iso}T{hora_fin}:00",
+                    "timeZone": zona_horaria
+                },
+            }
+
+        resultado = servicio.events().insert(
+            calendarId=calendario_id,
+            body=evento
+        ).execute()
+
+        return {
+            "ok":        True,
+            "titulo":    titulo,
+            "fecha":     fecha,
+            "hora":      f"{hora_inicio} a {hora_fin}" if hora_inicio else "Todo el dia",
+            "evento_id": resultado.get("id", ""),
+            "link":      resultado.get("htmlLink", ""),
+            "mensaje":   f"Evento '{titulo}' creado en Google Calendar para el {fecha}."
+        }
+
+    except HttpError as e:
+        if "insufficientPermissions" in str(e):
+            return {"error": "Sin permisos de escritura. Elimina token.json y vuelve a autorizar."}
+        return {"error": f"Error de Google Calendar API: {str(e)}"}
+    except Exception as e:
+        return {"error": f"Error al crear evento: {str(e)}"}
+
+
+def editar_evento(evento_id: str,
+                  nuevo_titulo: str = "",
+                  nueva_fecha: str = "",
+                  nueva_hora_inicio: str = "",
+                  nueva_hora_fin: str = "",
+                  nueva_descripcion: str = "",
+                  calendario_id: str = "primary") -> dict:
+    """
+    Edita un evento existente en Google Calendar por su ID.
+    Solo modifica los campos que se proporcionen.
+    """
+    try:
+        servicio = autenticar()
+
+        try:
+            evento_actual = servicio.events().get(
+                calendarId=calendario_id,
+                eventId=evento_id
+            ).execute()
+        except HttpError:
+            return {"error": f"No se encontro el evento con ID: {evento_id}"}
+
+        if nuevo_titulo:
+            evento_actual["summary"] = nuevo_titulo
+
+        if nueva_descripcion:
+            evento_actual["description"] = nueva_descripcion
+
+        if nueva_fecha:
+            try:
+                partes    = nueva_fecha.strip().split("/")
+                fecha_iso = f"{partes[2]}-{partes[1].zfill(2)}-{partes[0].zfill(2)}"
+            except (IndexError, ValueError):
+                return {"error": f"Formato de fecha incorrecto: '{nueva_fecha}'. Usa DD/MM/YYYY"}
+
+            if "date" in evento_actual.get("start", {}):
+                evento_actual["start"]["date"] = fecha_iso
+                evento_actual["end"]["date"]   = fecha_iso
+            else:
+                zona  = evento_actual["start"].get("timeZone", "America/Guayaquil")
+                hora_i = nueva_hora_inicio or evento_actual["start"]["dateTime"].split("T")[1][:5]
+                hora_f = nueva_hora_fin    or evento_actual["end"]["dateTime"].split("T")[1][:5]
+                evento_actual["start"] = {"dateTime": f"{fecha_iso}T{hora_i}:00", "timeZone": zona}
+                evento_actual["end"]   = {"dateTime": f"{fecha_iso}T{hora_f}:00", "timeZone": zona}
+
+        elif nueva_hora_inicio:
+            if "dateTime" in evento_actual.get("start", {}):
+                fecha_actual = evento_actual["start"]["dateTime"].split("T")[0]
+                zona         = evento_actual["start"].get("timeZone", "America/Guayaquil")
+                hora_f       = nueva_hora_fin or evento_actual["end"]["dateTime"].split("T")[1][:5]
+                evento_actual["start"] = {"dateTime": f"{fecha_actual}T{nueva_hora_inicio}:00", "timeZone": zona}
+                evento_actual["end"]   = {"dateTime": f"{fecha_actual}T{hora_f}:00",            "timeZone": zona}
+
+        resultado = servicio.events().update(
+            calendarId=calendario_id,
+            eventId=evento_id,
+            body=evento_actual
+        ).execute()
+
+        return {
+            "ok":        True,
+            "titulo":    resultado.get("summary", ""),
+            "evento_id": resultado.get("id", ""),
+            "link":      resultado.get("htmlLink", ""),
+            "mensaje":   f"Evento actualizado correctamente en Google Calendar."
+        }
+
+    except HttpError as e:
+        if "insufficientPermissions" in str(e):
+            return {"error": "Sin permisos de escritura. Elimina token.json y vuelve a autorizar."}
+        return {"error": f"Error de Google Calendar API: {str(e)}"}
+    except Exception as e:
+        return {"error": f"Error al editar evento: {str(e)}"}
+
+
+def eliminar_evento(evento_id: str,
+                    calendario_id: str = "primary") -> dict:
+    """Elimina un evento de Google Calendar por su ID."""
+    try:
+        servicio = autenticar()
+
+        try:
+            evento = servicio.events().get(
+                calendarId=calendario_id,
+                eventId=evento_id
+            ).execute()
+            titulo = evento.get("summary", "sin titulo")
+        except HttpError:
+            return {"error": f"No se encontro el evento con ID: {evento_id}"}
+
+        servicio.events().delete(
+            calendarId=calendario_id,
+            eventId=evento_id
+        ).execute()
+
+        return {
+            "ok":      True,
+            "titulo":  titulo,
+            "mensaje": f"Evento '{titulo}' eliminado correctamente de Google Calendar."
+        }
+
+    except HttpError as e:
+        if "insufficientPermissions" in str(e):
+            return {"error": "Sin permisos de escritura. Elimina token.json y vuelve a autorizar."}
+        return {"error": f"Error de Google Calendar API: {str(e)}"}
+    except Exception as e:
+        return {"error": f"Error al eliminar evento: {str(e)}"}
+
+
+# ─────────────────────────────────────────────
+# WRAPPERS VISTA BONITA (ejecucion directa)
 # ─────────────────────────────────────────────
 
 def _consultar_proximos_para_vista(dias=7):
-    """Igual que eventos_proximos pero devuelve eventos completos para imprimir."""
     servicio = autenticar()
     time_min = ahora_utc_iso()
     time_max = fecha_utc_futura(dias)
@@ -397,7 +589,4 @@ if __name__ == "__main__":
     eventos_sem = _consultar_proximos_para_vista(7)
     imprimir_agenda("PROXIMOS 7 DIAS", eventos_sem)
 
-    eventos_busq = _consultar_buscar_para_vista("Ecuador")
-    imprimir_agenda("BUSQUEDA: 'Ecuador' (proximos 90 dias)", eventos_busq)
-
-    print("\n  Listo. Estas funciones ya estan disponibles para Jarvis.\n")
+    print("\n  Listo. Funciones disponibles para Jarvis.\n")

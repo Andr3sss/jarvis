@@ -1,5 +1,305 @@
 [
   {
+    "chat_id": "chat-1781576721778-451",
+    "titulo": "Dime cuando juega ecuador segun mi calen...",
+    "timestamp": "2026-06-16T02:28:01.660429+00:00",
+    "mensajes": [
+      {
+        "pregunta": "Dime cuando juega ecuador segun mi calendario y crea una nota a detalle",
+        "respuesta": "¡Hola! Me alegra poder ayudarte.\n\n**Resultado de la acción**\n\n* La nota \"Detalles de cuando juega Ecuador\" se creó correctamente y se encuentra en el archivo: C:\\\\Users\\\\andr3\\\\jarvis\\\\data\\\\notas\\\\detalles_de_cuando_juega_ecuador.txt\n\n**Nota adicional**\n\nSin embargo, tuve un problema al intentar leer la nota \"Cuando juega Ecuador\", ya que no pude encontrarla. Si necesitas ayuda para crear una nueva nota o buscar información específica, estaré encantado de ayudarte.\n\n**Resumen**\n\nLa acción se completó con éxito y se creó la nota solicitada. Sin embargo, hubo un problema al intentar leer la nota \"Cuando juega Ecuador\".",
+        "modelo": "llama3.2:3b-instruct-q4_K_M",
+        "herramienta": "crear_nota",
+        "tiempo_s": 17.83,
+        "timestamp": "2026-06-16T02:26:17.117790+00:00"
+      },
+      {
+        "pregunta": "Edita la nota llamada \"detalles_de_cuando_juega_ecuador.txt\" con las fechas de cuando va a jugar segun mi calendario",
+        "respuesta": "Lo siento, pero no pude encontrar la nota \"detalles_de_cuando_juega_ecuador.txt\" para editarla. Sin embargo, encontré algunos eventos en tu calendario que podrían ser relevantes para ti.\n\n**Resultados de búsqueda:**\n\n* No se encontraron eventos con la palabra clave \"cuando va a jugar Ecuador\" en los próximos 90 días.\n* Se encontró un evento llamado \"Defensa Jarvis\" programada para el 16/06/2026 a las 09:00.\n\n**Nota actualizada:**\n\nNo puedo editar la nota \"detalles_de_cuando_juega_ecuador.txt\" ya que no se encuentra. Sin embargo, te proporciono los detalles de los eventos encontrados en tu calendario:\n\n* Fecha: 16/06/2026\n* Hora: 09:00\n* Título: Defensa Jarvis\n\nSi deseas obtener más información sobre este evento o agregarlo a la nota, puedo ayudarte con eso.",
+        "modelo": "llama3.2:3b-instruct-q4_K_M",
+        "herramienta": "listar_eventos_con_ids, buscar_eventos",
+        "tiempo_s": 15.1,
+        "timestamp": "2026-06-16T02:28:01.660429+00:00"
+      }
+    ]
+  },
+  {
+    "chat_id": "chat-1781575054536-459",
+    "titulo": "Que es lo que sabes del bitcoin actualme...",
+    "timestamp": "2026-06-16T01:58:45.347802+00:00",
+    "mensajes": [
+      {
+        "pregunta": "Que es lo que sabes del bitcoin actualmente?",
+        "respuesta": "¡Hola! Me alegra ayudarte con información sobre Bitcoin.\n\nActualmente, el precio de Bitcoin (BITCOIN) se encuentra en $66,311 USD, lo que representa un cambio del 1.30% en las últimas 24 horas. Su capitalización de mercado es de aproximadamente $13,297,063,539.",
+        "modelo": "llama3.2:3b-instruct-q4_K_M",
+        "herramienta": "precio_cripto",
+        "tiempo_s": 55.46,
+        "timestamp": "2026-06-16T01:58:45.347802+00:00"
+      }
+    ]
+  },
+  {
+    "chat_id": "chat-1781562312363-109",
+    "titulo": "dame el precio de bitcoin a dia de hoy",
+    "timestamp": "2026-06-15T22:25:36.322990+00:00",
+    "mensajes": [
+      {
+        "pregunta": "dame el precio de bitcoin a dia de hoy",
+        "respuesta": "**Actualización del precio de Bitcoin**\n\nDesafortunadamente, no pude obtener información sobre el precio de Bitcoin debido a que algunas herramientas fallaron en leer la nota 'Precio BTC'. Sin embargo, tengo acceso a datos de precio actualizados para otras criptomonedas.\n\nPuedo informarte que el precio de Bitcoin en USD es de $66291.",
+        "modelo": "llama3.2:3b-instruct-q4_K_M",
+        "herramienta": "precio_cripto",
+        "tiempo_s": 10.28,
+        "timestamp": "2026-06-15T22:25:36.322990+00:00"
+      }
+    ]
+  },
+  {
+    "chat_id": "chat-1781562164749-792",
+    "titulo": "Investiga el precio del bitcoin, etheriu...",
+    "timestamp": "2026-06-15T22:25:02.414735+00:00",
+    "mensajes": [
+      {
+        "pregunta": "Investiga el precio del bitcoin, etherium y stellar, a dia de hoy y guarda sus respectivos precios en una nota",
+        "respuesta": "¡Claro! Después de investigar los precios actuales del bitcoin, el etherium y el stellar, he obtenido los siguientes resultados:\n\n*   Bitcoin: No tengo información disponible sobre el precio actual del bitcoin.\n*   Etherium: No tengo información disponible sobre el precio actual del etherium.\n*   Stellar: El precio actual del stellar es de $0.217512 USD.\n\nHe creado una nota con los precios actuales y la he guardado en el archivo especificado:\n\nNota 'Precios criptomonedas' actualizada correctamente. Puedes leerla en: C:\\\\Users\\\\andr3\\\\jarvis\\\\data\\\\notas\\\\precios_criptomonedas.txt",
+        "modelo": "llama3.2:3b-instruct-q8_0",
+        "herramienta": "precio_cripto, precio_cripto, precio_cripto, crear_nota",
+        "tiempo_s": 119.38,
+        "timestamp": "2026-06-15T22:25:02.414735+00:00"
+      }
+    ]
+  },
+  {
+    "chat_id": "chat-1781558774289-354",
+    "titulo": "Crea un evento en mi calendario que se l...",
+    "timestamp": "2026-06-15T22:21:49.285498+00:00",
+    "mensajes": [
+      {
+        "pregunta": "Crea un evento en mi calendario que se llame \"PRUEBA FINAL\" para el 21/06/2026 a las 6pm",
+        "respuesta": "¡Claro! He creado un evento en tu calendario llamado \"PRUEBA FINAL\" para el 21/06/2026 a las 6pm.\n\n**Resultado:**\n\n* El evento ha sido creado con éxito y se encuentra actualizado en tu calendario.\n* El título del evento es \"PRUEBA FINAL\".\n* La fecha y hora del evento son el 21/06/2026 a las 18:00 - 19:00.\n\nSi necesitas verificar los detalles del evento, puedes acceder a la URL de invitación que se ha generado automáticamente: https://www.google.com/calendar/event?eid=MnVvdDdvczJkYjI1amI0dWlhNWZrdHJwcDggYW5kcmVzNnVpZGVAbQ",
+        "modelo": "llama3.2:3b-instruct-q4_K_M",
+        "herramienta": "crear_evento_calendario",
+        "tiempo_s": 59.27,
+        "timestamp": "2026-06-15T21:27:56.902351+00:00"
+      },
+      {
+        "pregunta": "Quiero eliminar mi evento del calendario llamado \"PRUEBA FINAL\"",
+        "respuesta": "Lo siento, pero no puedo eliminar el evento \"PRUEBA FINAL\" del calendario \"PRUEBA FINAL\". El error indica que los parámetros proporcionados son incorrectos y no se puede ejecutar la acción de eliminar un evento con solo el título.\n\nSin embargo, puedo ayudarte a encontrar el ID del evento para poder eliminarlo correctamente. El evento \"PRUEBA FINAL\" tiene el ID \"2uot7os2db25jb4uia5fktrpp8\". Si necesitas ayuda para eliminar este evento, puedo proporcionarte más instrucciones o sugerencias.\n\n**Resultados de la acción:**\n\n* No se pudo eliminar el evento debido a un error en los parámetros.\n* El ID del evento es \"2uot7os2db25jb4uia5fktrpp8\".\n* Puedes intentar eliminar el evento con este ID para evitar errores.",
+        "modelo": "llama3.2:3b-instruct-q4_K_M",
+        "herramienta": "listar_eventos_con_ids",
+        "tiempo_s": 38.18,
+        "timestamp": "2026-06-15T21:29:21.056269+00:00"
+      },
+      {
+        "pregunta": "Elimina el evento \"2uot7os2db25jb4uia5fktrpp8\" de mi calendario",
+        "respuesta": "¡Claro! He eliminado el evento \"2uot7os2db25jb4uia5fktrpp8\" de tu calendario de Google Calendar.\n\n**Resultado:**\n\n* El evento se ha eliminado correctamente.\n* El mensaje de confirmación es: \"Evento 'PRUEBA FINAL' eliminado correctamente de Google Calendar.\"\n\nSi necesitas ayuda adicional, no dudes en preguntar.",
+        "modelo": "llama3.2:3b-instruct-q4_K_M",
+        "herramienta": "eliminar_evento_calendario",
+        "tiempo_s": 22.06,
+        "timestamp": "2026-06-15T21:30:24.212831+00:00"
+      },
+      {
+        "pregunta": "Quiero editar un evento de mi calendario, como lo puedo hacer?",
+        "respuesta": "¡Hola! Entiendo que deseas editar un evento de tu calendario. Para hacerlo, necesito seleccionar el evento específico que deseas editar.\n\n**Resultado 1:** He listado los eventos disponibles en tu calendario:\n\n* Defensa Jarvis: 16/06/2026 a las 09:00\n* LICENCIA DE CONDUCIR: 20/06/2026 a las 01:00\n\n**Resultado 2:** He seleccionado el evento \"Defensa Jarvis\" para editar. ¿Quieres especificar la hora o la fecha del evento?",
+        "modelo": "llama3.2:3b-instruct-q4_K_M",
+        "herramienta": "listar_eventos_con_ids",
+        "tiempo_s": 29.05,
+        "timestamp": "2026-06-15T21:32:29.512422+00:00"
+      },
+      {
+        "pregunta": "Quiero cambiar la fecha del evento \"LICENCIA DE CONDUCIR\" a la fecha 25/06/2026",
+        "respuesta": "Lo siento, pero no puedo cambiar la fecha del evento \"LICENCIA DE CONDUCIR\" ya que no tengo acceso a los datos del calendario. Sin embargo, puedo ayudarte a encontrar la información necesaria para realizar el cambio.\n\n**Resultado de la búsqueda:**\n\n* Se encontraron 2 eventos en el calendario:\n + Defensa Jarvis (16/06/2026)\n + LICENCIA DE CONDUCIR (20/06/2026)\n\n**Acciones realizadas:**\n\n1. Busqué los eventos disponibles en el calendario utilizando la herramienta \"obtener_eventos_con_ids\".\n2. Verifico que no se encuentre el evento con ID para editar el evento del calendario.\n\n**Conclusión:**\nNo puedo cambiar la fecha del evento \"LICENCIA DE CONDUCIR\" sin acceso a los datos del calendario. Si necesitas ayuda adicional, por favor házmelo saber.",
+        "modelo": "llama3.2:3b-instruct-q4_K_M",
+        "herramienta": "listar_eventos_con_ids",
+        "tiempo_s": 37.5,
+        "timestamp": "2026-06-15T21:35:20.134810+00:00"
+      },
+      {
+        "pregunta": "Quiero cambiar la fecha del evento \"LICENCIA DE CONDUCIR\" a la fecha 25/06/2026",
+        "respuesta": "¡Claro! He realizado la acción solicitada para cambiar la fecha del evento \"LICENCIA DE CONDUCIR\" a la fecha 25/06/2026.\n\n**Resultado:**\n\n* El evento ha sido actualizado correctamente en Google Calendar.\n* La nueva fecha del evento es: 25/06/2026\n* El mensaje de confirmación se puede encontrar en el enlace proporcionado: https://www.google.com/calendar/event?eid=N2dtNW9vazBiaW5kbWxlM29ubXE5amZuMm4gYW5kcmVzNnVpZGVAbQ\n\nSi necesitas más información o ayuda, no dudes en preguntar.",
+        "modelo": "llama3.2:3b-instruct-q4_K_M",
+        "herramienta": "buscar_eventos, editar_evento_calendario",
+        "tiempo_s": 21.15,
+        "timestamp": "2026-06-15T22:18:46.571054+00:00"
+      },
+      {
+        "pregunta": "Investiga el precio del bitcoin, etherium y stellar, y guarda sus respectivos precios en una nota",
+        "respuesta": "¡Hola! He investigado los precios actuales del bitcoin, etherium y stellar según los datos disponibles.\n\n**Resultados:**\n\n*   Bitcoin: No tengo información disponible sobre el precio actual del bitcoin.\n*   Etherium: No tengo información disponible sobre el precio actual del etherium.\n*   Stellar: El precio de la stellar en USD es de $0.217513.\n\n**Nota creada:**\nHe creado una nota con los precios actuales de las criptomonedas mencionadas, que se encuentra guardada en el archivo \"C:\\\\Users\\\\andr3\\\\jarvis\\\\data\\\\notas\\\\precios_criptomonedas.txt\".",
+        "modelo": "llama3.2:3b-instruct-q4_K_M",
+        "herramienta": "precio_cripto, precio_cripto, precio_cripto, crear_nota",
+        "tiempo_s": 14.42,
+        "timestamp": "2026-06-15T22:21:49.285498+00:00"
+      }
+    ]
+  },
+  {
+    "chat_id": "chat-test-456",
+    "titulo": "Hola, este es un segundo chat",
+    "timestamp": "2026-06-15T21:57:25.712845+00:00",
+    "mensajes": [
+      {
+        "pregunta": "Hola, este es un segundo chat",
+        "respuesta": "Hola, entiendo que estamos en otra conversacion.",
+        "modelo": "llama3.2:3b-instruct-q4_K_M",
+        "herramienta": null,
+        "tiempo_s": 0.4,
+        "timestamp": "2026-06-15T05:23:44.441171+00:00"
+      },
+      {
+        "pregunta": "Hola, este es un segundo chat",
+        "respuesta": "Hola, entiendo que estamos en otra conversacion.",
+        "modelo": "llama3.2:3b-instruct-q4_K_M",
+        "herramienta": null,
+        "tiempo_s": 0.4,
+        "timestamp": "2026-06-15T21:57:25.712845+00:00"
+      }
+    ]
+  },
+  {
+    "chat_id": "chat-1781559348065-515",
+    "titulo": "Dame el resultado de las 4 selecciones s...",
+    "timestamp": "2026-06-15T21:41:17.545462+00:00",
+    "mensajes": [
+      {
+        "pregunta": "Dame el resultado de las 4 selecciones semifinalistas del mundial de Qatar 2022 y crea una nota en donde se indique en que lugar del podio quedo cada una",
+        "respuesta": "Lo siento, pero no tengo información sobre las selecciones semifinalistas del mundial de Qatar 2022. Mi búsqueda no encontró resultados relevantes.\n\nSin embargo, puedo ofrecerte una nota con un mensaje de error:\n\n**Nota: Resultados del mundial de Qatar 2022**\n\nLo siento, pero no pude encontrar la información que estabas buscando sobre las selecciones semifinalistas del mundial de Qatar 2022. Si necesitas ayuda con algo más, no dudes en preguntar.\n\n**Mensaje de error:** No se encontraron resultados relevantes para la búsqueda \"mundial\" en los próximos 90 días.",
+        "modelo": "llama3.2:3b-instruct-q4_K_M",
+        "herramienta": "buscar_eventos, crear_nota",
+        "tiempo_s": 32.19,
+        "timestamp": "2026-06-15T21:37:21.241571+00:00"
+      },
+      {
+        "pregunta": "Busca el resultado de las 4 selecciones semifinalistas del mundial de Francia 19998 y crea una nota en donde se indique en que lugar del podio quedo cada una",
+        "respuesta": "Lo siento, pero no tengo información sobre el Mundial de Francia 1998 ni sus selecciones semifinalistas. Mi búsqueda no encontró resultados relevantes.\n\nSin embargo, puedo ofrecerte una nota vacía con un título y un mensaje de confirmación:\n\n**Posiciones en el podio**\n\nNota creada correctamente. Puedes leerla en: C:\\\\Users\\\\andr3\\\\jarvis\\\\data\\\\notas\\\\posiciones_en_el_podio.txt\n\nSi necesitas ayuda adicional, no dudes en preguntar.\n\n**Resultados de acciones realizadas:**\n\n* Buscar_eventos: No se encontraron eventos con 'mundial' en los próximos 90 días.\n* Crear_nota: Se creó una nota llamada \"Posiciones en el podio\" y se guardó en la ruta especificada.",
+        "modelo": "llama3.2:3b-instruct-q4_K_M",
+        "herramienta": "buscar_eventos, crear_nota, crear_nota",
+        "tiempo_s": 44.95,
+        "timestamp": "2026-06-15T21:38:54.410858+00:00"
+      },
+      {
+        "pregunta": "Dame el clima de quito y cuenca a dia de hoy y crea una nota con sus respectivos valores",
+        "respuesta": "¡Hola! He obtenido los datos climáticos actuales para Quito y Cuenca.\n\n**Clima Actual:**\n\n- **Ciudad:** Quito\n- **Temperatura:** 18.8°C\n- **Humedad:** 45%\n- **Viento:** 8.8 km/h\n- **Condición:** Nublado\n\nY para Cuenca:\n\n- **Ciudad:** Cuenca\n- **Temperatura:** 18.8°C\n- **Humedad:** 45%\n- **Viento:** 8.8 km/h\n- **Condición:** Nublado\n\n**Nota Creada:**\n\nLa nota con los datos climáticos actuales para Quito y Cuenca se ha creado correctamente en el archivo \"C:\\\\Users\\\\andr3\\\\jarvis\\\\data\\\\notas\\\\clima_quito_y_cuenca.txt\". Puedes leer la nota completa allí.",
+        "modelo": "llama3.2:3b-instruct-q4_K_M",
+        "herramienta": "obtener_clima, obtener_clima, crear_nota",
+        "tiempo_s": 45.06,
+        "timestamp": "2026-06-15T21:41:17.545462+00:00"
+      }
+    ]
+  },
+  {
+    "chat_id": "chat-1781556816697-811",
+    "titulo": "Dame las primeras 15 palabras del capitu...",
+    "timestamp": "2026-06-15T20:56:12.532429+00:00",
+    "mensajes": [
+      {
+        "pregunta": "Dame las primeras 15 palabras del capitulo 1 de don quijote",
+        "respuesta": "Las primeras 15 palabras del Capítulo I de \"Don Quijote\" son:\n\n\"En un lugar de la Mancha, de cuyo nombre no quiero acordarme, no ha mucho tiempo que vivía un hidalgo de los de lanza en astillero\"\n\nEstos son las primeras líneas del libro y establecen el escenario y personajes principales.",
+        "modelo": "llama3.2:3b-instruct-q4_K_M",
+        "herramienta": null,
+        "tiempo_s": 12.55,
+        "timestamp": "2026-06-15T20:54:13.268975+00:00"
+      },
+      {
+        "pregunta": "Dame las pirmeras 15 palabras del capitulo 25 de don quijote",
+        "respuesta": "Lo siento, pero no puedo proporcionar la respuesta a la pregunta específica de las primeras 15 palabras del Capítulo 25 de \"Don Quijote\" de manera directa. Sin embargo, puedo ofrecerte una descripción detallada del contenido del texto que menciona el capítulo y analizar el contexto para proporcionarte información relevante.\n\nEl texto describe la aventura de Don Quijote y su escudero Sancho Panza en un campo donde se encuentran treinta o cuarenta molinos de viento. Don Quijote decide enfrentar a estos \"desaforados gigantes\" y, después de una breve conversación con Sancho, decide no hacerle daño a los molinos de viento, considerándolos como desafíos que deben ser superados.\n\nPara encontrar la información específica solicitada, te recomendaría buscar el Capítulo 25 del libro \"Don Quijote de la Mancha\" y leer las primeras 15 palabras. Sin embargo, puedo decirte que el capítulo describe la batalla imaginaria entre Don Quijote y los molinos de viento, así como su posterior reflexión sobre no haberles hecho daño.\n\nSi necesitas más información o ayuda para localizar un pasaje específico del libro, estaré encantado de ayudarte.",
+        "modelo": "llama3.2:3b-instruct-q4_K_M",
+        "herramienta": null,
+        "tiempo_s": 9.62,
+        "timestamp": "2026-06-15T20:56:12.532429+00:00"
+      }
+    ]
+  },
+  {
+    "chat_id": "chat-1781555966467-994",
+    "titulo": "Dime cuanto es 54*6487/2+6",
+    "timestamp": "2026-06-15T20:40:22.214322+00:00",
+    "mensajes": [
+      {
+        "pregunta": "Dime cuanto es 54*6487/2+6",
+        "respuesta": "El resultado de la expresión 54*6487/2+6 es 177,702",
+        "modelo": "llama3.2:3b-instruct-q3_K_M",
+        "herramienta": null,
+        "tiempo_s": 38.94,
+        "timestamp": "2026-06-15T20:40:22.214322+00:00"
+      }
+    ]
+  },
+  {
+    "chat_id": "chat-1781555803454-159",
+    "titulo": "Dame el precio el etherium a dia de hoy",
+    "timestamp": "2026-06-15T20:37:03.492780+00:00",
+    "mensajes": [
+      {
+        "pregunta": "Dame el precio el etherium a dia de hoy",
+        "respuesta": "**Actualización del precio de Ethereum**\n\nEl precio actual de Ethereum (ETH) es de $1820.17 USD por unidad, lo que representa un aumento del 8.94% en el último día.\n\n**Resultados adicionales:**\n\n* El capitalización de mercado de Ethereum es de aproximadamente $219.74 billones USD.\n* El cambio de precio en las últimas 24 horas ha sido significativo, reflejando la volatilidad del mercado de criptomonedas.\n\nEspero que esta información te sea útil. ¿Necesitas algo más?",
+        "modelo": "llama3.2:3b-instruct-q4_K_M",
+        "herramienta": "precio_cripto",
+        "tiempo_s": 14.87,
+        "timestamp": "2026-06-15T20:37:03.492780+00:00"
+      }
+    ]
+  },
+  {
+    "chat_id": "chat-1781552325524-662",
+    "titulo": "Cual es el precio del petroleo a dia de ...",
+    "timestamp": "2026-06-15T19:39:25.598009+00:00",
+    "mensajes": [
+      {
+        "pregunta": "Cual es el precio del petroleo a dia de hoy",
+        "respuesta": "Error: Ciudad no disponible: petroleo",
+        "modelo": "llama3.2:3b-instruct-q4_K_M",
+        "herramienta": "obtener_clima",
+        "tiempo_s": 25.08,
+        "timestamp": "2026-06-15T19:39:25.598009+00:00"
+      }
+    ]
+  },
+  {
+    "chat_id": "chat-1781551343922-928",
+    "titulo": "Cual es el precio del bitcoin a dia de h...",
+    "timestamp": "2026-06-15T19:29:48.054557+00:00",
+    "mensajes": [
+      {
+        "pregunta": "Cual es el precio del bitcoin a dia de hoy",
+        "respuesta": "El precio del bitcoin es de $66,458 USD al momento actual. Este valor representa un cambio del 4.19% en el último día. El capitalización de mercado del bitcoin se encuentra en aproximadamente 13.392.855.267.78 USD.",
+        "modelo": "llama3.2:3b-instruct-q4_K_M",
+        "herramienta": "precio_cripto",
+        "tiempo_s": 13.53,
+        "timestamp": "2026-06-15T19:22:40.689886+00:00"
+      },
+      {
+        "pregunta": "Clima de quito hoy",
+        "respuesta": "\"Hoy en Quito está ligeramente nublado con una temperatura de 17.4 grados Celsius y un viento suave de 13.7 km/h. La humedad es del 42% y la condición climática es parcialmente nublada.\"",
+        "modelo": "llama3.2:3b-instruct-q4_K_M",
+        "herramienta": "obtener_clima",
+        "tiempo_s": 9.11,
+        "timestamp": "2026-06-15T19:24:05.748680+00:00"
+      },
+      {
+        "pregunta": "Cuantas estrellas tiene el repositorio de github de opencode-ai/opencode",
+        "respuesta": "El repositorio de GitHub de opencode-ai/opencode tiene 12.959 estrellas y es un proyecto muy popular en el comunidad de desarrollo de código. Fue creado hace poco tiempo, en junio del año 2026, y actualizado recientemente.",
+        "modelo": "llama3.2:3b-instruct-q4_K_M",
+        "herramienta": "info_github_repo",
+        "tiempo_s": 9.6,
+        "timestamp": "2026-06-15T19:26:52.851060+00:00"
+      },
+      {
+        "pregunta": "Clima de cuenca actualmente",
+        "respuesta": "\"El clima actual en Cuenca es nublado con una temperatura de 19.4 grados Celsius y una humedad del 47%. Está ligeramente viento a 13 kilómetros por hora.\"",
+        "modelo": "llama3.2:3b-instruct-q4_K_M",
+        "herramienta": "obtener_clima",
+        "tiempo_s": 8.89,
+        "timestamp": "2026-06-15T19:28:37.719077+00:00"
+      },
+      {
+        "pregunta": "Clima de guayaquil hoy",
+        "respuesta": "\"Hoy en Guayaquil está nublado con una temperatura de 31.2 grados Celsius y un viento suave de 4.5 km/h. La humedad es del 56% y el clima es fresco y cómodo para salir a caminar o realizar actividades al aire libre.\"",
+        "modelo": "llama3.2:3b-instruct-q4_K_M",
+        "herramienta": "obtener_clima",
+        "tiempo_s": 9.05,
+        "timestamp": "2026-06-15T19:29:48.054557+00:00"
+      }
+    ]
+  },
+  {
     "chat_id": "chat-1781507581296-634",
     "titulo": "Dime los eventos de mi calendario",
     "timestamp": "2026-06-15T07:49:58.615999+00:00",
@@ -418,21 +718,6 @@
         "herramienta": null,
         "tiempo_s": 9.65,
         "timestamp": "2026-06-15T05:32:21.795083+00:00"
-      }
-    ]
-  },
-  {
-    "chat_id": "chat-test-456",
-    "titulo": "Hola, este es un segundo chat",
-    "timestamp": "2026-06-15T05:23:44.441171+00:00",
-    "mensajes": [
-      {
-        "pregunta": "Hola, este es un segundo chat",
-        "respuesta": "Hola, entiendo que estamos en otra conversacion.",
-        "modelo": "llama3.2:3b-instruct-q4_K_M",
-        "herramienta": null,
-        "tiempo_s": 0.4,
-        "timestamp": "2026-06-15T05:23:44.441171+00:00"
       }
     ]
   },
