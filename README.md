@@ -829,3 +829,5 @@ Este proyecto utilizó Claude Sonnet 4.6 de Anthropic como asistente durante el 
 
 **Dilan Andrés Quisilema Guamán**
 Curso: Machine Learning
+
+Link del video demo: https://drive.google.com/file/d/1m4wknMk6cQtFd_C63dlmDAUhCKiz90HJ/view?usp=sharing
