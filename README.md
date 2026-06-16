@@ -664,6 +664,155 @@ En la terminal donde corre `jarvis_server.py` presiona `Ctrl + C`.
 
 ---
 
+## Bonus — Gestor de notas, tareas y calendario con escritura completa
+
+Como tercera extensión del proyecto se implementó un gestor local de notas y tareas integrado directamente en Jarvis, más la capacidad de escribir, editar y eliminar eventos en Google Calendar además de solo leerlos. El sistema pasó de 6 herramientas externas a **19 herramientas** en total.
+
+---
+
+### Notas locales
+
+Cada nota se guarda en dos lugares al mismo tiempo. En `data/notas_tareas.json` para que Jarvis pueda consultarlas rápido, y en `data/notas/` como archivo `.txt` independiente legible por cualquier persona sin abrir código ni JSON.
+
+Así se ve un archivo de nota generado automáticamente:
+
+```
+NOTA: Precio Bitcoin hoy
+========================
+Creada:         15/06/2026 02:30
+Ultima edicion: 15/06/2026 02:30
+========================
+
+Bitcoin vale 64500 USD (cambio 24h: +1.3%)
+```
+
+Prompts que funcionan en el chat:
+
+```
+crea una nota llamada Resumen Python con este contenido: Python es el lenguaje mas usado en ciencia de datos
+muéstrame todas mis notas
+lee la nota llamada Resumen Python
+elimina la nota llamada Resumen Python
+```
+
+---
+
+### Tareas pendientes
+
+Las tareas se guardan en `data/notas_tareas.json` con estado pendiente o completada, título, descripción y fecha límite opcional.
+
+Prompts que funcionan en el chat:
+
+```
+crea una tarea llamada Estudiar para el examen con fecha limite 20/06/2026
+muéstrame mis tareas pendientes
+marca como completada la tarea Estudiar para el examen
+muéstrame mis tareas completadas
+elimina la tarea Estudiar para el examen
+```
+
+---
+
+### Google Calendar con escritura completa
+
+Además de leer el calendario, Jarvis puede crear, editar y eliminar eventos directamente en tu Google Calendar. Para editar o eliminar un evento solo necesitas escribir el nombre exacto — Jarvis busca el ID automáticamente sin que tengas que saber nada de identificadores internos de Google.
+
+Prompts que funcionan en el chat:
+
+```
+crea un evento en mi calendario llamado Defensa Jarvis para el 16/06/2026 a las 09:00
+edita el evento Defensa Jarvis y cambia la hora a las 10:00
+cambia el titulo del evento Defensa Jarvis a Entrega Final
+elimina el evento llamado Defensa Jarvis de mi calendario
+```
+
+---
+
+### Orquestación entre herramientas
+
+El orquestador secuencial permite combinar dos herramientas en una sola instrucción. Jarvis las ejecuta en orden y combina los resultados en una respuesta natural.
+
+Ejemplos reales probados y funcionando:
+
+```
+crea una tarea llamada Defensa Jarvis con fecha limite 16/06/2026 y dime que eventos tengo hoy
+```
+Herramientas usadas: `crear_tarea` + `eventos_de_hoy`
+
+```
+cuanto cuesta el bitcoin ahorita y guarda ese precio como una nota llamada Precio Bitcoin hoy
+```
+Herramientas usadas: `precio_cripto` + `crear_nota`
+
+```
+muéstrame mis tareas pendientes y dime que clima hace en Quito para planificar mi dia
+```
+Herramientas usadas: `listar_tareas_pendientes` + `obtener_clima`
+
+---
+
+### Panel de gestión visual
+
+La interfaz gráfica tiene una segunda pestaña llamada **Gestión** accesible desde `http://localhost:5000`. Permite administrar notas, tareas y eventos del calendario sin escribir en el chat usando formularios modales centrados.
+
+| Panel | Contenido |
+|---|---|
+| Columna izquierda | Próximos eventos de Google Calendar con botones editar y eliminar + formulario para crear eventos |
+| Columna derecha arriba | Notas guardadas con vista previa y opciones de editar y eliminar |
+| Columna derecha abajo | Tareas pendientes con opción de completar o eliminar cada una |
+
+---
+
+### Tabla completa de herramientas disponibles
+
+| Herramienta | Descripción |
+|---|---|
+| `obtener_clima` | Clima actual de una ciudad |
+| `precio_cripto` | Precio en tiempo real de criptomonedas |
+| `info_github_repo` | Info pública de un repositorio de GitHub |
+| `eventos_de_hoy` | Eventos de todos tus calendarios hoy |
+| `eventos_proximos` | Próximos N días de todos tus calendarios |
+| `buscar_eventos` | Busca eventos por palabra clave |
+| `listar_eventos_con_ids` | Próximos eventos del calendario principal con IDs editables |
+| `crear_evento_calendario` | Crea un evento en Google Calendar |
+| `editar_evento_calendario` | Edita un evento por nombre o ID |
+| `eliminar_evento_calendario` | Elimina un evento por nombre o ID |
+| `crear_nota` | Crea una nota en JSON y como archivo .txt |
+| `leer_nota` | Lee el contenido de una nota por título |
+| `listar_notas` | Lista todas las notas guardadas |
+| `eliminar_nota` | Elimina una nota y su archivo .txt |
+| `crear_tarea` | Crea una tarea pendiente |
+| `completar_tarea` | Marca una tarea como completada |
+| `listar_tareas_pendientes` | Lista tareas sin completar |
+| `listar_tareas_completadas` | Lista tareas ya completadas |
+| `eliminar_tarea` | Elimina una tarea |
+
+---
+
+### Reproducir el gestor
+
+```bash
+# Verificar que las 19 herramientas están registradas
+python -c "import sys; sys.path.insert(0, 'mcp_tools'); \
+from herramientas import HERRAMIENTAS_DISPONIBLES; \
+print(f'Total herramientas: {len(HERRAMIENTAS_DISPONIBLES)}')"
+
+# Probar el gestor de forma independiente
+python mcp_tools/gestor_notas.py
+
+# Usar desde el agente directamente
+python mcp_tools/jarvis_agent.py --pregunta "crea una tarea llamada Prueba con fecha limite 20/06/2026"
+
+# Usar desde la interfaz gráfica
+python jarvis_server.py
+```
+
+Las notas se guardan en `data/notas/` como archivos `.txt`.
+Las tareas se guardan en `data/notas_tareas.json`.
+El historial del chat se guarda en `data/historial.json`.
+
+---
+
 ## Declaración de uso de IA
 
 Este proyecto utilizó Claude Sonnet 4.6 de Anthropic como asistente durante el desarrollo. A continuación el detalle de cómo y en qué secciones:
